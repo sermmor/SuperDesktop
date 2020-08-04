@@ -12,7 +12,7 @@ public class DesktopItem : MonoBehaviour
     float timeToBeginToDrag = .1f;
     Coroutine dragCoroutine = null;
 
-    DesktopManager desktopManager;
+    public DesktopManager desktopManager;
     float[] desktopBounds;
 
     void Start()
@@ -20,7 +20,7 @@ public class DesktopItem : MonoBehaviour
         isDraging = false;
         isDragingInAction = false;
         positionMouseDragging = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-        desktopManager = DesktopRootReferenceManager.getInstance().desktopManager;
+        
     }
 
     void OnMouseDrag()
@@ -52,14 +52,27 @@ public class DesktopItem : MonoBehaviour
         }
 
         // We move the item only inside the desktop.
-        if (
-            desktopBounds[0] < cameraPosition.x && cameraPosition.x < desktopBounds[1] &&
-            desktopBounds[2] < cameraPosition.y && cameraPosition.y < desktopBounds[3]
-        ) {
-            positionMouseDragging.x = cameraPosition.x;
-            positionMouseDragging.y = cameraPosition.y;
-            transform.position = positionMouseDragging;
+        bool isInLeftLimit = desktopBounds[0] < cameraPosition.x;
+        bool isInRightLimit = cameraPosition.x < desktopBounds[1];
+        bool isInDownLimit = desktopBounds[2] < cameraPosition.y;
+        bool isInUpLimit = cameraPosition.y < desktopBounds[3];
+        
+        positionMouseDragging.x = cameraPosition.x;
+        positionMouseDragging.y = cameraPosition.y;
+
+        if (!isInLeftLimit) {
+            positionMouseDragging.x = desktopBounds[0];
+        } else if (!isInRightLimit) {
+            positionMouseDragging.x = desktopBounds[1];
         }
+
+        if (!isInDownLimit) {
+            positionMouseDragging.y = desktopBounds[2];
+        } else if (!isInUpLimit) {
+            positionMouseDragging.y = desktopBounds[3];
+        }
+
+        transform.position = positionMouseDragging;
     }
 
     void OnMouseUp()
