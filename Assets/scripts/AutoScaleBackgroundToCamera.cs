@@ -12,6 +12,12 @@ public class AutoScaleBackgroundToCamera : MonoBehaviour
     Vector3 baseScale;
     SpriteRenderer sr;
 
+    bool isAutoScaleFinished = false;
+
+    public bool IsAutoScaling { get => !isAutoScaleFinished; }
+
+    void Awake() => isAutoScaleFinished = false;
+
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
@@ -27,7 +33,9 @@ public class AutoScaleBackgroundToCamera : MonoBehaviour
     }
 
     public void changeImage(int spriteIndex) {
+        isAutoScaleFinished = false;
         sr.sprite = sprites[spriteIndex];
+        scaleImage();
     }
 
     // int spriteCurrentIndex = 0; // TODO: ONLY FOR TESTING.
@@ -41,7 +49,6 @@ public class AutoScaleBackgroundToCamera : MonoBehaviour
     //             spriteCurrentIndex = 0;
     //         }
     //         changeImage(spriteCurrentIndex);
-    //         scaleImage();
     //     }
     // }
 
@@ -49,6 +56,7 @@ public class AutoScaleBackgroundToCamera : MonoBehaviour
         transform.localScale = baseScale;
         Vector2 newScale = getScaleForSpriteAutoScale(sr);
         putMode(newScale);
+        isAutoScaleFinished = true;
     }
 
     Vector2 scaleCalculatedForAutoScale = new Vector2(0, 0);

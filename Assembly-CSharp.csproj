@@ -56,7 +56,9 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\scripts\AutoScaleBackgroundToCamera.cs" />
-     <Compile Include="Assets\scripts\ScreenSize.cs" />
+     <Compile Include="Assets\scripts\DesktopItem.cs" />
+     <Compile Include="Assets\scripts\DesktopManager.cs" />
+     <Compile Include="Assets\scripts\DesktopRootReferenceManager.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>C:/UnityWorkspace/SuperDesktop/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
