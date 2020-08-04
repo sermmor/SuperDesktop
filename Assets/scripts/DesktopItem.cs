@@ -105,6 +105,6 @@ public class DesktopItem : MonoBehaviour
 
     protected void doInMiddleClick()
     {
-        Debug.Log("Pressed left click.");
+        Debug.Log("Pressed middle click.");
     }
 }
