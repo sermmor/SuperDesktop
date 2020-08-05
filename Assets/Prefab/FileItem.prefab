@@ -47,7 +47,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.00000023841858, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -58,7 +58,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.66}
+  m_Size: {x: 0.5650201, y: 0.7161808}
   m_EdgeRadius: 0
 --- !u!114 &5159581334978717419
 MonoBehaviour:
@@ -73,9 +73,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   desktopManager: {fileID: 0}
-  nameFile: Fun file is funiest!!!
-  nameFileTextMesh: {fileID: 3005780720049119110}
-  filePath: 
+  nameFile: Fun file is\n funiest!!!
+  filePath: D:\Imagenes\Horror [B&W]\8710d04ff73beea3bddd149bdef8981b_thumb.jpg
 --- !u!1 &3005780720049119108
 GameObject:
   m_ObjectHideFlags: 0
@@ -102,7 +101,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3005780720049119108}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.49, z: 0}
+  m_LocalPosition: {x: 0, y: -0.4, z: 0}
   m_LocalScale: {x: 0.1984352, y: 0.1984352, z: 0.1984352}
   m_Children: []
   m_Father: {fileID: 2256670891883670952}
@@ -153,11 +152,15 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3005780720049119108}
-  m_Text: Hello World
+  m_Text: 'Hello World
+
+    asdfasdfa
+
+    asdfasdf'
   m_OffsetZ: 0
-  m_CharacterSize: 1
+  m_CharacterSize: 0.8
   m_LineSpacing: 1
-  m_Anchor: 4
+  m_Anchor: 1
   m_Alignment: 1
   m_TabSize: 4
   m_FontSize: 0

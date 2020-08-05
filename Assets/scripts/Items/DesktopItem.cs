@@ -6,7 +6,7 @@ public class DesktopItem : MonoBehaviour
 {
 
     Vector3 positionMouseDragging;
-    Vector3 cameraPosition;
+    Vector3 mousePosition;
     bool isDraging, isDragingInAction;
     
     float timeToBeginToDrag = .1f;
@@ -16,15 +16,30 @@ public class DesktopItem : MonoBehaviour
     float[] desktopBounds;
 
     public string nameFile;
-    public TextMesh nameFileTextMesh;
+    TextMesh nameFileTextMesh;
+
+    ContextualMenuManager contextualMenu;
+    bool IsMouseAboveDesktopItem;
 
     void Start()
     {
+        contextualMenu = DesktopRootReferenceManager.getInstance().contextualMenuManager;
+        IsMouseAboveDesktopItem = false;
         isDraging = false;
         isDragingInAction = false;
         positionMouseDragging = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-        nameFileTextMesh.text = nameFile;
+        nameFileTextMesh = transform.Find("NameFileText").GetComponent<TextMesh>();
+        setFileName();
         thingsToDoAfterStart();
+    }
+
+    void setFileName()
+    {
+        if (nameFile.Contains("\\n"))
+        {
+            nameFile = nameFile.Replace("\\n", "\n");
+        }
+        nameFileTextMesh.text = nameFile;
     }
 
     void OnMouseDrag()
@@ -43,6 +58,9 @@ public class DesktopItem : MonoBehaviour
 
         isDragingInAction = true;
         while (isDraging) {
+            if (contextualMenu.isOpen) {
+                contextualMenu.close();
+            }
             moveGameObjectToMousePosition();
             yield return null;
         }
@@ -50,19 +68,19 @@ public class DesktopItem : MonoBehaviour
     }
 
     void moveGameObjectToMousePosition() {
-        cameraPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if (desktopBounds == null) {
             desktopBounds = desktopManager.Bounds;
         }
 
         // We move the item only inside the desktop.
-        bool isInLeftLimit = desktopBounds[0] < cameraPosition.x;
-        bool isInRightLimit = cameraPosition.x < desktopBounds[1];
-        bool isInDownLimit = desktopBounds[2] < cameraPosition.y;
-        bool isInUpLimit = cameraPosition.y < desktopBounds[3];
+        bool isInLeftLimit = desktopBounds[0] < mousePosition.x;
+        bool isInRightLimit = mousePosition.x < desktopBounds[1];
+        bool isInDownLimit = desktopBounds[2] < mousePosition.y;
+        bool isInUpLimit = mousePosition.y < desktopBounds[3];
         
-        positionMouseDragging.x = cameraPosition.x;
-        positionMouseDragging.y = cameraPosition.y;
+        positionMouseDragging.x = mousePosition.x;
+        positionMouseDragging.y = mousePosition.y;
 
         if (!isInLeftLimit) {
             positionMouseDragging.x = desktopBounds[0];
@@ -84,6 +102,10 @@ public class DesktopItem : MonoBehaviour
         if (!isDragingInAction) {
             if (Input.GetMouseButtonUp(0))
             {
+                // ! FIX: CONTROL IF IS CLICKING IN MENU OR IN DESKTOP (if is open only allow clics above the menu, close menu if left clic out the menu).
+                if (contextualMenu.isOpen) {
+                    contextualMenu.close();
+                }
                 doInLeftClick();
             }
         }
@@ -97,15 +119,17 @@ public class DesktopItem : MonoBehaviour
         isDraging = false;
     }
 
-    
     void Update()
     {
-        if (Input.GetMouseButtonUp(1))
+        if (IsMouseAboveDesktopItem && Input.GetMouseButtonUp(1))
         {
             doInRightClick();
         }
-        if (Input.GetMouseButtonUp(2))
+        if (IsMouseAboveDesktopItem && Input.GetMouseButtonUp(2))
         {
+            if (contextualMenu.isOpen) {
+                contextualMenu.close();
+            }
             doInMiddleClick();
         }
     }
@@ -119,11 +143,26 @@ public class DesktopItem : MonoBehaviour
 
     protected virtual void doInRightClick()
     {
-        Debug.Log("Pressed right click.");
+        if (contextualMenu != null)
+            contextualMenu.enableInMousePosition(true);
     }
 
     protected virtual void doInMiddleClick()
     {
         Debug.Log("Pressed middle click.");
+    }
+
+    void OnMouseOver()
+    {
+        if (!IsMouseAboveDesktopItem) {
+            IsMouseAboveDesktopItem = true;
+            desktopManager.isMouseAboveDesktopItem = true;
+        }
+    }
+
+    void OnMouseExit()
+    {
+        IsMouseAboveDesktopItem = false;
+        desktopManager.isMouseAboveDesktopItem = false;
     }
 }

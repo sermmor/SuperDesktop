@@ -60,13 +60,5 @@ public class FileItem : DesktopItem
         Process.Start(filePath);
     }
 
-    protected override void doInRightClick()
-    {
-        UnityEngine.Debug.Log("Pressed right click above FILE ITEM.");
-    }
-
-    protected override void doInMiddleClick()
-    {
-        UnityEngine.Debug.Log("Pressed middle click above FILE ITEM.");
-    }
+    protected override void doInMiddleClick() { }
 }
