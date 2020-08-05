@@ -15,12 +15,15 @@ public class DesktopItem : MonoBehaviour
     public DesktopManager desktopManager;
     float[] desktopBounds;
 
+    public string nameFile;
+    public TextMesh nameFileTextMesh;
+
     void Start()
     {
         isDraging = false;
         isDragingInAction = false;
         positionMouseDragging = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-        
+        nameFileTextMesh.text = nameFile;
     }
 
     void OnMouseDrag()
