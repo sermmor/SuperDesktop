@@ -8,6 +8,7 @@ public class AutoScaleBackgroundToCamera : MonoBehaviour
 {
     public AutoScaleMode mode;
     public Sprite[] sprites;
+    public string[] backgroundPathLists;
 
     Vector3 baseScale;
     SpriteRenderer sr;
@@ -20,6 +21,8 @@ public class AutoScaleBackgroundToCamera : MonoBehaviour
 
     void Start()
     {
+        fillSpriteList();
+
         sr = GetComponent<SpriteRenderer>();
         if (sr == null) {
             Debug.LogError("AutoScaleBackgroundToCamera needs a SpriteRenderer to work!");
@@ -27,9 +30,13 @@ public class AutoScaleBackgroundToCamera : MonoBehaviour
         }
         
         baseScale = new Vector3(1, 1, transform.localScale.z);
-        scaleImage();
+        changeImage(0);
 
         // StartCoroutine(testChangeSprite());  // TODO: ONLY FOR TESTING.
+    }
+
+    void fillSpriteList() {
+        sprites = SpriteLoader.LoadSpriteList(backgroundPathLists);
     }
 
     public void changeImage(int spriteIndex) {

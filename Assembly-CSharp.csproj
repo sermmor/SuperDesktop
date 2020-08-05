@@ -59,6 +59,7 @@
      <Compile Include="Assets\scripts\DesktopItem.cs" />
      <Compile Include="Assets\scripts\DesktopManager.cs" />
      <Compile Include="Assets\scripts\DesktopRootReferenceManager.cs" />
+     <Compile Include="Assets\scripts\Utilities.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>C:/UnityWorkspace/SuperDesktop/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
