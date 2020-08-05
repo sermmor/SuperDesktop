@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public enum AutoScaleMode { MAXIMIZE, FULL};
@@ -7,9 +8,10 @@ public enum AutoScaleMode { MAXIMIZE, FULL};
 public class AutoScaleBackgroundToCamera : MonoBehaviour
 {
     public AutoScaleMode mode;
-    public Sprite[] sprites;
+    public Sprite defaultWallpaper;
     public string[] backgroundPathLists;
 
+    Sprite[] sprites;
     Vector3 baseScale;
     SpriteRenderer sr;
 
@@ -36,7 +38,19 @@ public class AutoScaleBackgroundToCamera : MonoBehaviour
     }
 
     void fillSpriteList() {
-        sprites = SpriteLoader.LoadSpriteList(backgroundPathLists);
+        if (backgroundPathLists.Length > 0) {
+            sprites = (
+                from s in SpriteLoader.LoadSpriteList(backgroundPathLists)
+                where s != null
+                select s
+            ).ToArray();
+            
+            if (sprites == null || sprites.Length == 0) {
+                sprites = new Sprite[] { defaultWallpaper };
+            }
+        } else {
+            sprites = new Sprite[] { defaultWallpaper };
+        }
     }
 
     public void changeImage(int spriteIndex) {

@@ -301,8 +301,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mode: 1
-  sprites:
-  - {fileID: 21300000, guid: 4aa14da289f97564c914093d94e1b2c5, type: 3}
+  defaultWallpaper: {fileID: 21300000, guid: 4aa14da289f97564c914093d94e1b2c5, type: 3}
   backgroundPathLists:
   - C:\D\Imagenes\Dead-of-Alive-5-Last-Round-4.jpg
   - C:\D\Imagenes\calvin&hobbes universo.jpg
