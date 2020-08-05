@@ -24,6 +24,7 @@ public class DesktopItem : MonoBehaviour
         isDragingInAction = false;
         positionMouseDragging = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         nameFileTextMesh.text = nameFile;
+        thingsToDoAfterStart();
     }
 
     void OnMouseDrag()
@@ -109,17 +110,19 @@ public class DesktopItem : MonoBehaviour
         }
     }
 
-    protected void doInLeftClick()
+    protected virtual void thingsToDoAfterStart() {}
+
+    protected virtual void doInLeftClick()
     {
         Debug.Log("Pressed left click.");
     }
 
-    protected void doInRightClick()
+    protected virtual void doInRightClick()
     {
         Debug.Log("Pressed right click.");
     }
 
-    protected void doInMiddleClick()
+    protected virtual void doInMiddleClick()
     {
         Debug.Log("Pressed middle click.");
     }

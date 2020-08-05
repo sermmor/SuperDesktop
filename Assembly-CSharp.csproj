@@ -55,10 +55,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\scripts\AutoScaleBackgroundToCamera.cs" />
-     <Compile Include="Assets\scripts\DesktopItem.cs" />
-     <Compile Include="Assets\scripts\DesktopManager.cs" />
+     <Compile Include="Assets\scripts\Background\AutoScaleBackgroundToCamera.cs" />
+     <Compile Include="Assets\scripts\Background\DesktopManager.cs" />
      <Compile Include="Assets\scripts\DesktopRootReferenceManager.cs" />
+     <Compile Include="Assets\scripts\Items\DesktopItem.cs" />
+     <Compile Include="Assets\scripts\Items\FileItem.cs" />
      <Compile Include="Assets\scripts\Utilities.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>C:/UnityWorkspace/SuperDesktop/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
