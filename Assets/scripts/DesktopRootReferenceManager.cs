@@ -7,7 +7,7 @@ public class DesktopRootReferenceManager : MonoBehaviour
     static DesktopRootReferenceManager _instance;
     public static DesktopRootReferenceManager getInstance() => DesktopRootReferenceManager._instance;
 
-    // General use
+    // For general use or singleton collection.
     public ContextualMenuManager contextualMenuManager;
 
     void Awake() => _instance = this;

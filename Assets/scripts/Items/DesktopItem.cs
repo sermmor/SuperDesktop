@@ -19,10 +19,13 @@ public class DesktopItem : MonoBehaviour
     TextMesh nameFileTextMesh;
 
     ContextualMenuManager contextualMenu;
+    MenuCaller menuCaller;
     bool IsMouseAboveDesktopItem;
 
     void Start()
     {
+        desktopManager.addItemToDeskop(this);
+        menuCaller = new MenuCaller();
         contextualMenu = DesktopRootReferenceManager.getInstance().contextualMenuManager;
         IsMouseAboveDesktopItem = false;
         isDraging = false;
@@ -102,10 +105,7 @@ public class DesktopItem : MonoBehaviour
         if (!isDragingInAction) {
             if (Input.GetMouseButtonUp(0))
             {
-                // ! FIX: CONTROL IF IS CLICKING IN MENU OR IN DESKTOP (if is open only allow clics above the menu, close menu if left clic out the menu).
-                if (contextualMenu.isOpen) {
-                    contextualMenu.close();
-                }
+                if (contextualMenu.isOpen) contextualMenu.close();
                 doInLeftClick();
             }
         }
@@ -144,7 +144,10 @@ public class DesktopItem : MonoBehaviour
     protected virtual void doInRightClick()
     {
         if (contextualMenu != null)
-            contextualMenu.enableInMousePosition(true);
+        {
+            menuCaller.setCaller(this);
+            contextualMenu.enableInMousePosition(menuCaller, true);
+        }
     }
 
     protected virtual void doInMiddleClick()

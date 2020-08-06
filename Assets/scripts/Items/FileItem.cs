@@ -9,7 +9,8 @@ public class FileItem : DesktopItem
 {
     public string filePath;
 
-    string directoryFilePath;
+    public string directoryFilePath { get => this._directoryFilePath; }
+    string _directoryFilePath;
 
     bool isWindowsOS = true;
 
@@ -19,7 +20,7 @@ public class FileItem : DesktopItem
             // Check if path is a file or a directory.
             FileAttributes attr = File.GetAttributes(filePath);
             if (attr.HasFlag(FileAttributes.Directory)) {
-                directoryFilePath = filePath;
+                _directoryFilePath = filePath;
                 checkDirectoryPathExistence();
             } else {
                 char separator = '\\';
@@ -34,7 +35,7 @@ public class FileItem : DesktopItem
                         where pathPiece != pathSplited[pathSplited.Length - 1]
                         select pathPiece).ToArray();
                     // joint the directory path
-                    directoryFilePath = directoryPathSplite.Aggregate((acc, next) => (
+                    _directoryFilePath = directoryPathSplite.Aggregate((acc, next) => (
                         acc == null ? next : $"{acc}{separator}{next}"
                     ));
                     checkDirectoryPathExistence();
@@ -48,8 +49,8 @@ public class FileItem : DesktopItem
     }
 
     private void checkDirectoryPathExistence() {
-        if (!Directory.Exists(directoryFilePath)) {
-            directoryFilePath = null;
+        if (!Directory.Exists(_directoryFilePath)) {
+            _directoryFilePath = null;
             UnityEngine.Debug.LogError($"Path of the file {this.nameFile} doesn't exist!");
         }
     }

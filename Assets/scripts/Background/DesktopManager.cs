@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,9 +13,14 @@ public class DesktopManager : MonoBehaviour
     public float[] Bounds {get => _bounds; } // minX, maxX, minY, maxY;
 
     public bool isMouseAboveDesktopItem {get; set;}
+    MenuCaller menuCaller;
+
+    List<DesktopItem> allItemsInDesktop;
 
     void Awake()
     {
+        allItemsInDesktop = new List<DesktopItem>();
+        menuCaller = new MenuCaller();
         contextualMenu = DesktopRootReferenceManager.getInstance().contextualMenuManager;
         isMouseAboveDesktopItem = false;
         _bounds = null;
@@ -23,6 +29,8 @@ public class DesktopManager : MonoBehaviour
             StartCoroutine(doActionsWhenAutoScaleBackgroundIsEnding());
         }
     }
+
+    public void addItemToDeskop(DesktopItem desktopItem) => allItemsInDesktop.Add(desktopItem);
 
     IEnumerator doActionsWhenAutoScaleBackgroundIsEnding() {
         if (autoScaleBackground.IsAutoScaling) {
@@ -47,7 +55,6 @@ public class DesktopManager : MonoBehaviour
     {
         if (!isMouseAboveDesktopItem && Input.GetMouseButtonUp(1))
             doInRightClick();
-        // TODO: FOR THE NEXT "else if" YOU HAVE TO CONTROL IF IS CLICKING IN MENU OR IN DESKTOP (if is open only allow clics above the menu, close menu if left clic out the menu).
         else if (contextualMenu.isOpen && (Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(2)))
             contextualMenu.close();
     }
@@ -55,6 +62,9 @@ public class DesktopManager : MonoBehaviour
     void doInRightClick()
     {
         if (contextualMenu != null)
-            contextualMenu.enableInMousePosition(false);
+        {
+            menuCaller.setCaller(this);
+            contextualMenu.enableInMousePosition(menuCaller, false);
+        }
     }
 }
