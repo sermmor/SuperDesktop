@@ -58,7 +58,8 @@
      <Compile Include="Assets\scripts\Background\AutoScaleBackgroundToCamera.cs" />
      <Compile Include="Assets\scripts\Background\DesktopManager.cs" />
      <Compile Include="Assets\scripts\DesktopRootReferenceManager.cs" />
-     <Compile Include="Assets\scripts\DialogControllers\CreateNewFileDialogCtrl.cs" />
+     <Compile Include="Assets\scripts\DialogControllers\Controllers\CreateNewFileDialogCtrl.cs" />
+     <Compile Include="Assets\scripts\DialogControllers\Controllers\RenameFileDialogCtrl.cs" />
      <Compile Include="Assets\scripts\DialogControllers\DialogController.cs" />
      <Compile Include="Assets\scripts\Items\DesktopItem.cs" />
      <Compile Include="Assets\scripts\Items\FileItem.cs" />

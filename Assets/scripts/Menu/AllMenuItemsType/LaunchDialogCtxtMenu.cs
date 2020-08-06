@@ -2,10 +2,20 @@ using UnityEngine;
 
 public class LaunchDialogCtxtMenu: ContextualMenuItem
 {
-    public DialogController dialogToEnable;
+    public GameObject goDialogToEnable;
+
+    DialogController dialogToEnable;
+
+    protected override void doOnEnable()
+    {
+        dialogToEnable = goDialogToEnable.GetComponent<DialogController>();
+    }
 
     protected override void doOnLeftClick()
     {
-        dialogToEnable.showDialog(whoIsCallMe);
+        if (dialogToEnable != null)
+            dialogToEnable.showDialog(whoIsCallMe);
+        else
+            goDialogToEnable.SetActive(true);
     }
 }

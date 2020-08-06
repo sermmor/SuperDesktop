@@ -22,7 +22,10 @@ public class ContextualMenuItem : MonoBehaviour
 
         if (sRenderer == null) sRenderer = GetComponent<SpriteRenderer>();
         sRenderer.color = colorUnselectedItem;
+        this.doOnEnable();
     }
+
+    protected virtual void doOnEnable() { }
 
     void OnMouseUp()
     {

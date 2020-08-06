@@ -32,12 +32,13 @@ public class DesktopItem : MonoBehaviour
         isDragingInAction = false;
         positionMouseDragging = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         nameFileTextMesh = transform.Find("NameFileText").GetComponent<TextMesh>();
-        setFileName();
+        setFileName(nameFile);
         thingsToDoAfterStart();
     }
 
-    void setFileName()
+    public void setFileName(string nameFile)
     {
+        this.nameFile = nameFile;
         if (nameFile.Contains("\\n"))
         {
             nameFile = nameFile.Replace("\\n", "\n");
