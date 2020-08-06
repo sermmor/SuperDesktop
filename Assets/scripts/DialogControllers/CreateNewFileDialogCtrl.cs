@@ -12,14 +12,14 @@ public class CreateNewFileDialogCtrl : DialogController
 
     ContextualMenuManager contextualMenuManager;
 
-    void OnEnable()
+    protected override void doOnEnable()
     {
-        if (contextualMenuManager == null)
+        if (isLaunchedForFistTime)
+        {
             contextualMenuManager = DesktopRootReferenceManager.getInstance().contextualMenuManager;
-        if (nameFile == null)
             nameFile = transform.Find("InputNameFile").gameObject.GetComponent<InputField>();
-        if (path == null)
             path = transform.Find("InputPath").gameObject.GetComponent<InputField>();
+        }
     }
 
 
