@@ -20,6 +20,7 @@ public class DialogController : MonoBehaviour
         doOnEnable();
         clearFieldsDialog();
         if (isLaunchedForFistTime) isLaunchedForFistTime = false;
+        EventSystem.current.SetSelectedGameObject(navigationList[0]);
     }
 
     protected virtual void doOnEnable()
@@ -60,6 +61,10 @@ public class DialogController : MonoBehaviour
                 navigationPreviousElement();
             else
                 navigationNextElement();
+        }
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            CloseDialog();
         }
     }
 
