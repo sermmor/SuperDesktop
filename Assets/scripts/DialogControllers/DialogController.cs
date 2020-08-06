@@ -56,20 +56,30 @@ public class DialogController : MonoBehaviour
     {
         if (isNavigationEnabled && Input.GetKeyUp(KeyCode.Tab))
         {
-            if (
-                Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKey(KeyCode.LeftShift) ||
-                Input.GetKeyUp(KeyCode.RightShift) || Input.GetKeyDown(KeyCode.RightShift) || Input.GetKey(KeyCode.RightShift)
-            )
-            {
-                indexInTabNavigation--;
-                if (indexInTabNavigation < 0) indexInTabNavigation = navigationList.Length - 1;
-            }
+            if (isReverseNavigation())
+                navigationPreviousElement();
             else
-            {
-                indexInTabNavigation++;
-                if (indexInTabNavigation >= navigationList.Length) indexInTabNavigation = 0;
-            }
-            EventSystem.current.SetSelectedGameObject(navigationList[indexInTabNavigation]);
+                navigationNextElement();
         }
+    }
+
+    bool isReverseNavigation()
+    {
+        return Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKey(KeyCode.LeftShift) ||
+                Input.GetKeyUp(KeyCode.RightShift) || Input.GetKeyDown(KeyCode.RightShift) || Input.GetKey(KeyCode.RightShift);
+    }
+
+    void navigationPreviousElement()
+    {
+        indexInTabNavigation--;
+        if (indexInTabNavigation < 0) indexInTabNavigation = navigationList.Length - 1;
+        EventSystem.current.SetSelectedGameObject(navigationList[indexInTabNavigation]);
+    }
+
+    void navigationNextElement()
+    {
+        indexInTabNavigation++;
+        if (indexInTabNavigation >= navigationList.Length) indexInTabNavigation = 0;
+        EventSystem.current.SetSelectedGameObject(navigationList[indexInTabNavigation]);
     }
 }
