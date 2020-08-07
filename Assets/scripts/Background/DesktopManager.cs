@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class DesktopManager : MonoBehaviour
@@ -17,9 +18,14 @@ public class DesktopManager : MonoBehaviour
 
     List<DesktopItem> allItemsInDesktop;
 
+    List<FolderItem> allFolders;
+
+    public List<string> allFoldersNames { get => (from folderItem in allFolders select folderItem.nameFile).ToList(); }
+
     void Awake()
     {
         allItemsInDesktop = new List<DesktopItem>();
+        allFolders = new List<FolderItem>();
         menuCaller = new MenuCaller();
         contextualMenu = DesktopRootReferenceManager.getInstance().contextualMenuManager;
         isMouseAboveDesktopItem = false;
@@ -30,7 +36,48 @@ public class DesktopManager : MonoBehaviour
         }
     }
 
-    public void addItemToDeskop(DesktopItem desktopItem) => allItemsInDesktop.Add(desktopItem);
+    public void addItemToDeskop(DesktopItem desktopItem)
+    {
+        allItemsInDesktop.Add(desktopItem);
+
+        if (desktopItem is FolderItem)
+            allFolders.Add((FolderItem) desktopItem);
+    }
+
+    public FolderItem getFolderByName(string nameFolder)
+    {
+        foreach (FolderItem item in allFolders)
+        {
+            if (item.nameFile.Equals(nameFolder))
+                return item;
+        }
+        return null;
+    }
+
+    public void RemoveFromFolderAndPutInDesktop(DesktopItem item)
+    {
+        bool isItemDeleted = false;
+        foreach (FolderItem folder in allFolders)
+        {
+            List<GameObject> toDelete = new List<GameObject>();
+            foreach (GameObject goCandidate in folder.ItemList)
+            {
+                DesktopItem candidate = goCandidate.GetComponent<DesktopItem>();
+                if (item.nameFile.Equals(candidate.nameFile))
+                {
+                    toDelete.Add(goCandidate);
+                    isItemDeleted = true;
+                }
+            }
+            
+            // Remove candidates.
+            foreach (GameObject goToDelete in toDelete)
+                folder.ItemList.Remove(goToDelete);
+
+            if (isItemDeleted)
+                return;
+        }
+    }
 
     IEnumerator doActionsWhenAutoScaleBackgroundIsEnding() {
         if (autoScaleBackground.IsAutoScaling) {

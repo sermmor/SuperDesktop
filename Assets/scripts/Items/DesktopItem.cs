@@ -23,6 +23,11 @@ public class DesktopItem : MonoBehaviour
     MenuCaller menuCaller;
     bool IsMouseAboveDesktopItem;
 
+    public float[] bounds { get {
+        Bounds bounds = GetComponent<BoxCollider2D>().bounds;
+        return new float[]{ bounds.size.x, bounds.size.y };
+    } }
+
     void Start()
     {
         desktopManager.addItemToDeskop(this);

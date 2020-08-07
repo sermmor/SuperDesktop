@@ -1,12 +1,11 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CreateNewLinkDialogCtrl: DialogController
+public class CreateNewFolderDialogCtrl : DialogController
 {
     public GameObject toInstantiate;
 
     InputField nameLinkFile;
-    InputField url;
 
     ContextualMenuManager contextualMenuManager;
 
@@ -15,8 +14,7 @@ public class CreateNewLinkDialogCtrl: DialogController
         if (isLaunchedForFistTime)
         {
             contextualMenuManager = DesktopRootReferenceManager.getInstance().contextualMenuManager;
-            nameLinkFile = transform.Find("InputNameFile").gameObject.GetComponent<InputField>();
-            url = transform.Find("InputUrl").gameObject.GetComponent<InputField>();
+            nameLinkFile = transform.Find("InputNameFolder").gameObject.GetComponent<InputField>();
         }
     }
 
@@ -32,21 +30,13 @@ public class CreateNewLinkDialogCtrl: DialogController
         // Parent
         generated.transform.SetParent(whoIsCallMe.DesktopManagerCaller.transform);
         // Item Propierties
-        LinkItem item = generated.GetComponent<LinkItem>();
+        FolderItem item = generated.GetComponent<FolderItem>();
         item.desktopManager = whoIsCallMe.DesktopManagerCaller;
         item.nameFile = nameLinkFile.text;
-        item.urlPath = url.text;
     }
 
     protected override void clearFieldsDialog()
     {
         nameLinkFile.text = "";
-        url.text = "";
-    }
-
-    public void GetTitleTextByURL()
-    {
-        if (nameLinkFile.text == null || nameLinkFile.text.Length == 0)
-            nameLinkFile.text = URLUtilities.getTitleUrl(url.text);
     }
 }
