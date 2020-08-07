@@ -16,8 +16,8 @@ public class DesktopItem : MonoBehaviour
     float[] desktopBounds;
 
     public string nameFile;
-    TextMesh nameFileTextMesh;
-    SpriteRenderer spriteFile;
+    protected TextMesh nameFileTextMesh;
+    protected SpriteRenderer spriteFile;
 
     ContextualMenuManager contextualMenu;
     MenuCaller menuCaller;
@@ -38,7 +38,7 @@ public class DesktopItem : MonoBehaviour
         thingsToDoAfterStart();
     }
 
-    public void setFileName(string nameFile)
+    public virtual void setFileName(string nameFile)
     {
         this.nameFile = nameFile;
         if (nameFile.Contains("\\n"))
@@ -46,10 +46,7 @@ public class DesktopItem : MonoBehaviour
             nameFile = nameFile.Replace("\\n", "\n");
         }
         nameFileTextMesh.text = nameFile;
-        setSpriteByFileName();
     }
-
-    void setSpriteByFileName() => spriteFile.sprite = CheckTypeFile.getSpriteOfFile(nameFile);
 
     void OnMouseDrag()
     {

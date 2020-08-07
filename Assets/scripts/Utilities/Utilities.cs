@@ -39,8 +39,10 @@ public static class CheckTypeFile
     static string[] textExtensions = new[]{"txt", "doc", "docx", "xls", "xlsx", "pdf", "epub", "odt", "ppt", "pptx"};
     public static bool IsTypeText(string extensionFile) => isInTypeExtensionList(textExtensions, extensionFile);
 
-    static string[] imageExtensions = new[]{"jpg", "jpeg", "png", "gif", "svg", "ptg"};
+    static string[] rareImageExtensions = new[]{"gif", "ptg", "clip"};
+    static string[] imageExtensions = new[]{"jpg", "jpeg", "png", "gif", "svg", "ptg", "clip"};
     public static bool IsTypeImage(string extensionFile) => isInTypeExtensionList(imageExtensions, extensionFile);
+    public static bool IsRareTypeImage(string extensionFile) => isInTypeExtensionList(rareImageExtensions, extensionFile);
 
     static string[] videoExtensions = new[]{"avi", "mp4", "wmv", "flv", "mpg", "mpeg", "asx"};
     public static bool IsTypeVideo(string extensionFile) => isInTypeExtensionList(videoExtensions, extensionFile);
