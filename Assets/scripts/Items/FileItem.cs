@@ -14,8 +14,6 @@ public class FileItem : DesktopItem
     public string directoryFilePath { get => this._directoryFilePath; }
     string _directoryFilePath;
 
-    bool isWindowsOS = true;
-
     protected override void thingsToDoAfterStart()
     {
         if (filePath != null) {
@@ -29,7 +27,6 @@ public class FileItem : DesktopItem
                 string[] pathSplited = filePath.Split('\\');
                 if (pathSplited.Length == 1) {
                     separator = '/';
-                    isWindowsOS = false;
                     pathSplited = filePath.Split('/');
                 }
                 if (pathSplited.Length > 1) {

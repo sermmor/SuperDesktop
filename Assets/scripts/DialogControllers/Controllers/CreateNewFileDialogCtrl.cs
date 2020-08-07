@@ -46,4 +46,31 @@ public class CreateNewFileDialogCtrl : DialogController
         nameFile.text = "";
         path.text = "";
     }
+
+    public void GetTitleTextByPath()
+    {
+        if (nameFile.text == null || nameFile.text.Length == 0)
+        {
+            string nameFileWithoutExtension = "";
+            char separator = '\\';
+            string[] pathSplited = path.text.Split(separator);
+            if (pathSplited.Length == 1) {
+                separator = '/';
+                pathSplited = path.text.Split(separator);
+            }
+
+            if (pathSplited.Length > 1) {
+                string[] splitByExtension = pathSplited[pathSplited.Length - 1].Split('.');
+                if (splitByExtension.Length == 2)
+                {
+                    nameFileWithoutExtension = splitByExtension[0];
+                }
+                else
+                {
+                    nameFileWithoutExtension = pathSplited[pathSplited.Length - 1];
+                }
+            }
+            nameFile.text = nameFileWithoutExtension;
+        }
+    }
 }
