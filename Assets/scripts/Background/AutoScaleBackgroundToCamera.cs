@@ -40,7 +40,7 @@ public class AutoScaleBackgroundToCamera : MonoBehaviour
     void fillSpriteList() {
         if (backgroundPathLists.Length > 0) {
             sprites = (
-                from s in SpriteLoader.LoadSpriteList(backgroundPathLists)
+                from s in SpriteLoaderUtility.LoadSpriteList(backgroundPathLists)
                 where s != null
                 select s
             ).ToArray();

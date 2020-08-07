@@ -9,12 +9,14 @@ public class DialogController : MonoBehaviour
 
     public GameObject[] navigationList;
     protected MenuCaller whoIsCallMe;
+    bool isDoingAceptDialog = false;
 
     bool isNavigationEnabled;
     int indexInTabNavigation = 0;
 
     void OnEnable()
     {
+        isDoingAceptDialog = false;
         isNavigationEnabled = navigationList.Length > 0;
         indexInTabNavigation = 0;
         doOnEnable();
@@ -35,8 +37,11 @@ public class DialogController : MonoBehaviour
 
     public void AceptDialog()
     {
-        doAceptDialog();
-        CloseDialog();
+        if (!isDoingAceptDialog) {
+            isDoingAceptDialog = true;
+            doAceptDialog();
+            CloseDialog();
+        }
     }
 
     protected virtual void doAceptDialog()

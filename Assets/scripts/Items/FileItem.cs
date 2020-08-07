@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class FileItem : DesktopItem
 {
-    const float DEFAULT_WIDTH_FILE = 55;
+    float defaultWidthFilePreviewIcon = 60;
 
     public string filePath;
 
@@ -61,13 +61,13 @@ public class FileItem : DesktopItem
     {
         base.setFileName(nameFile);
         
-        string extensionFile = CheckTypeFile.getExtensionFile(filePath);
+        string extensionFile = TypeFileUtilities.getExtensionFile(filePath);
 
-        if (CheckTypeFile.IsTypeImage(extensionFile) && !CheckTypeFile.IsRareTypeImage(extensionFile))
+        if (TypeFileUtilities.IsTypeImage(extensionFile) && !TypeFileUtilities.IsRareTypeImage(extensionFile))
         {
             try
             {
-                spriteFile.sprite = SpriteLoader.LoadSprite(filePath);
+                spriteFile.sprite = SpriteLoaderUtility.LoadSprite(filePath);
                 setSpriteFileIconToDefaultWidthSize();
             }
             catch (System.Exception ex)
@@ -81,7 +81,7 @@ public class FileItem : DesktopItem
         }
     }
 
-    void setSpriteByFileName() => spriteFile.sprite = CheckTypeFile.getSpriteOfFile(filePath);
+    void setSpriteByFileName() => spriteFile.sprite = TypeFileUtilities.getSpriteOfFile(filePath);
 
     Vector3 scaleCalculatedForAutoScaleIcon = new Vector3(0, 0, 0);
     void setSpriteFileIconToDefaultWidthSize() {
@@ -92,8 +92,8 @@ public class FileItem : DesktopItem
         // Get the world size.
         float worldScreenHeight = Camera.main.orthographicSize * 2.0f;
         float worldScreenWidth = worldScreenHeight / Screen.height * Screen.width;
-        
-        float scale = (DEFAULT_WIDTH_FILE * currentScale) / height;
+
+        float scale = (defaultWidthFilePreviewIcon * currentScale) / height;
         
         scaleCalculatedForAutoScaleIcon.x = scaleCalculatedForAutoScaleIcon.y = scale;
         scaleCalculatedForAutoScaleIcon.z = spriteFile.transform.localScale.z;
