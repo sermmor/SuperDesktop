@@ -64,7 +64,7 @@ public class DesktopManager : MonoBehaviour
         if (contextualMenu != null)
         {
             menuCaller.setCaller(this);
-            contextualMenu.enableInMousePosition(menuCaller, false);
+            contextualMenu.enableInMousePosition(menuCaller, ContextualMenuMode.DESKTOP);
         }
     }
 }

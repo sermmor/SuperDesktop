@@ -9,6 +9,7 @@ public class DesktopRootReferenceManager : MonoBehaviour
 
     // For general use or singleton collection.
     public ContextualMenuManager contextualMenuManager;
+    public FileSpriteByType[] typeFileIconList;
 
     void Awake() => _instance = this;
 }

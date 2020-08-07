@@ -17,6 +17,7 @@ public class DesktopItem : MonoBehaviour
 
     public string nameFile;
     TextMesh nameFileTextMesh;
+    SpriteRenderer spriteFile;
 
     ContextualMenuManager contextualMenu;
     MenuCaller menuCaller;
@@ -32,6 +33,7 @@ public class DesktopItem : MonoBehaviour
         isDragingInAction = false;
         positionMouseDragging = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         nameFileTextMesh = transform.Find("NameFileText").GetComponent<TextMesh>();
+        spriteFile = transform.Find("FileIconSprite").GetComponent<SpriteRenderer>();
         setFileName(nameFile);
         thingsToDoAfterStart();
     }
@@ -44,7 +46,10 @@ public class DesktopItem : MonoBehaviour
             nameFile = nameFile.Replace("\\n", "\n");
         }
         nameFileTextMesh.text = nameFile;
+        setSpriteByFileName();
     }
+
+    void setSpriteByFileName() => spriteFile.sprite = CheckTypeFile.getSpriteOfFile(nameFile);
 
     void OnMouseDrag()
     {
@@ -147,7 +152,7 @@ public class DesktopItem : MonoBehaviour
         if (contextualMenu != null)
         {
             menuCaller.setCaller(this);
-            contextualMenu.enableInMousePosition(menuCaller, true);
+            contextualMenu.enableInMousePosition(menuCaller, ContextualMenuMode.FILE);
         }
     }
 
