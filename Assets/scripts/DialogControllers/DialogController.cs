@@ -20,10 +20,10 @@ public class DialogController : MonoBehaviour
         isDoingAceptDialog = false;
         isNavigationEnabled = navigationList.Length > 0;
         indexInTabNavigation = 0;
+        EventSystem.current.SetSelectedGameObject(navigationList[0]);
         doOnEnable();
         clearFieldsDialog();
         if (isLaunchedForFistTime) isLaunchedForFistTime = false;
-        EventSystem.current.SetSelectedGameObject(navigationList[0]);
     }
 
     protected virtual void doOnEnable()
