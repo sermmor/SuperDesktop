@@ -72,6 +72,11 @@ public class FolderController : MonoBehaviour
         return bounds;
     }
 
+    public void RemoveFromFolderAndPutInDesktop(DesktopItem desktopItemCaller)
+    {
+        desktopItemCaller.transform.parent = DesktopRootReferenceManager.getInstance().currentDesktopShowed.transform;
+    }
+
     void Update()
     {
         if (Input.GetKeyUp(KeyCode.Escape))
