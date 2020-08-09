@@ -58,3 +58,4 @@ crashlytics-build.properties
 
 # More
 [Aa]ssets/sprites/backgrounds
+.vscode/launch.json
