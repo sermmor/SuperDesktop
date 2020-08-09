@@ -42,16 +42,12 @@ public class PropiertiesDesktopDialogCtrl : DialogController
 
     protected override void doAceptDialog()
     {
-        // TODO: Change values or conserve the changes (using DesktopManager new functions)!!! If changes are in realtime, force to save values or do nothing.
-        // currentDesktopManager.changeImagePath(inputWallpaperPath.text);
-        // currentDesktopManager.changeSizeIcons(sliderIconSize.value);
-
-        // float secondsAutoChangeWallpaper = fromDropdownIndexToSeconds(listMinutesToChangeWallpaper.value);
-        // currentDesktopManager.setTimeToAutoChangeWallpaper(secondsAutoChangeWallpaper);
+        // TODO: Create new desktop or delete some desktop if it's needed. Modify columns if it's needed.
     }
 
     protected override void clearFieldsDialog()
     {
+        // TODO: Get number of desktop and column desktop.
         sliderIconSize.value = defaultIconSize = currentDesktopManager.IconScalePercentage;
         inputWallpaperPath.text = defaultWallpaperPath = currentDesktopManager.WallpaperImagePath;
         
@@ -63,6 +59,7 @@ public class PropiertiesDesktopDialogCtrl : DialogController
 
     public void CancelDialog()
     {
+        // New created desktops or deleted desktop can't be canceled.
         currentDesktopManager.changeSizeIcons(defaultIconSize);
         currentDesktopManager.changeImagePath(defaultWallpaperPath);
 
