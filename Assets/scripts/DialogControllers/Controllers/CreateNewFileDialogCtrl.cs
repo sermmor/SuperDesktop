@@ -39,6 +39,11 @@ public class CreateNewFileDialogCtrl : DialogController
         item.desktopManager = whoIsCallMe.DesktopManagerCaller;
         item.nameFile = nameFile.text;
         item.filePath = path.text;
+        item.transform.localScale = new Vector3(
+            DesktopRootReferenceManager.getInstance().currentDesktopShowed.IconRealScale,
+            DesktopRootReferenceManager.getInstance().currentDesktopShowed.IconRealScale,
+            item.transform.localScale.z
+        );
     }
 
     protected override void clearFieldsDialog()

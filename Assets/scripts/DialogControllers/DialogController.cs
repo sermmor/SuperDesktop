@@ -50,6 +50,8 @@ public class DialogController : MonoBehaviour
         Debug.Log("DIALOG ACEPTED!");
     }
 
+    public virtual void OnEscapeButton() => CloseDialog();
+
     public void CloseDialog()
     {
         DesktopRootReferenceManager.getInstance().colliderBackgroundForDialogs.SetActive(false);
@@ -72,7 +74,7 @@ public class DialogController : MonoBehaviour
         }
         if (Input.GetKeyUp(KeyCode.Escape))
         {
-            CloseDialog();
+            OnEscapeButton();
         }
     }
 

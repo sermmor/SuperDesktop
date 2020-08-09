@@ -44,7 +44,6 @@ public class MoveToFolderDialogCtr : DialogController
         FolderItem item = DesktopRootReferenceManager.getInstance().currentDesktopShowed.getFolderByName(nameSelected);
         if (folderListDropdown.value == 0)
         {
-            // ! FIXME: THIS DOESN'T WORKS FINE!!!
             DesktopRootReferenceManager.getInstance().currentDesktopShowed.RemoveFromFolderAndPutInDesktop(whoIsCallMe.DesktopItemCaller);
             DesktopRootReferenceManager.getInstance().folderController.RemoveFromFolderAndPutInDesktop(whoIsCallMe.DesktopItemCaller);
         }

@@ -9,7 +9,7 @@ public class AutoScaleBackgroundToCamera : MonoBehaviour
 {
     public AutoScaleMode mode;
     public Sprite defaultWallpaper;
-    public string[] backgroundPathLists;
+    public string[] backgroundPathList;
 
     Sprite[] sprites;
     Vector3 baseScale;
@@ -21,7 +21,29 @@ public class AutoScaleBackgroundToCamera : MonoBehaviour
 
     Coroutine changeSpriteByTimeCoroutine;
 
-    float secondsToAutoChangeWallpaper = 5f;
+    float secondsToAutoChangeWallpaper = 15 * 60;
+
+    public string WallpaperImagePath { get {
+        if (backgroundPathList.Length == 1) return backgroundPathList[0];
+
+        // Get image directory from path.
+        char separator = '\\';
+        string[] pathSplited = backgroundPathList[0].Split('\\');
+        if (pathSplited.Length == 1) {
+            separator = '/';
+            pathSplited = backgroundPathList[0].Split('/');
+        }
+
+        string[] directoryPathSplite = (from pathPiece in pathSplited
+                        where pathPiece != pathSplited[pathSplited.Length - 1]
+                        select pathPiece).ToArray();
+        
+        return directoryPathSplite.Aggregate((acc, next) => (
+            acc == null ? next : $"{acc}{separator}{next}"
+        ));
+    }}
+
+    public float SecondsToAutoChangeWallpaper { get => secondsToAutoChangeWallpaper; }
 
     void Awake() => isAutoScaleFinished = false;
 
@@ -38,40 +60,43 @@ public class AutoScaleBackgroundToCamera : MonoBehaviour
         baseScale = new Vector3(1, 1, transform.localScale.z);
         changeImageInCollectionByIndex(0);
 
-        if (backgroundPathLists.Length > 1)
+        if (backgroundPathList.Length > 1)
             changeSpriteByTimeCoroutine = StartCoroutine(changeSpriteByTime());
     }
 
     public void changeImageList(string[] newBackgroundPathLists)
     {
-        if (backgroundPathLists.Length > 1)
+        if (backgroundPathList.Length > 1)
             StopCoroutine(changeSpriteByTimeCoroutine);
         isAutoScaleFinished = false;
 
-        backgroundPathLists = newBackgroundPathLists;
+        backgroundPathList = newBackgroundPathLists;
         fillSpriteList();
         baseScale = new Vector3(1, 1, transform.localScale.z);
         changeImageInCollectionByIndex(0);
 
-        if (backgroundPathLists.Length > 1)
+        if (backgroundPathList.Length > 1)
             changeSpriteByTimeCoroutine = StartCoroutine(changeSpriteByTime());
     }
 
     public void setTimeToAutoChangeWallpaper(float timeInSeconds)
     {
-        if (backgroundPathLists.Length > 1)
+        if (backgroundPathList.Length > 1)
             StopCoroutine(changeSpriteByTimeCoroutine);
 
         secondsToAutoChangeWallpaper = timeInSeconds;
-
-        if (backgroundPathLists.Length > 1)
-            changeSpriteByTimeCoroutine = StartCoroutine(changeSpriteByTime());
+        
+        if (timeInSeconds > 0)
+        {
+            if (backgroundPathList.Length > 1)
+                changeSpriteByTimeCoroutine = StartCoroutine(changeSpriteByTime());
+        }
     }
 
     void fillSpriteList() {
-        if (backgroundPathLists.Length > 0) {
+        if (backgroundPathList.Length > 0) {
             sprites = (
-                from s in SpriteLoaderUtility.LoadSpriteList(backgroundPathLists)
+                from s in SpriteLoaderUtility.LoadSpriteList(backgroundPathList)
                 where s != null
                 select s
             ).ToArray();

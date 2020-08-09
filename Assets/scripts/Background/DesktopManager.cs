@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class DesktopManager : MonoBehaviour
 {
+    public GameObject temporalBackground;
     ContextualMenuManager contextualMenu;
     AutoScaleBackgroundToCamera autoScaleBackground;
 
@@ -23,7 +24,12 @@ public class DesktopManager : MonoBehaviour
 
     public List<string> allFoldersNames { get => (from folderItem in allFolders select folderItem.nameFile).ToList(); }
 
-    private float iconScale = 1;
+    float _iconScale = 1;
+    public float IconRealScale { get => _iconScale; }
+    public float IconScalePercentage { get => _iconScale * 0.5f; } // 1 scale (x, y) == 0.5 percentage => newScale (x, y) = _iconScale * 0.5f
+    public string WallpaperImagePath { get => autoScaleBackground.WallpaperImagePath; }
+
+    public float SecondsToChangeWallpaper { get => autoScaleBackground.SecondsToAutoChangeWallpaper; }
 
     void Awake()
     {
@@ -33,7 +39,7 @@ public class DesktopManager : MonoBehaviour
         contextualMenu = DesktopRootReferenceManager.getInstance().contextualMenuManager;
         isMouseAboveDesktopItem = false;
         _bounds = null;
-        iconScale = 1;
+        _iconScale = 1;
         autoScaleBackground = GetComponent<AutoScaleBackgroundToCamera>();
         if (autoScaleBackground) {
             StartCoroutine(doActionsWhenAutoScaleBackgroundIsEnding());
@@ -54,10 +60,12 @@ public class DesktopManager : MonoBehaviour
         // newPercentage is a value between 0 and 1.
         // 0.5 percentage === 1 scale (x, y) => newScale (x, y) = newPercentage / 0.5f
         float newScaleBase = newPercentage / 0.5f;
+        _iconScale = newScaleBase;
         Vector3 newScale;
 
         foreach (DesktopItem item in allItemsInDesktop)
         {
+            if (item == null) continue;
             newScale = new Vector3(newScaleBase, newScaleBase, item.transform.localScale.z);
             item.transform.localScale = newScale;
         }
@@ -65,16 +73,35 @@ public class DesktopManager : MonoBehaviour
 
     public void changeImagePath(string newImagePath)
     {
+        sendAllFilesToTemporalBackground(temporalBackground);
+
         // Check if path is a file or a directory.
         FileAttributes attr = File.GetAttributes(newImagePath);
-        if (attr.HasFlag(FileAttributes.Directory))
-        {
-            // Is directory.
+
+        if (attr.HasFlag(FileAttributes.Directory)) // Is directory.
             autoScaleBackground.changeImageList(Directory.EnumerateFiles(newImagePath).ToArray());
-        }
         else
-        {
             autoScaleBackground.changeImageList(new string[] {newImagePath});
+
+        sendAllFilesToBackground(gameObject);
+    }
+
+    void sendAllFilesToBackground(GameObject background)
+    {
+        foreach (DesktopItem item in allItemsInDesktop)
+        {
+            if (item == null) continue;
+            item.transform.parent = background.transform;
+        }
+    }
+
+    void sendAllFilesToTemporalBackground(GameObject background)
+    {
+        foreach (DesktopItem item in allItemsInDesktop)
+        {
+            if (item == null) continue;
+            item.transform.parent = background.transform;
+            item.transform.localScale = new Vector3(1, 1, item.transform.localScale.z);
         }
     }
 
@@ -95,6 +122,7 @@ public class DesktopManager : MonoBehaviour
     {
         foreach (FolderItem item in allFolders)
         {
+            if (item == null) continue;
             if (item.nameFile.Equals(nameFolder))
                 return item;
         }
@@ -106,9 +134,11 @@ public class DesktopManager : MonoBehaviour
         bool isItemDeleted = false;
         foreach (FolderItem folder in allFolders)
         {
+            if (item == null) continue;
             List<GameObject> toDelete = new List<GameObject>();
             foreach (GameObject goCandidate in folder.ItemList)
             {
+                if (goCandidate == null) continue;
                 DesktopItem candidate = goCandidate.GetComponent<DesktopItem>();
                 if (item.nameFile.Equals(candidate.nameFile))
                 {
