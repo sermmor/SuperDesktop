@@ -19,6 +19,10 @@ public class AutoScaleBackgroundToCamera : MonoBehaviour
 
     public bool IsAutoScaling { get => !isAutoScaleFinished; }
 
+    Coroutine changeSpriteByTimeCoroutine;
+
+    float secondsToAutoChangeWallpaper = 5f;
+
     void Awake() => isAutoScaleFinished = false;
 
     void Start()
@@ -32,9 +36,36 @@ public class AutoScaleBackgroundToCamera : MonoBehaviour
         }
         
         baseScale = new Vector3(1, 1, transform.localScale.z);
-        changeImage(0);
+        changeImageInCollectionByIndex(0);
 
-        // StartCoroutine(testChangeSprite());  // TODO: ONLY FOR TESTING.
+        if (backgroundPathLists.Length > 1)
+            changeSpriteByTimeCoroutine = StartCoroutine(changeSpriteByTime());
+    }
+
+    public void changeImageList(string[] newBackgroundPathLists)
+    {
+        if (backgroundPathLists.Length > 1)
+            StopCoroutine(changeSpriteByTimeCoroutine);
+        isAutoScaleFinished = false;
+
+        backgroundPathLists = newBackgroundPathLists;
+        fillSpriteList();
+        baseScale = new Vector3(1, 1, transform.localScale.z);
+        changeImageInCollectionByIndex(0);
+
+        if (backgroundPathLists.Length > 1)
+            changeSpriteByTimeCoroutine = StartCoroutine(changeSpriteByTime());
+    }
+
+    public void setTimeToAutoChangeWallpaper(float timeInSeconds)
+    {
+        if (backgroundPathLists.Length > 1)
+            StopCoroutine(changeSpriteByTimeCoroutine);
+
+        secondsToAutoChangeWallpaper = timeInSeconds;
+
+        if (backgroundPathLists.Length > 1)
+            changeSpriteByTimeCoroutine = StartCoroutine(changeSpriteByTime());
     }
 
     void fillSpriteList() {
@@ -53,25 +84,25 @@ public class AutoScaleBackgroundToCamera : MonoBehaviour
         }
     }
 
-    public void changeImage(int spriteIndex) {
+    public void changeImageInCollectionByIndex(int spriteIndex) {
         isAutoScaleFinished = false;
         sr.sprite = sprites[spriteIndex];
         scaleImage();
     }
 
-    // int spriteCurrentIndex = 0; // TODO: ONLY FOR TESTING.
-    // IEnumerator testChangeSprite()  // TODO: ONLY FOR TESTING.
-    // {
-    //     while (true) {
-    //         yield return new WaitForSeconds(5f);
-    //         spriteCurrentIndex++;
-    //         if (spriteCurrentIndex >= sprites.Length)
-    //         {
-    //             spriteCurrentIndex = 0;
-    //         }
-    //         changeImage(spriteCurrentIndex);
-    //     }
-    // }
+    int spriteCurrentIndex = 0;
+    IEnumerator changeSpriteByTime()
+    {
+        while (true) {
+            yield return new WaitForSeconds(secondsToAutoChangeWallpaper);
+            spriteCurrentIndex++;
+            if (spriteCurrentIndex >= sprites.Length)
+            {
+                spriteCurrentIndex = 0;
+            }
+            changeImageInCollectionByIndex(spriteCurrentIndex);
+        }
+    }
 
     void scaleImage() {
         transform.localScale = baseScale;

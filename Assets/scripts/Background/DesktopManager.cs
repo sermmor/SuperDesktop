@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 
@@ -22,6 +23,8 @@ public class DesktopManager : MonoBehaviour
 
     public List<string> allFoldersNames { get => (from folderItem in allFolders select folderItem.nameFile).ToList(); }
 
+    private float iconScale = 1;
+
     void Awake()
     {
         allItemsInDesktop = new List<DesktopItem>();
@@ -30,10 +33,54 @@ public class DesktopManager : MonoBehaviour
         contextualMenu = DesktopRootReferenceManager.getInstance().contextualMenuManager;
         isMouseAboveDesktopItem = false;
         _bounds = null;
+        iconScale = 1;
         autoScaleBackground = GetComponent<AutoScaleBackgroundToCamera>();
         if (autoScaleBackground) {
             StartCoroutine(doActionsWhenAutoScaleBackgroundIsEnding());
         }
+        // StartCoroutine(test());
+    }
+
+    // IEnumerator test() // TODO DELETE BEFORE
+    // {
+    //     yield return new WaitForSeconds(5f);
+    //     // changeImagePath("C:\\UnityWorkspace\\SuperDesktop\\Assets\\sprites\\backgrounds\\default.jpg");
+    //     changeImagePath("D:\\Imagenes\\Manga Wallpapers");
+    //     setTimeToAutoChangeWallpaper(15f);
+    // }
+
+    public void changeSizeIcons(float newPercentage)
+    {
+        // newPercentage is a value between 0 and 1.
+        // 0.5 percentage === 1 scale (x, y) => newScale (x, y) = newPercentage / 0.5f
+        float newScaleBase = newPercentage / 0.5f;
+        Vector3 newScale;
+
+        foreach (DesktopItem item in allItemsInDesktop)
+        {
+            newScale = new Vector3(newScaleBase, newScaleBase, item.transform.localScale.z);
+            item.transform.localScale = newScale;
+        }
+    }
+
+    public void changeImagePath(string newImagePath)
+    {
+        // Check if path is a file or a directory.
+        FileAttributes attr = File.GetAttributes(newImagePath);
+        if (attr.HasFlag(FileAttributes.Directory))
+        {
+            // Is directory.
+            autoScaleBackground.changeImageList(Directory.EnumerateFiles(newImagePath).ToArray());
+        }
+        else
+        {
+            autoScaleBackground.changeImageList(new string[] {newImagePath});
+        }
+    }
+
+    public void setTimeToAutoChangeWallpaper(float timeInSeconds)
+    {
+        autoScaleBackground.setTimeToAutoChangeWallpaper(timeInSeconds);
     }
 
     public void addItemToDeskop(DesktopItem desktopItem)
