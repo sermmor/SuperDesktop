@@ -16,6 +16,7 @@ public class DialogController : MonoBehaviour
 
     void OnEnable()
     {
+        DesktopRootReferenceManager.getInstance().colliderBackgroundForDialogs.SetActive(true);
         isDoingAceptDialog = false;
         isNavigationEnabled = navigationList.Length > 0;
         indexInTabNavigation = 0;
@@ -49,7 +50,9 @@ public class DialogController : MonoBehaviour
         Debug.Log("DIALOG ACEPTED!");
     }
 
-    public void CloseDialog() {
+    public void CloseDialog()
+    {
+        DesktopRootReferenceManager.getInstance().colliderBackgroundForDialogs.SetActive(false);
         this.gameObject.SetActive(false);
     }
 

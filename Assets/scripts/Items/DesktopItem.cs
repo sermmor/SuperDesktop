@@ -105,6 +105,7 @@ public class DesktopItem : MonoBehaviour
             positionMouseDragging.y = desktopBounds[3];
         }
 
+        positionMouseDragging.z = transform.position.z;
         transform.position = positionMouseDragging;
     }
 

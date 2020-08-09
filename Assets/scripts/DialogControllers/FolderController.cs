@@ -20,11 +20,13 @@ public class FolderController : MonoBehaviour
 
     public void closeDialog()
     {
+        DesktopRootReferenceManager.getInstance().colliderBackgroundForDialogs.SetActive(false);
         gameObject.SetActive(false);
     }
 
     void OnEnable()
     {
+        DesktopRootReferenceManager.getInstance().colliderBackgroundForDialogs.SetActive(true);
         folderTitle = transform.Find("FolderTitle").GetComponent<TextMesh>();
         positionInitColumn = transform.Find("InitColumns").position;
         positionEndColumn = transform.Find("EndColumns").position;
@@ -72,10 +74,8 @@ public class FolderController : MonoBehaviour
         return bounds;
     }
 
-    public void RemoveFromFolderAndPutInDesktop(DesktopItem desktopItemCaller)
-    {
+    public void RemoveFromFolderAndPutInDesktop(DesktopItem desktopItemCaller) =>
         desktopItemCaller.transform.parent = DesktopRootReferenceManager.getInstance().currentDesktopShowed.transform;
-    }
 
     void Update()
     {

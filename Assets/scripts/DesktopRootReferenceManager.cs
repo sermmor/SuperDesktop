@@ -10,6 +10,7 @@ public class DesktopRootReferenceManager : MonoBehaviour
     // For general use or singleton collection.
     public ContextualMenuManager contextualMenuManager;
     public FolderController folderController;
+    public GameObject colliderBackgroundForDialogs;
     public DesktopManager currentDesktopShowed; // TODO: When change to desktop, assign the new Destop.
     public FileSpriteByType[] typeFileIconList;
 
