@@ -40,8 +40,8 @@ public class CreateNewFileDialogCtrl : DialogController
         item.nameFile = nameFile.text;
         item.filePath = path.text;
         item.transform.localScale = new Vector3(
-            DesktopRootReferenceManager.getInstance().currentDesktopShowed.IconRealScale,
-            DesktopRootReferenceManager.getInstance().currentDesktopShowed.IconRealScale,
+            DesktopRootReferenceManager.getInstance().CurrentDesktopShowed.IconRealScale,
+            DesktopRootReferenceManager.getInstance().CurrentDesktopShowed.IconRealScale,
             item.transform.localScale.z
         );
     }

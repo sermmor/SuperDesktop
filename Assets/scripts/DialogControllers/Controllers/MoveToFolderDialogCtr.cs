@@ -18,7 +18,7 @@ public class MoveToFolderDialogCtr : DialogController
         }
         List<Dropdown.OptionData> newOptions = filterNewOptions(
             folderListDropdown.options,
-            DesktopRootReferenceManager.getInstance().currentDesktopShowed.allFoldersNames
+            DesktopRootReferenceManager.getInstance().CurrentDesktopShowed.allFoldersNames
         );
         if (newOptions.Count > 0)
         {
@@ -41,10 +41,10 @@ public class MoveToFolderDialogCtr : DialogController
     protected override void doAceptDialog()
     {
         string nameSelected = folderListDropdown.options[folderListDropdown.value].text;
-        FolderItem item = DesktopRootReferenceManager.getInstance().currentDesktopShowed.getFolderByName(nameSelected);
+        FolderItem item = DesktopRootReferenceManager.getInstance().CurrentDesktopShowed.getFolderByName(nameSelected);
         if (folderListDropdown.value == 0)
         {
-            DesktopRootReferenceManager.getInstance().currentDesktopShowed.RemoveFromFolderAndPutInDesktop(whoIsCallMe.DesktopItemCaller);
+            DesktopRootReferenceManager.getInstance().CurrentDesktopShowed.RemoveFromFolderAndPutInDesktop(whoIsCallMe.DesktopItemCaller);
             DesktopRootReferenceManager.getInstance().folderController.RemoveFromFolderAndPutInDesktop(whoIsCallMe.DesktopItemCaller);
         }
         else

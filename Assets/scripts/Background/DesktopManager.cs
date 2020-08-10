@@ -8,10 +8,10 @@ using UnityEngine;
 public class DesktopManager : MonoBehaviour
 {
     public GameObject temporalBackground;
-    ContextualMenuManager contextualMenu;
+    ContextualMenuManager contextualMenu {get => DesktopRootReferenceManager.getInstance().contextualMenuManager; }
     AutoScaleBackgroundToCamera autoScaleBackground;
 
-    float[] _bounds;
+    float[] _bounds = null;
 
     public float[] Bounds {get => _bounds; } // minX, maxX, minY, maxY;
 
@@ -31,29 +31,22 @@ public class DesktopManager : MonoBehaviour
 
     public float SecondsToChangeWallpaper { get => autoScaleBackground.SecondsToAutoChangeWallpaper; }
 
-    void Awake()
+    void OnEnable()
     {
-        allItemsInDesktop = new List<DesktopItem>();
-        allFolders = new List<FolderItem>();
-        menuCaller = new MenuCaller();
-        contextualMenu = DesktopRootReferenceManager.getInstance().contextualMenuManager;
-        isMouseAboveDesktopItem = false;
-        _bounds = null;
-        _iconScale = 1;
-        autoScaleBackground = GetComponent<AutoScaleBackgroundToCamera>();
-        if (autoScaleBackground) {
-            StartCoroutine(doActionsWhenAutoScaleBackgroundIsEnding());
+        if (autoScaleBackground == null)
+        {
+            allItemsInDesktop = new List<DesktopItem>();
+            allFolders = new List<FolderItem>();
+            menuCaller = new MenuCaller();
+            isMouseAboveDesktopItem = false;
+            _bounds = null;
+            _iconScale = 1;
+            autoScaleBackground = GetComponent<AutoScaleBackgroundToCamera>();
+            if (autoScaleBackground) {
+                StartCoroutine(doActionsWhenAutoScaleBackgroundIsEnding());
+            }
         }
-        // StartCoroutine(test());
     }
-
-    // IEnumerator test() // TODO DELETE BEFORE
-    // {
-    //     yield return new WaitForSeconds(5f);
-    //     // changeImagePath("C:\\UnityWorkspace\\SuperDesktop\\Assets\\sprites\\backgrounds\\default.jpg");
-    //     changeImagePath("D:\\Imagenes\\Manga Wallpapers");
-    //     setTimeToAutoChangeWallpaper(15f);
-    // }
 
     public void changeSizeIcons(float newPercentage)
     {
@@ -164,8 +157,10 @@ public class DesktopManager : MonoBehaviour
         // Calculate all the screen limits.
         float height = Camera.main.orthographicSize * 2.0f;
         float width = height / Screen.height * Screen.width;
-        float x = Camera.main.transform.position.x;
-        float y = Camera.main.transform.position.y;
+        // float x = Camera.main.transform.position.x;
+        // float y = Camera.main.transform.position.y;
+        float x = transform.position.x;
+        float y = transform.position.y;
 
         _bounds = new float[]{
             x - (width / 2), // minX
@@ -190,5 +185,13 @@ public class DesktopManager : MonoBehaviour
             menuCaller.setCaller(this);
             contextualMenu.enableInMousePosition(menuCaller, ContextualMenuMode.DESKTOP);
         }
+    }
+
+    public void DestroyMe()
+    {
+        foreach (DesktopItem item in allItemsInDesktop)
+            Destroy(item.gameObject);
+
+        Destroy(gameObject);
     }
 }

@@ -17,7 +17,7 @@ public class FolderItem : DesktopItem
     public bool AddToFolder(GameObject item)
     {
         bool folderFull = false;
-        DesktopRootReferenceManager.getInstance().currentDesktopShowed.RemoveFromFolderAndPutInDesktop(item.GetComponent<DesktopItem>());
+        DesktopRootReferenceManager.getInstance().CurrentDesktopShowed.RemoveFromFolderAndPutInDesktop(item.GetComponent<DesktopItem>());
         if (item.GetComponent<FolderItem>() == null)
         {
             if (_itemList.Count < MAX_NUMBER_ITEM)

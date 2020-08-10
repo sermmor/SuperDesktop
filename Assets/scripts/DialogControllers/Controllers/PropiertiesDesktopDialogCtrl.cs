@@ -23,7 +23,7 @@ public class PropiertiesDesktopDialogCtrl : DialogController
     {
         if (isLaunchedForFistTime)
         {
-            currentDesktopManager = DesktopRootReferenceManager.getInstance().currentDesktopShowed;
+            currentDesktopManager = DesktopRootReferenceManager.getInstance().CurrentDesktopShowed;
             sliderIconSize = transform.Find("SliderIconSize").GetComponent<Slider>();
             inputWallpaperPath = transform.Find("InputPathWallpaper").GetComponent<InputField>();
             listMinutesToChangeWallpaper = transform.Find("ListTimeAutoWallpaperChange").GetComponent<Dropdown>();
@@ -42,17 +42,30 @@ public class PropiertiesDesktopDialogCtrl : DialogController
 
     protected override void doAceptDialog()
     {
-        // TODO: Create new desktop or delete some desktop if it's needed. Modify columns if it's needed.
+        string numberOfColumns = DesktopRootReferenceManager.getInstance().desktopListManager.NumberOfColumns.ToString();
+        string numberOfDesktop = DesktopRootReferenceManager.getInstance().desktopListManager.NumberOfDesktop.ToString();
+
+        if (!textNColumnsDesktop.text.Equals(numberOfColumns))
+        {
+            DesktopRootReferenceManager.getInstance().desktopListManager.NumberOfColumns = int.Parse(textNColumnsDesktop.text);
+        }
+
+        if (!textNDesktop.text.Equals(numberOfDesktop))
+        {
+            DesktopRootReferenceManager.getInstance().desktopListManager.NumberOfDesktop = int.Parse(textNDesktop.text);
+        }
     }
 
     protected override void clearFieldsDialog()
     {
-        // TODO: Get number of desktop and column desktop.
         sliderIconSize.value = defaultIconSize = currentDesktopManager.IconScalePercentage;
         inputWallpaperPath.text = defaultWallpaperPath = currentDesktopManager.WallpaperImagePath;
         
         defaultIndexMinutesToChangeWallpaper = fromSecondsToDropdownIndex(currentDesktopManager.SecondsToChangeWallpaper);
         listMinutesToChangeWallpaper.value = defaultIndexMinutesToChangeWallpaper;
+
+        textNColumnsDesktop.text = DesktopRootReferenceManager.getInstance().desktopListManager.NumberOfColumns.ToString();
+        textNDesktop.text = DesktopRootReferenceManager.getInstance().desktopListManager.NumberOfDesktop.ToString();
     }
 
     public override void OnEscapeButton() => CancelDialog();

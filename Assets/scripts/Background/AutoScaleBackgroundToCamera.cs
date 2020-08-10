@@ -24,6 +24,7 @@ public class AutoScaleBackgroundToCamera : MonoBehaviour
     float secondsToAutoChangeWallpaper = 15 * 60;
 
     public string WallpaperImagePath { get {
+        if (backgroundPathList.Length == 0) return "default";
         if (backgroundPathList.Length == 1) return backgroundPathList[0];
 
         // Get image directory from path.

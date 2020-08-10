@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\scripts\Background\AutoScaleBackgroundToCamera.cs" />
+     <Compile Include="Assets\scripts\Background\DesktopListManager.cs" />
      <Compile Include="Assets\scripts\Background\DesktopManager.cs" />
      <Compile Include="Assets\scripts\DesktopRootReferenceManager.cs" />
      <Compile Include="Assets\scripts\DialogControllers\Controllers\CreateNewFileDialogCtrl.cs" />

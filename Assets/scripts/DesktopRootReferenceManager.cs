@@ -11,8 +11,9 @@ public class DesktopRootReferenceManager : MonoBehaviour
     public ContextualMenuManager contextualMenuManager;
     public FolderController folderController;
     public GameObject colliderBackgroundForDialogs;
-    public DesktopManager currentDesktopShowed; // TODO: When change to desktop, assign the new Destop.
+    public DesktopListManager desktopListManager;
     public FileSpriteByType[] typeFileIconList;
+    public DesktopManager CurrentDesktopShowed { get => desktopListManager.CurrentDesktopShowed; }
 
     void Awake() => _instance = this;
 }

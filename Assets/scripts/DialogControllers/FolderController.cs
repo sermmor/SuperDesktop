@@ -99,7 +99,7 @@ public class FolderController : MonoBehaviour
     }
 
     public void RemoveFromFolderAndPutInDesktop(DesktopItem desktopItemCaller) =>
-        desktopItemCaller.transform.parent = DesktopRootReferenceManager.getInstance().currentDesktopShowed.transform;
+        desktopItemCaller.transform.parent = DesktopRootReferenceManager.getInstance().CurrentDesktopShowed.transform;
 
     void Update()
     {
