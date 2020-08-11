@@ -113,6 +113,12 @@ public class AutoScaleBackgroundToCamera : MonoBehaviour
     }
 
     public void changeImageInCollectionByIndex(int spriteIndex) {
+        if (sprites.Length == 0) sprites = new Sprite[] { defaultWallpaper };
+        if (sr == null) 
+        {
+            sr = GetComponent<SpriteRenderer>();
+            baseScale = new Vector3(1, 1, transform.localScale.z);
+        }
         isAutoScaleFinished = false;
         sr.sprite = sprites[spriteIndex];
         scaleImage();
