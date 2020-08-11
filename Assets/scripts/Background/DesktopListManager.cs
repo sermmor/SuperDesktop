@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class DesktopListManager : MonoBehaviour
@@ -14,6 +12,8 @@ public class DesktopListManager : MonoBehaviour
     float desktopHeight;
 
     List<DesktopManager> desktopList = new List<DesktopManager>();
+
+    int[][] desktopMapIndex = null;
 
     public DesktopManager CurrentDesktopShowed { get => desktopList[currentIndexDesktop]; }
     public int NumberOfDesktop {
@@ -30,6 +30,7 @@ public class DesktopListManager : MonoBehaviour
                     generated.SetActive(false);
                     desktopList.Add(generated.GetComponent<DesktopManager>());
                 }
+                refleshIndexMap();
             } else if (value < desktopList.Count) {
                 // Delete the last (desktopList.Count - value) items.
                 if (currentIndexDesktop >= value) changeInmediatedlyToDesktop(value - 1);
@@ -39,6 +40,7 @@ public class DesktopListManager : MonoBehaviour
                     desktopList.Remove(desktop);
                     desktop.DestroyMe();
                 }
+                refleshIndexMap();
             }
         }
     }
@@ -76,7 +78,43 @@ public class DesktopListManager : MonoBehaviour
             desktopList[i].transform.position = getPositionDesktop(i);
             desktopList[i].gameObject.SetActive(currentIndexDesktop == i);
         }
+        refleshIndexMap();
     }
+
+    void refleshIndexMap()
+    {
+        int[] lenghtOfRowsAndColumns = getRowAndColumn(desktopList.Count - 1);
+        lenghtOfRowsAndColumns[0]++;
+        lenghtOfRowsAndColumns[1] = totalOfColumns;
+        desktopMapIndex = new int[lenghtOfRowsAndColumns[0]][]; // First dimension => ROW, second dimension => COL
+        int counter = 0;
+        int numberOfColumnsInIRow;
+        for (int i = 0; i < lenghtOfRowsAndColumns[0]; i++)
+        {
+            numberOfColumnsInIRow = desktopList.Count - counter;
+            numberOfColumnsInIRow = (numberOfColumnsInIRow < lenghtOfRowsAndColumns[1]) ? numberOfColumnsInIRow : lenghtOfRowsAndColumns[1];
+            desktopMapIndex[i] = new int[numberOfColumnsInIRow];
+            for (int j = 0; j < desktopMapIndex[i].Length; j++)
+            {
+                desktopMapIndex[i][j] = counter;
+                counter++;
+            }
+        }
+
+        // drawMap(); // ! DEBUG, DELETE THIS LINE
+    }
+
+    // void drawMap() // ! DEBUG, DELETE THIS METHOD
+    // {
+    //     for (int i = 0; i < desktopMapIndex.Length; i++)
+    //         for (int j = 0; j < desktopMapIndex[i].Length; j++)
+    //             Debug.Log($"POSITION row = {i}, col = {j} => value = {desktopMapIndex[i][j]}");
+    // }
+
+    int[] getRowAndColumn(int desktopIndex) => (new int[] {
+        (int) Mathf.Floor(desktopIndex / totalOfColumns),
+        (int) Mathf.Floor(desktopIndex % totalOfColumns)
+    });
 
     string getNameDesktop(int desktopIndex) => $"Desktop_{desktopIndex}";
 
@@ -106,27 +144,28 @@ public class DesktopListManager : MonoBehaviour
 
     void calculateDesktopWidthAndHeight()
     {
-        float height = Camera.main.orthographicSize * 2.0f;
-        float width = height / Screen.height * Screen.width;
-        float x = Camera.main.transform.position.x;
-        float y = Camera.main.transform.position.y;
+        desktopHeight = Camera.main.orthographicSize * 2.0f;
+        desktopWidth = desktopHeight / Screen.height * Screen.width;
+    }
 
-        float[] _bounds = new float[]{
-            x - (width / 2), // minX
-            (width / 2) + x, // maxX
-            y - (height / 2), // minY
-            (height / 2) + y // maxY
-        };
-
-        desktopWidth = (width / 2) + x - (x - (width / 2));
-        desktopHeight = (height / 2) + y - (y - (height / 2));
+    void Update()
+    {
+        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+        {
+            // TODO: Use a keyboard shortcut to change of desktop, we use the method "changeFromCurrentToDesktop(int desktopIndex)".
+            KeyCode lastKeyArrowPushed = getKeyArrowPushed();
+            if (lastKeyArrowPushed != KeyCode.None)
+            {
+                int nextIndex = getIndexNextDesktop(lastKeyArrowPushed);
+                if (currentIndexDesktop != nextIndex)
+                    changeFromCurrentToDesktop(nextIndex);
+            }
+        }
     }
 
     public void changeFromCurrentToDesktop(int desktopIndex)
     {
-        currentIndexDesktop = desktopIndex;
-
-        Vector3 desktopPosition = desktopList[currentIndexDesktop].transform.position;
+        Vector3 desktopPosition = desktopList[desktopIndex].transform.position;
         Camera.main.gameObject.transform.position = new Vector3(desktopPosition.x, desktopPosition.y, Camera.main.transform.position.z);
 
         desktopList[desktopIndex].gameObject.SetActive(true);
@@ -139,8 +178,49 @@ public class DesktopListManager : MonoBehaviour
         currentIndexDesktop = desktopIndex;
     }
 
-    void Update()
+    public int getIndexNextDesktop(KeyCode keyPushed)
     {
-        // TODO: Use a keyboard shortcut to change of desktop, we use the method "changeFromCurrentToDesktop(int desktopIndex)".
+        int[] currentRowAndColumn = getRowAndColumn(currentIndexDesktop);
+
+        if (keyPushed == KeyCode.UpArrow)
+            currentRowAndColumn[0]++;
+        else if (keyPushed == KeyCode.DownArrow)
+            currentRowAndColumn[0]--;
+        else if (keyPushed == KeyCode.RightArrow)
+            currentRowAndColumn[1]++;
+        else if (keyPushed == KeyCode.LeftArrow)
+            currentRowAndColumn[1]--;
+
+        return getIndexByRowAndColumn(currentRowAndColumn[0], currentRowAndColumn[1]);
+    }
+
+    int getIndexByRowAndColumn(int row, int column)
+    {
+        int newRow = row;
+        int newColum = column;
+
+        if (newRow > desktopMapIndex.Length - 1)
+            newRow = 0;
+        else if (newRow < 0)
+        {
+            newRow = desktopMapIndex.Length - 1;
+            if (newColum > desktopMapIndex[newRow].Length - 1 && desktopMapIndex[newRow].Length < totalOfColumns) newRow--;
+        }
+
+        if (newColum > desktopMapIndex[newRow].Length - 1)
+            newColum = 0;
+        else if (newColum < 0)
+            newColum = desktopMapIndex[newRow].Length - 1;
+
+        return desktopMapIndex[newRow][newColum];
+    }
+
+    KeyCode getKeyArrowPushed()
+    {
+        if (Input.GetKeyUp(KeyCode.UpArrow)) return KeyCode.UpArrow;
+        else if (Input.GetKeyUp(KeyCode.RightArrow)) return KeyCode.RightArrow;
+        else if (Input.GetKeyUp(KeyCode.DownArrow)) return KeyCode.DownArrow;
+        else if (Input.GetKeyUp(KeyCode.LeftArrow)) return KeyCode.LeftArrow;
+        return KeyCode.None;
     }
 }
