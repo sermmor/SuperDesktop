@@ -84,6 +84,8 @@ public class DesktopManager : MonoBehaviour
         }
 
         sendAllFilesToBackground(gameObject);
+
+        DesktopRootReferenceManager.getInstance().desktopBigPreviews.changeBackgroundPreviewCurrentDesktop(newImagePath);
     }
 
     void sendAllFilesToBackground(GameObject background)

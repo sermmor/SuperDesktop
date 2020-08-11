@@ -20,11 +20,14 @@ public class DesktopListManager : MonoBehaviour
     int[][] desktopMapIndex = null;
 
     public DesktopManager CurrentDesktopShowed { get => desktopList[currentIndexDesktop]; }
+    public int CurrentDesktopShowedIndex { get => currentIndexDesktop; }
+
     public int NumberOfDesktop {
         get => desktopList.Count;
         set {
             if (value > desktopList.Count) {
                 // Create the last (desktopList.Count - value) items.
+                DesktopBigPreviewManager desktopBigPreviews = DesktopRootReferenceManager.getInstance().desktopBigPreviews;
                 for (int i = desktopList.Count; i < value; i++)
                 {
                     GameObject generated = GameObject.Instantiate<GameObject>(desktopPrefab);
@@ -33,9 +36,11 @@ public class DesktopListManager : MonoBehaviour
                     generated.transform.parent = transform;
                     generated.SetActive(false);
                     desktopList.Add(generated.GetComponent<DesktopManager>());
+                    desktopBigPreviews.createNewPreview(generated.transform.position, i);
                 }
                 refleshIndexMap();
             } else if (value < desktopList.Count) {
+                DesktopBigPreviewManager desktopBigPreviews = DesktopRootReferenceManager.getInstance().desktopBigPreviews;
                 // Delete the last (desktopList.Count - value) items.
                 if (currentIndexDesktop >= value) changeInmediatedlyToDesktop(value - 1);
                 for (int i = desktopList.Count - 1; i >= value; i--)
@@ -43,6 +48,7 @@ public class DesktopListManager : MonoBehaviour
                     DesktopManager desktop = desktopList[i];
                     desktopList.Remove(desktop);
                     desktop.DestroyMe();
+                    desktopBigPreviews.deletePreview(i);
                 }
                 refleshIndexMap();
             }
@@ -54,7 +60,7 @@ public class DesktopListManager : MonoBehaviour
         set {
             totalOfColumns = value;
             if (desktopList.Count > value)
-                refleshAllPositionDesktop();
+                refleshAllPositionDesktopAndPreviews();
         }
     }
 
@@ -72,15 +78,19 @@ public class DesktopListManager : MonoBehaviour
         }
 
         calculateDesktopWidthAndHeight();
-        refleshAllPositionDesktop();
+        refleshAllPositionDesktopAndPreviews();
     }
 
-    void refleshAllPositionDesktop()
+    void refleshAllPositionDesktopAndPreviews()
     {
+        DesktopBigPreviewManager desktopBigPreviews = DesktopRootReferenceManager.getInstance().desktopBigPreviews;
+        desktopBigPreviews.clearAllPreviews();
         for (int i = 0; i < desktopList.Count; i++)
         {
             desktopList[i].transform.position = getPositionDesktop(i);
+            desktopBigPreviews.createNewPreview(desktopList[i].transform.position, i);
             desktopList[i].gameObject.SetActive(currentIndexDesktop == i);
+            desktopBigPreviews.enablePreview(i, currentIndexDesktop != i);
         }
         refleshIndexMap();
     }
@@ -137,12 +147,17 @@ public class DesktopListManager : MonoBehaviour
 
     public void changeInmediatedlyToDesktop(int desktopIndex)
     {
+        DesktopBigPreviewManager desktopBigPreviews = DesktopRootReferenceManager.getInstance().desktopBigPreviews;
 
         Vector3 desktopPosition = desktopList[desktopIndex].transform.position;
         Camera.main.gameObject.transform.position = new Vector3(desktopPosition.x, desktopPosition.y, Camera.main.transform.position.z);
 
         desktopList[desktopIndex].gameObject.SetActive(true);
         desktopList[currentIndexDesktop].gameObject.SetActive(false);
+        
+        desktopBigPreviews.enablePreview(desktopIndex, false);
+        desktopBigPreviews.enablePreview(currentIndexDesktop, true);
+
         currentIndexDesktop = desktopIndex;
     }
 
@@ -170,11 +185,17 @@ public class DesktopListManager : MonoBehaviour
 
     public void changeFromCurrentToDesktop(int desktopIndex, KeyCode keyPushed)
     {
+        DesktopBigPreviewManager desktopBigPreviews = DesktopRootReferenceManager.getInstance().desktopBigPreviews;
+
         Vector3 desktopPosition = desktopList[desktopIndex].transform.position;
 
         StartCoroutine(moveCameraToDirection(keyPushed, () => {
+            desktopBigPreviews.enablePreview(currentIndexDesktop, true);
             desktopList[currentIndexDesktop].gameObject.SetActive(false);
+
+            desktopBigPreviews.enablePreview(desktopIndex, false);
             desktopList[desktopIndex].gameObject.SetActive(true);
+
             Camera.main.gameObject.transform.position = new Vector3(desktopPosition.x, desktopPosition.y, Camera.main.transform.position.z);
             currentIndexDesktop = desktopIndex;
         }));
