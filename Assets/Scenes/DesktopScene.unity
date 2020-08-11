@@ -2523,17 +2523,23 @@ MonoBehaviour:
   desktopListManager: {fileID: 437552608}
   typeFileIconList:
   - typeFile: 0
-    sprite: {fileID: 21300000, guid: 4e8a430065297284b824910d2b564cd2, type: 3}
+    sprite: {fileID: -3493865988116704072, guid: 921ef2f1e0ae465419f3a02bc8c7032a,
+      type: 3}
   - typeFile: 1
-    sprite: {fileID: 21300000, guid: 53b79e459c16e99448b7fa98504b0e7f, type: 3}
+    sprite: {fileID: 3875751400610743297, guid: 921ef2f1e0ae465419f3a02bc8c7032a,
+      type: 3}
   - typeFile: 2
-    sprite: {fileID: 21300000, guid: 8ab385a4d9755bc44b127bde033df084, type: 3}
+    sprite: {fileID: -2694848679371067498, guid: 921ef2f1e0ae465419f3a02bc8c7032a,
+      type: 3}
   - typeFile: 3
-    sprite: {fileID: 21300000, guid: a7f633a76f86d8840b525ddc7ac005e7, type: 3}
+    sprite: {fileID: 1002713230284708105, guid: 921ef2f1e0ae465419f3a02bc8c7032a,
+      type: 3}
   - typeFile: 4
-    sprite: {fileID: 21300000, guid: 24aea980a9e6366479661b028d8900a9, type: 3}
+    sprite: {fileID: -3760149575279099463, guid: 921ef2f1e0ae465419f3a02bc8c7032a,
+      type: 3}
   - typeFile: 5
-    sprite: {fileID: 21300000, guid: d4f955c38fcd5974e9190ac28872f82e, type: 3}
+    sprite: {fileID: -1613497554858612307, guid: 921ef2f1e0ae465419f3a02bc8c7032a,
+      type: 3}
 --- !u!1 &327846462
 GameObject:
   m_ObjectHideFlags: 0

@@ -93,23 +93,6 @@ public class DesktopListManager : MonoBehaviour
         );
     }
 
-    public void changeFromCurrentToDesktop(int desktopIndex)
-    {
-        currentIndexDesktop = desktopIndex;
-
-        Vector3 desktopPosition = desktopList[currentIndexDesktop].transform.position;
-        Camera.main.gameObject.transform.position = new Vector3(desktopPosition.x, desktopPosition.y, Camera.main.transform.position.z);
-
-        desktopList[desktopIndex].gameObject.SetActive(true);
-        // TODO: Maximize the sprite of currentIndexDesktop and desktopIndex while movement and when finished change both to full mode.
-        
-        // TODO: Do the effect of movement from currentIndexDesktop to desktopIndex, and then put both in full mode (quit maximize) and 
-        // TODO: do the following lines.
-
-        desktopList[currentIndexDesktop].gameObject.SetActive(false);
-        currentIndexDesktop = desktopIndex;
-    }
-
     public void changeInmediatedlyToDesktop(int desktopIndex)
     {
 
@@ -137,6 +120,23 @@ public class DesktopListManager : MonoBehaviour
 
         desktopWidth = (width / 2) + x - (x - (width / 2));
         desktopHeight = (height / 2) + y - (y - (height / 2));
+    }
+
+    public void changeFromCurrentToDesktop(int desktopIndex)
+    {
+        currentIndexDesktop = desktopIndex;
+
+        Vector3 desktopPosition = desktopList[currentIndexDesktop].transform.position;
+        Camera.main.gameObject.transform.position = new Vector3(desktopPosition.x, desktopPosition.y, Camera.main.transform.position.z);
+
+        desktopList[desktopIndex].gameObject.SetActive(true);
+        // TODO: Maximize the sprite of currentIndexDesktop and desktopIndex while movement and when finished change both to full mode.
+        
+        // TODO: Do the effect of movement from currentIndexDesktop to desktopIndex, and then put both in full mode (quit maximize) and 
+        // TODO: do the following lines.
+
+        desktopList[currentIndexDesktop].gameObject.SetActive(false);
+        currentIndexDesktop = desktopIndex;
     }
 
     void Update()
