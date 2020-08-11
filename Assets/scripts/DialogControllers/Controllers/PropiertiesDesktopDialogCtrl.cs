@@ -21,9 +21,10 @@ public class PropiertiesDesktopDialogCtrl : DialogController
 
     protected override void doOnEnable()
     {
+        currentDesktopManager = DesktopRootReferenceManager.getInstance().CurrentDesktopShowed;
+        
         if (isLaunchedForFistTime)
         {
-            currentDesktopManager = DesktopRootReferenceManager.getInstance().CurrentDesktopShowed;
             sliderIconSize = transform.Find("SliderIconSize").GetComponent<Slider>();
             inputWallpaperPath = transform.Find("InputPathWallpaper").GetComponent<InputField>();
             listMinutesToChangeWallpaper = transform.Find("ListTimeAutoWallpaperChange").GetComponent<Dropdown>();

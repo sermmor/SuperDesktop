@@ -12,6 +12,7 @@ public class DesktopRootReferenceManager : MonoBehaviour
     public FolderController folderController;
     public GameObject colliderBackgroundForDialogs;
     public DesktopListManager desktopListManager;
+    public GameObject temporalBackground;
     public FileSpriteByType[] typeFileIconList;
     public DesktopManager CurrentDesktopShowed { get => desktopListManager.CurrentDesktopShowed; }
 

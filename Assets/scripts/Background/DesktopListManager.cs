@@ -1,8 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class DesktopListManager : MonoBehaviour
 {
+    readonly Vector2 velocityToMoveCameraToDirection = new Vector2(40f, 25f);
+    
     public GameObject desktopPrefab;
 
     int totalOfColumns = 2;
@@ -148,34 +152,79 @@ public class DesktopListManager : MonoBehaviour
         desktopWidth = desktopHeight / Screen.height * Screen.width;
     }
 
+    KeyCode lastKeyArrowPushed;
+    int nextIndexDesktop;
     void Update()
     {
         if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
         {
-            // TODO: Use a keyboard shortcut to change of desktop, we use the method "changeFromCurrentToDesktop(int desktopIndex)".
-            KeyCode lastKeyArrowPushed = getKeyArrowPushed();
+            lastKeyArrowPushed = getKeyArrowPushed();
             if (lastKeyArrowPushed != KeyCode.None)
             {
-                int nextIndex = getIndexNextDesktop(lastKeyArrowPushed);
-                if (currentIndexDesktop != nextIndex)
-                    changeFromCurrentToDesktop(nextIndex);
+                nextIndexDesktop = getIndexNextDesktop(lastKeyArrowPushed);
+                if (currentIndexDesktop != nextIndexDesktop)
+                    changeFromCurrentToDesktop(nextIndexDesktop, lastKeyArrowPushed);
             }
         }
     }
 
-    public void changeFromCurrentToDesktop(int desktopIndex)
+    public void changeFromCurrentToDesktop(int desktopIndex, KeyCode keyPushed)
     {
         Vector3 desktopPosition = desktopList[desktopIndex].transform.position;
-        Camera.main.gameObject.transform.position = new Vector3(desktopPosition.x, desktopPosition.y, Camera.main.transform.position.z);
 
-        desktopList[desktopIndex].gameObject.SetActive(true);
-        // TODO: Maximize the sprite of currentIndexDesktop and desktopIndex while movement and when finished change both to full mode.
+        StartCoroutine(moveCameraToDirection(keyPushed, () => {
+            desktopList[currentIndexDesktop].gameObject.SetActive(false);
+            desktopList[desktopIndex].gameObject.SetActive(true);
+            Camera.main.gameObject.transform.position = new Vector3(desktopPosition.x, desktopPosition.y, Camera.main.transform.position.z);
+            currentIndexDesktop = desktopIndex;
+        }));
+    }
+
+    IEnumerator moveCameraToDirection(KeyCode keyPushed, Action onCameraMoved)
+    {
+        Vector2 increment;
+
+        if (keyPushed == KeyCode.UpArrow)
+            increment = Vector2.up;
+        else if (keyPushed == KeyCode.DownArrow)
+            increment = Vector2.down;
+        else if (keyPushed == KeyCode.RightArrow)
+            increment = Vector2.right;
+        else if (keyPushed == KeyCode.LeftArrow)
+            increment = Vector2.left;
+        else
+            increment = Vector2.zero;
+
+        Vector2 finalPosition = new Vector2(
+            Camera.main.transform.position.x + increment.x * desktopWidth,
+            Camera.main.transform.position.y + increment.y * desktopHeight
+        );
+        increment = Time.deltaTime * increment * velocityToMoveCameraToDirection;
         
-        // TODO: Do the effect of movement from currentIndexDesktop to desktopIndex, and then put both in full mode (quit maximize) and 
-        // TODO: do the following lines.
+        Vector3 currentMovement = new Vector3(0, 0, Camera.main.transform.position.z);
+        while(!isInNewPositionMoveCamera(finalPosition, keyPushed))
+        {
+            currentMovement.x = Camera.main.transform.position.x + increment.x;
+            currentMovement.y = Camera.main.transform.position.y + increment.y;
+            Camera.main.gameObject.transform.position = currentMovement;
+            yield return null;
+        }
 
-        desktopList[currentIndexDesktop].gameObject.SetActive(false);
-        currentIndexDesktop = desktopIndex;
+        if (onCameraMoved != null)
+            onCameraMoved();
+    }
+
+    bool isInNewPositionMoveCamera(Vector2 finalPosition, KeyCode keyPushed)
+    {
+        if (keyPushed == KeyCode.UpArrow)
+            return finalPosition.y <= Camera.main.transform.position.y;
+        else if (keyPushed == KeyCode.DownArrow)
+            return finalPosition.y >= Camera.main.transform.position.y;
+        else if (keyPushed == KeyCode.RightArrow)
+            return finalPosition.x <= Camera.main.transform.position.x;
+        else if (keyPushed == KeyCode.LeftArrow)
+            return finalPosition.x >= Camera.main.transform.position.x;
+        return true;
     }
 
     public int getIndexNextDesktop(KeyCode keyPushed)

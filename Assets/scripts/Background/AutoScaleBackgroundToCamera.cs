@@ -13,7 +13,9 @@ public class AutoScaleBackgroundToCamera : MonoBehaviour
 
     Sprite[] sprites;
     Vector3 baseScale;
+
     SpriteRenderer sr;
+    Vector3 lastScaleBackgroundCalculated;
 
     bool isAutoScaleFinished = false;
 
@@ -153,6 +155,7 @@ public class AutoScaleBackgroundToCamera : MonoBehaviour
 
     void putMode(Vector2 newScale)
     {
+        lastScaleBackgroundCalculated = newScale;
         switch(mode) {
             case AutoScaleMode.MAXIMIZE:
                 maximize(newScale);
@@ -183,5 +186,18 @@ public class AutoScaleBackgroundToCamera : MonoBehaviour
         scaleCalculatedInMode.z = transform.localScale.z;
 
         transform.localScale = scaleCalculatedInMode;
+    }
+
+    public void changeToMode(AutoScaleMode newMode, bool restartOriginalMode = false)
+    {
+        AutoScaleMode modeToChange = restartOriginalMode ? mode : newMode;
+        switch(modeToChange) {
+            case AutoScaleMode.MAXIMIZE:
+                maximize(lastScaleBackgroundCalculated);
+            break;
+            case AutoScaleMode.FULL:
+                full(lastScaleBackgroundCalculated);
+            break;
+        }
     }
 }

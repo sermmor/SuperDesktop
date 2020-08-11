@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class DesktopManager : MonoBehaviour
 {
-    public GameObject temporalBackground;
+    public GameObject temporalBackground { get => DesktopRootReferenceManager.getInstance().temporalBackground; }
     ContextualMenuManager contextualMenu {get => DesktopRootReferenceManager.getInstance().contextualMenuManager; }
     AutoScaleBackgroundToCamera autoScaleBackground;
 
