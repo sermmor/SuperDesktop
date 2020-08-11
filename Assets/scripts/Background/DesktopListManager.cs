@@ -202,6 +202,7 @@ public class DesktopListManager : MonoBehaviour
         increment = Time.deltaTime * increment * velocityToMoveCameraToDirection;
         
         Vector3 currentMovement = new Vector3(0, 0, Camera.main.transform.position.z);
+        
         while(!isInNewPositionMoveCamera(finalPosition, keyPushed))
         {
             currentMovement.x = Camera.main.transform.position.x + increment.x;

@@ -68,13 +68,20 @@ public class DesktopManager : MonoBehaviour
     {
         sendAllFilesToTemporalBackground(temporalBackground);
 
-        // Check if path is a file or a directory.
-        FileAttributes attr = File.GetAttributes(newImagePath);
+        if (!"default".Equals(newImagePath))
+        {
+            // Check if path is a file or a directory.
+            FileAttributes attr = File.GetAttributes(newImagePath);
 
-        if (attr.HasFlag(FileAttributes.Directory)) // Is directory.
-            autoScaleBackground.changeImageList(Directory.EnumerateFiles(newImagePath).ToArray());
+            if (attr.HasFlag(FileAttributes.Directory)) // Is directory.
+                autoScaleBackground.changeImageList(Directory.EnumerateFiles(newImagePath).ToArray());
+            else
+                autoScaleBackground.changeImageList(new string[] {newImagePath});
+        }
         else
+        {
             autoScaleBackground.changeImageList(new string[] {newImagePath});
+        }
 
         sendAllFilesToBackground(gameObject);
     }
