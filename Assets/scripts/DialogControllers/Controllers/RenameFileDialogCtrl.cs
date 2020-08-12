@@ -20,6 +20,8 @@ public class RenameFileDialogCtrl: DialogController
     protected override void doAceptDialog()
     {
         whoIsCallMe.DesktopItemCaller.setFileName(nameFile.text);
+        
+        base.doAceptDialog();
     }
 
     protected override void clearFieldsDialog()

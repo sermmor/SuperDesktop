@@ -52,6 +52,8 @@ public class MoveToFolderDialogCtr : DialogController
             item.AddToFolder(whoIsCallMe.DesktopItemCaller.gameObject);
             FolderItem.HideItemFromDesktop(whoIsCallMe.DesktopItemCaller.gameObject);
         }
+        
+        base.doAceptDialog();
     }
     protected override void clearFieldsDialog() {
         folderListDropdown.value = 0;

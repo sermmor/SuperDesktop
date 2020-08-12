@@ -28,8 +28,10 @@ public class DesktopManager : MonoBehaviour
     public float IconRealScale { get => _iconScale; }
     public float IconScalePercentage { get => _iconScale * 0.5f; } // 1 scale (x, y) == 0.5 percentage => newScale (x, y) = _iconScale * 0.5f
     public string WallpaperImagePath { get => autoScaleBackground.WallpaperImagePath; }
-
     public float SecondsToChangeWallpaper { get => autoScaleBackground.SecondsToAutoChangeWallpaper; }
+
+    public List<DesktopItem> AllItemsInDesktop { get => allItemsInDesktop; }
+    public List<FolderItem> AllFolders { get => allFolders; }
 
     void OnEnable()
     {
@@ -158,11 +160,17 @@ public class DesktopManager : MonoBehaviour
         }
     }
 
-    IEnumerator doActionsWhenAutoScaleBackgroundIsEnding() {
-        if (autoScaleBackground.IsAutoScaling) {
+    IEnumerator doActionsWhenAutoScaleBackgroundIsEnding()
+    {
+        while (autoScaleBackground.IsAutoScaling) {
             yield return null;
         }
 
+        forceToCalculateBounds();
+    }
+
+    public void forceToCalculateBounds()
+    {
         // Calculate all the screen limits.
         float height = Camera.main.orthographicSize * 2.0f;
         float width = height / Screen.height * Screen.width;

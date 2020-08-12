@@ -19,6 +19,8 @@ public class DeleteItemDialogCtrl: DialogController
     protected override void doAceptDialog()
     {
         GameObject.Destroy(whoIsCallMe.DesktopItemCaller.gameObject);
+        
+        base.doAceptDialog();
     }
 
     protected override void clearFieldsDialog() { }

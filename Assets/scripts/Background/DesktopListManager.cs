@@ -19,6 +19,7 @@ public class DesktopListManager : MonoBehaviour
 
     int[][] desktopMapIndex = null;
 
+    public List<DesktopManager> AllDesktops { get => desktopList; }
     public DesktopManager CurrentDesktopShowed { get => desktopList[currentIndexDesktop]; }
     public int CurrentDesktopShowedIndex { get => currentIndexDesktop; }
 
@@ -171,7 +172,7 @@ public class DesktopListManager : MonoBehaviour
     int nextIndexDesktop;
     void Update()
     {
-        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+        if (!DesktopRootReferenceManager.getInstance().isADialogOpened && (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)))
         {
             lastKeyArrowPushed = getKeyArrowPushed();
             if (lastKeyArrowPushed != KeyCode.None)
@@ -185,6 +186,7 @@ public class DesktopListManager : MonoBehaviour
 
     public void changeFromCurrentToDesktop(int desktopIndex, KeyCode keyPushed)
     {
+        DesktopRootReferenceManager.getInstance().isADialogOpened = true;
         DesktopBigPreviewManager desktopBigPreviews = DesktopRootReferenceManager.getInstance().desktopBigPreviews;
 
         Vector3 desktopPosition = desktopList[desktopIndex].transform.position;
@@ -198,6 +200,7 @@ public class DesktopListManager : MonoBehaviour
 
             Camera.main.gameObject.transform.position = new Vector3(desktopPosition.x, desktopPosition.y, Camera.main.transform.position.z);
             currentIndexDesktop = desktopIndex;
+            DesktopRootReferenceManager.getInstance().isADialogOpened = false;
         }));
     }
 

@@ -16,6 +16,11 @@ public class DesktopRootReferenceManager : MonoBehaviour
     public DesktopBigPreviewManager desktopBigPreviews;
     public FileSpriteByType[] typeFileIconList;
     public DesktopManager CurrentDesktopShowed { get => desktopListManager.CurrentDesktopShowed; }
+    public AutoSaver autoSaver { get; set; }
+    public bool isADialogOpened { get; set; } = false;
 
-    void Awake() => _instance = this;
+    void Awake() {
+        autoSaver = GetComponent<AutoSaver>();
+        _instance = this;
+    }
 }

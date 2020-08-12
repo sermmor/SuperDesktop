@@ -33,6 +33,7 @@ public class DialogController : MonoBehaviour
 
     public void showDialog(MenuCaller whoIsCallMe) {
         this.whoIsCallMe = whoIsCallMe;
+        DesktopRootReferenceManager.getInstance().isADialogOpened = true;
         this.gameObject.SetActive(true);
     }
 
@@ -45,16 +46,14 @@ public class DialogController : MonoBehaviour
         }
     }
 
-    protected virtual void doAceptDialog()
-    {
-        Debug.Log("DIALOG ACEPTED!");
-    }
+    protected virtual void doAceptDialog() => DesktopRootReferenceManager.getInstance().autoSaver.MarkToSave = true;
 
     public virtual void OnEscapeButton() => CloseDialog();
 
     public void CloseDialog()
     {
         DesktopRootReferenceManager.getInstance().colliderBackgroundForDialogs.SetActive(false);
+        DesktopRootReferenceManager.getInstance().isADialogOpened = false;
         this.gameObject.SetActive(false);
     }
 

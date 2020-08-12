@@ -36,6 +36,8 @@ public class CreateNewLinkDialogCtrl: DialogController
         item.desktopManager = whoIsCallMe.DesktopManagerCaller;
         item.nameFile = nameLinkFile.text;
         item.urlPath = url.text;
+        
+        base.doAceptDialog();
     }
 
     protected override void clearFieldsDialog()

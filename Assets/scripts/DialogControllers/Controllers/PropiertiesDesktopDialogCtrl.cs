@@ -55,6 +55,8 @@ public class PropiertiesDesktopDialogCtrl : DialogController
         {
             DesktopRootReferenceManager.getInstance().desktopListManager.NumberOfDesktop = int.Parse(textNDesktop.text);
         }
+        
+        base.doAceptDialog();
     }
 
     protected override void clearFieldsDialog()

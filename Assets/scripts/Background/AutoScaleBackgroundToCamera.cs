@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+[System.Serializable]
 public enum AutoScaleMode { MAXIMIZE, FULL};
 
 public class AutoScaleBackgroundToCamera : MonoBehaviour

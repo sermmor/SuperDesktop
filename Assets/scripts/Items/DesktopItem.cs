@@ -82,6 +82,10 @@ public class DesktopItem : MonoBehaviour
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if (desktopBounds == null) {
             desktopBounds = desktopManager.Bounds;
+            if (desktopBounds == null) {
+                desktopManager.forceToCalculateBounds();
+                desktopBounds = desktopManager.Bounds;
+            }
         }
 
         // We move the item only inside the desktop.

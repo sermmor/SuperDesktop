@@ -44,6 +44,8 @@ public class CreateNewFileDialogCtrl : DialogController
             DesktopRootReferenceManager.getInstance().CurrentDesktopShowed.IconRealScale,
             item.transform.localScale.z
         );
+        
+        base.doAceptDialog();
     }
 
     protected override void clearFieldsDialog()

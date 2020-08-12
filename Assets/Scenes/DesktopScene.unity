@@ -2477,6 +2477,7 @@ GameObject:
   m_Component:
   - component: {fileID: 322563389}
   - component: {fileID: 322563390}
+  - component: {fileID: 322563391}
   m_Layer: 0
   m_Name: root
   m_TagString: Untagged
@@ -2543,6 +2544,20 @@ MonoBehaviour:
   - typeFile: 5
     sprite: {fileID: -1613497554858612307, guid: 921ef2f1e0ae465419f3a02bc8c7032a,
       type: 3}
+--- !u!114 &322563391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 322563388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c20193a8ef8e08a4ebcf3c590101f09a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameDesktop: TestDesktop
+  secondsToSave: 15
 --- !u!1 &327846462
 GameObject:
   m_ObjectHideFlags: 0

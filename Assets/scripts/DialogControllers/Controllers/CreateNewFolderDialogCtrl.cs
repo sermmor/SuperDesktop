@@ -33,6 +33,8 @@ public class CreateNewFolderDialogCtrl : DialogController
         FolderItem item = generated.GetComponent<FolderItem>();
         item.desktopManager = whoIsCallMe.DesktopManagerCaller;
         item.nameFile = nameLinkFile.text;
+        
+        base.doAceptDialog();
     }
 
     protected override void clearFieldsDialog()

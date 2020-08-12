@@ -78,6 +78,14 @@
      <Compile Include="Assets\scripts\Menu\ContextualMenuItem.cs" />
      <Compile Include="Assets\scripts\Menu\ContextualMenuManager.cs" />
      <Compile Include="Assets\scripts\Menu\MenuCallerMonoBehaviour.cs" />
+     <Compile Include="Assets\scripts\SaveAndLoad\AutoSaver.cs" />
+     <Compile Include="Assets\scripts\SaveAndLoad\JSONMappers\Items\JSONMapperDesktopItem.cs" />
+     <Compile Include="Assets\scripts\SaveAndLoad\JSONMappers\Items\JSONMapperFileItem.cs" />
+     <Compile Include="Assets\scripts\SaveAndLoad\JSONMappers\Items\JSONMapperFolderItem.cs" />
+     <Compile Include="Assets\scripts\SaveAndLoad\JSONMappers\Items\JSONMapperLinkItem.cs" />
+     <Compile Include="Assets\scripts\SaveAndLoad\JSONMappers\JSONMapperAutoScaleBackgroundToCamera.cs" />
+     <Compile Include="Assets\scripts\SaveAndLoad\JSONMappers\JSONMapperDesktopListManager.cs" />
+     <Compile Include="Assets\scripts\SaveAndLoad\JSONMappers\JSONMapperDesktopManager.cs" />
      <Compile Include="Assets\scripts\SuperDesktopSelection\SuperDesktopSelectorManager.cs" />
      <Compile Include="Assets\scripts\Utilities\FileSpriteByType.cs" />
      <Compile Include="Assets\scripts\Utilities\SpriteLoaderUtility.cs" />
