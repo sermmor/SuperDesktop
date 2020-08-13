@@ -11,8 +11,11 @@ public class LinkItem : DesktopItem
         get => iconPath;
         set {
             iconPath = value;
+            spriteFile.transform.localScale = Vector3.one;
             if (iconPath != null && !"".Equals(iconPath))
                 setIconChoosedByUser();
+            else
+                spriteFile.sprite = TypeFileUtilities.getSpriteOfFile("1.slink");
         }
     }
 

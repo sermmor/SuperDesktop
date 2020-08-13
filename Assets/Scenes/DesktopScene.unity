@@ -3028,22 +3028,22 @@ MonoBehaviour:
   desktopBigPreviews: {fileID: 2014728933}
   typeFileIconList:
   - typeFile: 0
-    sprite: {fileID: -3493865988116704072, guid: 921ef2f1e0ae465419f3a02bc8c7032a,
+    sprite: {fileID: -3493865988116704072, guid: e9d69cefdc90cd14da19d865fbc820b6,
       type: 3}
   - typeFile: 1
-    sprite: {fileID: 3875751400610743297, guid: 921ef2f1e0ae465419f3a02bc8c7032a,
+    sprite: {fileID: 3875751400610743297, guid: e9d69cefdc90cd14da19d865fbc820b6,
       type: 3}
   - typeFile: 2
-    sprite: {fileID: -2694848679371067498, guid: 921ef2f1e0ae465419f3a02bc8c7032a,
+    sprite: {fileID: -2694848679371067498, guid: e9d69cefdc90cd14da19d865fbc820b6,
       type: 3}
   - typeFile: 3
-    sprite: {fileID: 1002713230284708105, guid: 921ef2f1e0ae465419f3a02bc8c7032a,
+    sprite: {fileID: 1002713230284708105, guid: e9d69cefdc90cd14da19d865fbc820b6,
       type: 3}
   - typeFile: 4
-    sprite: {fileID: -3760149575279099463, guid: 921ef2f1e0ae465419f3a02bc8c7032a,
+    sprite: {fileID: -3760149575279099463, guid: e9d69cefdc90cd14da19d865fbc820b6,
       type: 3}
   - typeFile: 5
-    sprite: {fileID: -1613497554858612307, guid: 921ef2f1e0ae465419f3a02bc8c7032a,
+    sprite: {fileID: -1613497554858612307, guid: e9d69cefdc90cd14da19d865fbc820b6,
       type: 3}
 --- !u!114 &322563391
 MonoBehaviour:
@@ -3941,7 +3941,7 @@ GameObject:
   - component: {fileID: 419379734}
   - component: {fileID: 419379733}
   m_Layer: 5
-  m_Name: InputNameFile
+  m_Name: InputPathIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4178,7 +4178,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Enter text...
+  m_Text: Enter path...
 --- !u!222 &436218431
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4466,7 +4466,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 695327599}
         m_MethodName: CloseDialog
         m_Mode: 1
         m_Arguments:
@@ -5746,6 +5746,7 @@ GameObject:
   - component: {fileID: 695327596}
   - component: {fileID: 695327598}
   - component: {fileID: 695327597}
+  - component: {fileID: 695327599}
   m_Layer: 5
   m_Name: ChangeIconFileDialog
   m_TagString: Untagged
@@ -5813,6 +5814,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 695327595}
   m_CullTransparentMesh: 0
+--- !u!114 &695327599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 695327595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a74b6af399e2334e8307ee26553bee0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  navigationList:
+  - {fileID: 419379731}
+  - {fileID: 445800104}
+  - {fileID: 1530697848}
 --- !u!1 &729044109
 GameObject:
   m_ObjectHideFlags: 0
@@ -9504,7 +9521,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Rename
+  m_Text: Change
 --- !u!222 &1095748113
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12148,7 +12165,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 695327599}
         m_MethodName: AceptDialog
         m_Mode: 1
         m_Arguments:
@@ -13801,7 +13818,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Name File:'
+  m_Text: 'Icon path:'
 --- !u!222 &1799103581
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -19,8 +19,11 @@ public class FileItem : DesktopItem
         get => iconPath;
         set {
             iconPath = value;
+            spriteFile.transform.localScale = Vector3.one;
             if (iconPath != null && !"".Equals(iconPath))
                 setIconChoosedByUser();
+            else
+                setFileName(nameFile);
         }
     }
 
