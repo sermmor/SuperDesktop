@@ -32,7 +32,7 @@ public class CreateNewVideoDialogCtrl: DialogController
         positionToPlaceNewItem.z = generated.transform.position.z;
         generated.transform.position = positionToPlaceNewItem;
         // Item Propierties
-        VideoItemManager item = generated.GetComponent<VideoItemManager>();
+        VideoItem item = generated.GetComponent<VideoItem>();
         item.desktopManager = whoIsCallMe.DesktopManagerCaller;
         item.nameFile = nameFile.text;
         item.pathVideo = path.text;

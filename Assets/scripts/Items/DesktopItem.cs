@@ -175,7 +175,7 @@ public class DesktopItem : MonoBehaviour
                 contextualMenu.enableInMousePosition(menuCaller, ContextualMenuMode.FOLDER);
             else if (this is LinkItem)
                 contextualMenu.enableInMousePosition(menuCaller, ContextualMenuMode.LINK);
-            else if (this is VideoItemManager)
+            else if (this is VideoItem)
                 contextualMenu.enableInMousePosition(menuCaller, ContextualMenuMode.VIDEO_WIDGET);
             else
                 contextualMenu.enableInMousePosition(menuCaller, ContextualMenuMode.FILE);

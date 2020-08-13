@@ -15,7 +15,7 @@ public class JSONMapperDesktopListManager
 
         for (int i = 0; i < desktopList.Length; i++)
         {
-            desktopList[i] = new JSONMapperDesktopManager(allDesktops[i]); // TODO: If this don't works, test to parse to sub-json.
+            desktopList[i] = new JSONMapperDesktopManager(allDesktops[i]);
         }
         return JsonUtility.ToJson(this, true);
     }

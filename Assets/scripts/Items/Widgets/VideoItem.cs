@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
 
-public class VideoItemManager : DesktopItem
+public class VideoItem : DesktopItem
 {
     Vector2 sizeVideo = new Vector2();
     public Action OnVideoLoaded;
