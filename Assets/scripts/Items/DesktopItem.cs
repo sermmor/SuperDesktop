@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class DesktopItem : MonoBehaviour
 {
-
     Vector3 positionMouseDragging;
     Vector3 mousePosition;
     bool isDraging, isDragingInAction;
@@ -41,8 +40,13 @@ public class DesktopItem : MonoBehaviour
         isDraging = false;
         isDragingInAction = false;
         positionMouseDragging = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-        nameFileTextMesh = transform.Find("NameFileText").GetComponent<TextMesh>();
-        spriteFile = transform.Find("FileIconSprite").GetComponent<SpriteRenderer>();
+        
+        Transform finded = transform.Find("NameFileText");
+        if (finded) nameFileTextMesh = finded.GetComponent<TextMesh>();
+        
+        finded = transform.Find("FileIconSprite");
+        if (finded) spriteFile = finded.GetComponent<SpriteRenderer>();
+        
         setFileName(nameFile);
         thingsToDoAfterStart();
     }
@@ -54,7 +58,8 @@ public class DesktopItem : MonoBehaviour
         {
             nameFile = nameFile.Replace("\\n", "\n");
         }
-        nameFileTextMesh.text = nameFile;
+        if (nameFileTextMesh)
+            nameFileTextMesh.text = nameFile;
     }
 
     public void setFolderParentName(string nameFolder = null) => this.nameFolderParent = nameFolder;
@@ -170,6 +175,8 @@ public class DesktopItem : MonoBehaviour
                 contextualMenu.enableInMousePosition(menuCaller, ContextualMenuMode.FOLDER);
             else if (this is LinkItem)
                 contextualMenu.enableInMousePosition(menuCaller, ContextualMenuMode.LINK);
+            else if (this is VideoItemManager)
+                contextualMenu.enableInMousePosition(menuCaller, ContextualMenuMode.VIDEO_WIDGET);
             else
                 contextualMenu.enableInMousePosition(menuCaller, ContextualMenuMode.FILE);
         }

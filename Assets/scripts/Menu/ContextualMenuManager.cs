@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ContextualMenuMode { DESKTOP, FILE, FOLDER, LINK };
+public enum ContextualMenuMode { DESKTOP, FILE, FOLDER, LINK, VIDEO_WIDGET };
 
 public class ContextualMenuManager : MonoBehaviour
 {
@@ -11,6 +11,7 @@ public class ContextualMenuManager : MonoBehaviour
     
     GameObject fileOptions;
     GameObject linkOptions;
+    GameObject videoOptions;
     GameObject desktopOptions;
     GameObject folderOptions;
     Vector3 mousePosition;
@@ -31,6 +32,8 @@ public class ContextualMenuManager : MonoBehaviour
             folderOptions = transform.Find("AllMenus/FolderOptions").gameObject;
         if (linkOptions == null)
             linkOptions = transform.Find("AllMenus/LinkOptions").gameObject;
+        if (videoOptions == null)
+            videoOptions = transform.Find("AllMenus/VideoOptions").gameObject;
     }
 
     public void enableInMousePosition(MenuCaller whoIsCallMe, ContextualMenuMode mode)
@@ -41,6 +44,7 @@ public class ContextualMenuManager : MonoBehaviour
         fileOptions.SetActive(mode == ContextualMenuMode.FILE);
         linkOptions.SetActive(mode == ContextualMenuMode.LINK);
         folderOptions.SetActive(mode == ContextualMenuMode.FOLDER);
+        videoOptions.SetActive(mode == ContextualMenuMode.VIDEO_WIDGET);
 
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         positionToShowMenu.x = mousePosition.x;

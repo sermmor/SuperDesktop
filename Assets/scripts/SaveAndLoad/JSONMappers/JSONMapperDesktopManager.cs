@@ -23,18 +23,15 @@ public class JSONMapperDesktopManager
 
     void parseItems(List<DesktopItem> allItemsInDesktop)
     {
-        JSONMapperDesktopItem[] listItems = new JSONMapperDesktopItem[allItemsInDesktop.Count];
-        allFilesInDesktop = (from item in allItemsInDesktop where (item is FileItem) select new JSONMapperFileItem(item)).ToArray();
-        allLinkInDesktop = (from link in allItemsInDesktop where (link is LinkItem) select new JSONMapperLinkItem(link)).ToArray();
+        allFilesInDesktop = (from item in allItemsInDesktop where (item is FileItem && item != null) select new JSONMapperFileItem(item)).ToArray();
+        allLinkInDesktop = (from link in allItemsInDesktop where (link is LinkItem && link != null) select new JSONMapperLinkItem(link)).ToArray();
     }
 
     JSONMapperFolderItem[] parseFolders(List<FolderItem> allFolderInDesktop)
     {
-        JSONMapperFolderItem[] listItems = new JSONMapperFolderItem[allFolderInDesktop.Count];
-        
-        for (int i = 0; i < allFolderInDesktop.Count; i++)
-            listItems[i] = new JSONMapperFolderItem(allFolderInDesktop[i]);
-
-        return listItems;
+        return (from folder in allFolderInDesktop
+            where folder != null
+            select new JSONMapperFolderItem(folder)
+        ).ToArray();
     }
 }
