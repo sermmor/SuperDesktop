@@ -3045,6 +3045,9 @@ MonoBehaviour:
   - typeFile: 5
     sprite: {fileID: -1613497554858612307, guid: e9d69cefdc90cd14da19d865fbc820b6,
       type: 3}
+  - typeFile: 6
+    sprite: {fileID: 4705146160426706512, guid: e9d69cefdc90cd14da19d865fbc820b6,
+      type: 3}
 --- !u!114 &322563391
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -132,6 +132,7 @@ public class DesktopItem : MonoBehaviour
         if (dragCoroutine != null) {
             StopCoroutine(dragCoroutine);
             dragCoroutine = null;
+            DesktopRootReferenceManager.getInstance().autoSaver.MarkToSave = true;
         }
 
         isDragingInAction = false;

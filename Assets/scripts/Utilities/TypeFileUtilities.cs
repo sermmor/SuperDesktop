@@ -52,6 +52,8 @@ public static class TypeFileUtilities
             return FileSpriteByType.getSpriteByType(TypeFile.LINK);
         } else if (IsTypeFolder(extensionFile)) {
             return FileSpriteByType.getSpriteByType(TypeFile.FOLDER);
+        } else if (nameFileOrCompletedPath.ToLower().Equals(extensionFile) || "".Equals(extensionFile) || extensionFile == null) {
+            return FileSpriteByType.getSpriteByType(TypeFile.FILE_SYSTEM_FOLDER);
         }
 
         return FileSpriteByType.getSpriteByType(TypeFile.OTHER);

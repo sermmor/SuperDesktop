@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public enum TypeFile { OTHER, TEXT, IMAGE, VIDEO, LINK, FOLDER };
+public enum TypeFile { OTHER, TEXT, IMAGE, VIDEO, LINK, FOLDER, FILE_SYSTEM_FOLDER };
 
 [System.Serializable]
 public class FileSpriteByType
