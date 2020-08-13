@@ -14,9 +14,18 @@ public class FileItem : DesktopItem
     public string directoryFilePath { get => this._directoryFilePath; }
     string _directoryFilePath;
 
+    string iconPath;
+    public string IconPath {
+        get => iconPath;
+        set {
+            iconPath = value;
+            if (iconPath != null && !"".Equals(iconPath)) setIconChoosedByUser();
+        }
+    }
+
     protected override void thingsToDoAfterStart()
     {
-        if (filePath != null) {
+        if (filePath != null && !"".Equals(filePath)) {
             // Check if path is a file or a directory.
             FileAttributes attr = File.GetAttributes(filePath);
             if (attr.HasFlag(FileAttributes.Directory)) {
@@ -42,10 +51,15 @@ public class FileItem : DesktopItem
                     UnityEngine.Debug.LogError("A file cannot place in the root (but it will be in C:\\ or D:\\");
                 }
             }
+
+            // Check Icon.
+            if (iconPath != null && !"".Equals(iconPath)) setIconChoosedByUser();
         } else {
             UnityEngine.Debug.LogError($"Path of the file {this.nameFile} is null!");
         }
     }
+
+    private void setIconChoosedByUser() => checkAndSetIconImageFile(iconPath);
 
     private void checkDirectoryPathExistence() {
         if (!Directory.Exists(_directoryFilePath)) {
@@ -57,28 +71,32 @@ public class FileItem : DesktopItem
     public override void setFileName(string nameFile)
     {
         base.setFileName(nameFile);
-        
-        string extensionFile = TypeFileUtilities.getExtensionFile(filePath);
+        checkAndSetIconImageFile(filePath);
+    }
+
+    void checkAndSetIconImageFile(string imageIconPath)
+    {
+        string extensionFile = TypeFileUtilities.getExtensionFile(imageIconPath);
 
         if (TypeFileUtilities.IsTypeImage(extensionFile) && !TypeFileUtilities.IsRareTypeImage(extensionFile))
         {
             try
             {
-                spriteFile.sprite = SpriteLoaderUtility.LoadSprite(filePath);
+                spriteFile.sprite = SpriteLoaderUtility.LoadSprite(imageIconPath);
                 setSpriteFileIconToDefaultWidthSize();
             }
             catch (System.Exception ex)
             {
-                setSpriteByFileName();
+                setSpriteGenericByFileName();
             }
         }
         else
         {
-            setSpriteByFileName();
+            setSpriteGenericByFileName();
         }
     }
 
-    void setSpriteByFileName() => spriteFile.sprite = TypeFileUtilities.getSpriteOfFile(filePath);
+    void setSpriteGenericByFileName() => spriteFile.sprite = TypeFileUtilities.getSpriteOfFile(filePath);
 
     Vector3 scaleCalculatedForAutoScaleIcon = new Vector3(0, 0, 0);
     void setSpriteFileIconToDefaultWidthSize() {

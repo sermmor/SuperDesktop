@@ -5,9 +5,11 @@ using UnityEngine;
 public class JSONMapperLinkItem : JSONMapperDesktopItem
 {
     public string urlPath;
+    public string iconPath;
 
     public JSONMapperLinkItem(DesktopItem item) : base(item)
     {
         urlPath = ((LinkItem) item).urlPath;
+        iconPath = ((FileItem) item).IconPath;
     }
 }
