@@ -18,7 +18,7 @@ public class ChangeScaleVideoDialogCtrl: DialogController
             newScaleVideo = new Vector3(
                 0,
                 0, 
-                ((VideoItem) whoIsCallMe.DesktopItemCaller).transform.localScale.z
+                whoIsCallMe.DesktopItemCaller.transform.localScale.z
             );
             contextualMenuManager = DesktopRootReferenceManager.getInstance().contextualMenuManager;
             inputWidth = transform.Find("InputWidth").gameObject.GetComponent<InputField>();
@@ -29,24 +29,26 @@ public class ChangeScaleVideoDialogCtrl: DialogController
     protected override void clearFieldsDialog()
     {
         defaultScaleVideo = new Vector3(
-            ((VideoItem) whoIsCallMe.DesktopItemCaller).transform.localScale.x,
-            ((VideoItem) whoIsCallMe.DesktopItemCaller).transform.localScale.y,
-            ((VideoItem) whoIsCallMe.DesktopItemCaller).transform.localScale.z
+            whoIsCallMe.DesktopItemCaller.transform.localScale.x,
+            whoIsCallMe.DesktopItemCaller.transform.localScale.y,
+            whoIsCallMe.DesktopItemCaller.transform.localScale.z
         );
-        inputWidth.text = ((VideoItem) whoIsCallMe.DesktopItemCaller).transform.localScale.x.ToString();
-        inputHeight.text = ((VideoItem) whoIsCallMe.DesktopItemCaller).transform.localScale.y.ToString();
+        inputWidth.text = whoIsCallMe.DesktopItemCaller.transform.localScale.x.ToString();
+        inputHeight.text = whoIsCallMe.DesktopItemCaller.transform.localScale.y.ToString();
     }
 
     public void SetNewScalePosition()
     {
         newScaleVideo.x = float.Parse(inputWidth.text);
         newScaleVideo.y = float.Parse(inputHeight.text);
-        ((VideoItem) whoIsCallMe.DesktopItemCaller).transform.localScale = newScaleVideo;
+        whoIsCallMe.DesktopItemCaller.transform.localScale = newScaleVideo;
+        whoIsCallMe.DesktopItemCaller.AutoScaleColliderToSize();
     }
 
     public void CancelDialog()
     {
-        ((VideoItem) whoIsCallMe.DesktopItemCaller).transform.localScale = defaultScaleVideo;
+        whoIsCallMe.DesktopItemCaller.transform.localScale = defaultScaleVideo;
+        whoIsCallMe.DesktopItemCaller.AutoScaleColliderToSize();
         this.CloseDialog();
     }
 }
