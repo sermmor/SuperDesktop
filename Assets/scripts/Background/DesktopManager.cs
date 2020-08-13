@@ -92,21 +92,21 @@ public class DesktopManager : MonoBehaviour
 
     void sendAllFilesToBackground(GameObject background)
     {
-        foreach (DesktopItem item in allItemsInDesktop)
-        {
-            if (item == null) continue;
-            item.transform.parent = background.transform;
-        }
+        // foreach (DesktopItem item in allItemsInDesktop)
+        // {
+        //     if (item == null) continue;
+        //     item.transform.parent = background.transform;
+        // }
     }
 
     void sendAllFilesToTemporalBackground(GameObject background)
     {
-        foreach (DesktopItem item in allItemsInDesktop)
-        {
-            if (item == null) continue;
-            item.transform.parent = background.transform;
-            item.transform.localScale = new Vector3(1, 1, item.transform.localScale.z);
-        }
+        // foreach (DesktopItem item in allItemsInDesktop)
+        // {
+        //     if (item == null) continue;
+        //     item.transform.parent = background.transform;
+        //     item.transform.localScale = new Vector3(1, 1, item.transform.localScale.z);
+        // }
     }
 
     public void setTimeToAutoChangeWallpaper(float timeInSeconds)
@@ -116,7 +116,8 @@ public class DesktopManager : MonoBehaviour
 
     public void addItemToDeskop(DesktopItem desktopItem)
     {
-        desktopItem.transform.SetParent(transform);
+        // desktopItem.transform.SetParent(transform);
+        desktopItem.transform.SetParent(DesktopRootReferenceManager.getInstance().allIconsParent.transform);
 
         allItemsInDesktop.Add(desktopItem);
 
