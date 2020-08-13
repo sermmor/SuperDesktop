@@ -116,6 +116,8 @@ public class DesktopManager : MonoBehaviour
 
     public void addItemToDeskop(DesktopItem desktopItem)
     {
+        desktopItem.transform.SetParent(transform);
+
         allItemsInDesktop.Add(desktopItem);
 
         if (desktopItem is FolderItem)

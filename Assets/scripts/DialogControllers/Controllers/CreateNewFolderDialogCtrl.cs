@@ -27,8 +27,6 @@ public class CreateNewFolderDialogCtrl : DialogController
         positionToPlaceNewItem.y = contextualMenuManager.transform.position.y;
         positionToPlaceNewItem.z = generated.transform.position.z;
         generated.transform.position = positionToPlaceNewItem;
-        // Parent
-        generated.transform.SetParent(whoIsCallMe.DesktopManagerCaller.transform);
         // Item Propierties
         FolderItem item = generated.GetComponent<FolderItem>();
         item.desktopManager = whoIsCallMe.DesktopManagerCaller;

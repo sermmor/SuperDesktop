@@ -29,8 +29,6 @@ public class CreateNewLinkDialogCtrl: DialogController
         positionToPlaceNewItem.y = contextualMenuManager.transform.position.y;
         positionToPlaceNewItem.z = generated.transform.position.z;
         generated.transform.position = positionToPlaceNewItem;
-        // Parent
-        generated.transform.SetParent(whoIsCallMe.DesktopManagerCaller.transform);
         // Item Propierties
         LinkItem item = generated.GetComponent<LinkItem>();
         item.desktopManager = whoIsCallMe.DesktopManagerCaller;

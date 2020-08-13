@@ -32,8 +32,6 @@ public class CreateNewFileDialogCtrl : DialogController
         positionToPlaceNewItem.y = contextualMenuManager.transform.position.y;
         positionToPlaceNewItem.z = generated.transform.position.z;
         generated.transform.position = positionToPlaceNewItem;
-        // Parent
-        generated.transform.SetParent(whoIsCallMe.DesktopManagerCaller.transform);
         // Item Propierties
         FileItem item = generated.GetComponent<FileItem>();
         item.desktopManager = whoIsCallMe.DesktopManagerCaller;
