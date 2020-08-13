@@ -19,7 +19,8 @@ public class FileItem : DesktopItem
         get => iconPath;
         set {
             iconPath = value;
-            if (iconPath != null && !"".Equals(iconPath)) setIconChoosedByUser();
+            if (iconPath != null && !"".Equals(iconPath))
+                setIconChoosedByUser();
         }
     }
 
@@ -53,7 +54,8 @@ public class FileItem : DesktopItem
             }
 
             // Check Icon.
-            if (iconPath != null && !"".Equals(iconPath)) setIconChoosedByUser();
+            if (iconPath != null && !"".Equals(iconPath))
+                setIconChoosedByUser();
         } else {
             UnityEngine.Debug.LogError($"Path of the file {this.nameFile} is null!");
         }

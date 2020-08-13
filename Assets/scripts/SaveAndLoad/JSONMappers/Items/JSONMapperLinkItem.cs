@@ -10,6 +10,6 @@ public class JSONMapperLinkItem : JSONMapperDesktopItem
     public JSONMapperLinkItem(DesktopItem item) : base(item)
     {
         urlPath = ((LinkItem) item).urlPath;
-        iconPath = ((FileItem) item).IconPath;
+        iconPath = ((LinkItem) item).IconPath;
     }
 }

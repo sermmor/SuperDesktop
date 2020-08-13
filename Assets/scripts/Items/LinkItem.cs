@@ -11,13 +11,15 @@ public class LinkItem : DesktopItem
         get => iconPath;
         set {
             iconPath = value;
-            if (iconPath != null && !"".Equals(iconPath)) setIconChoosedByUser();
+            if (iconPath != null && !"".Equals(iconPath))
+                setIconChoosedByUser();
         }
     }
 
-    protected override void thingsToDoAfterStart() {
-        // Check Icon.
-        if (iconPath != null && !"".Equals(iconPath)) setIconChoosedByUser();
+    protected override void thingsToDoAfterStart()
+    {
+        if (iconPath != null && !"".Equals(iconPath))
+            setIconChoosedByUser();
     }
 
     private void setIconChoosedByUser() => checkAndSetIconImageFile(iconPath);

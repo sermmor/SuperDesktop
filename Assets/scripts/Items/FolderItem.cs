@@ -17,16 +17,22 @@ public class FolderItem : DesktopItem
     public bool AddToFolder(GameObject item)
     {
         bool folderFull = false;
-        DesktopRootReferenceManager.getInstance().CurrentDesktopShowed.RemoveFromFolderAndPutInDesktop(item.GetComponent<DesktopItem>());
+        DesktopItem desktopItem = item.GetComponent<DesktopItem>();
+        DesktopRootReferenceManager.getInstance().CurrentDesktopShowed.RemoveFromFolderAndPutInDesktop(desktopItem);
         if (item.GetComponent<FolderItem>() == null)
         {
             if (_itemList.Count < MAX_NUMBER_ITEM)
+            {
                 _itemList.Add(item);
+                desktopItem.setFolderParentName(nameFile);
+            }
             else 
                 folderFull = true;
         }
         return folderFull;
     }
+
+    public void removeFromFolder(GameObject item) => _itemList.Remove(item);
 
     public void HideAllItemFromDesktop()
     {

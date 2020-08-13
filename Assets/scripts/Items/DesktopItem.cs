@@ -23,6 +23,10 @@ public class DesktopItem : MonoBehaviour
     MenuCaller menuCaller;
     bool IsMouseAboveDesktopItem;
 
+    string nameFolderParent;
+
+    public string NameFolderParent { get => nameFolderParent; }
+
     public float[] bounds { get {
         Bounds bounds = GetComponent<BoxCollider2D>().bounds;
         return new float[]{ bounds.size.x, bounds.size.y };
@@ -52,6 +56,8 @@ public class DesktopItem : MonoBehaviour
         }
         nameFileTextMesh.text = nameFile;
     }
+
+    public void setFolderParentName(string nameFolder = null) => this.nameFolderParent = nameFolder;
 
     void OnMouseDrag()
     {
@@ -159,7 +165,12 @@ public class DesktopItem : MonoBehaviour
         if (contextualMenu != null)
         {
             menuCaller.setCaller(this);
-            contextualMenu.enableInMousePosition(menuCaller, ContextualMenuMode.FILE);
+            if (this is FolderItem)
+                contextualMenu.enableInMousePosition(menuCaller, ContextualMenuMode.FOLDER);
+            else if (this is LinkItem)
+                contextualMenu.enableInMousePosition(menuCaller, ContextualMenuMode.LINK);
+            else
+                contextualMenu.enableInMousePosition(menuCaller, ContextualMenuMode.FILE);
         }
     }
 
