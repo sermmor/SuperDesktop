@@ -195,10 +195,10 @@ public class AutoScaleBackgroundToCamera : MonoBehaviour
         transform.localScale = scaleCalculatedInMode;
     }
 
-    public void changeToMode(AutoScaleMode newMode, bool restartOriginalMode = false)
+    public void changeToMode(AutoScaleMode newMode)
     {
-        AutoScaleMode modeToChange = restartOriginalMode ? mode : newMode;
-        switch(modeToChange) {
+        mode = newMode;
+        switch(mode) {
             case AutoScaleMode.MAXIMIZE:
                 maximize(lastScaleBackgroundCalculated);
             break;

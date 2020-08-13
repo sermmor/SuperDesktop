@@ -11,8 +11,11 @@ public class PropiertiesDesktopDialogCtrl : DialogController
     int defaultNColumnsDesktop;
     int defaultNDesktop;
 
+    AutoScaleMode defaultModeWallpaper;
+
     Slider sliderIconSize;
     InputField inputWallpaperPath;
+    Dropdown listWallpaperMode;
     Dropdown listMinutesToChangeWallpaper;
     InputField textNColumnsDesktop;
     InputField textNDesktop;
@@ -27,6 +30,7 @@ public class PropiertiesDesktopDialogCtrl : DialogController
         {
             sliderIconSize = transform.Find("SliderIconSize").GetComponent<Slider>();
             inputWallpaperPath = transform.Find("InputPathWallpaper").GetComponent<InputField>();
+            listWallpaperMode = transform.Find("ListWallpaperMode").GetComponent<Dropdown>();
             listMinutesToChangeWallpaper = transform.Find("ListTimeAutoWallpaperChange").GetComponent<Dropdown>();
             textNColumnsDesktop = transform.Find("InputNColumDesktop").GetComponent<InputField>();
             textNDesktop = transform.Find("InputNDesktop").GetComponent<InputField>();
@@ -35,6 +39,12 @@ public class PropiertiesDesktopDialogCtrl : DialogController
 
     public void onChangeSliderSizeIcons() => currentDesktopManager.changeSizeIcons(sliderIconSize.value);
     public void onChangeWallpaperPath() => currentDesktopManager.changeImagePath(inputWallpaperPath.text);
+
+    public void onChangeWallpaperMode()
+    {
+        AutoScaleMode modeWallpaper = (listWallpaperMode.value == 0 ) ? AutoScaleMode.FULL : AutoScaleMode.MAXIMIZE;
+        currentDesktopManager.changeModeWallpaper(modeWallpaper);
+    }
     public void onChangeAutoChangeWallpaperTime()
     {
         float secondsAutoChangeWallpaper = fromDropdownIndexToSeconds(listMinutesToChangeWallpaper.value);
@@ -61,6 +71,9 @@ public class PropiertiesDesktopDialogCtrl : DialogController
 
     protected override void clearFieldsDialog()
     {
+        defaultModeWallpaper = currentDesktopManager.ModeWallpaper;
+        listWallpaperMode.value = defaultModeWallpaper == AutoScaleMode.FULL ? 0 : 1;
+
         sliderIconSize.value = defaultIconSize = currentDesktopManager.IconScalePercentage;
         inputWallpaperPath.text = defaultWallpaperPath = currentDesktopManager.WallpaperImagePath;
         
@@ -78,6 +91,7 @@ public class PropiertiesDesktopDialogCtrl : DialogController
         // New created desktops or deleted desktop can't be canceled.
         currentDesktopManager.changeSizeIcons(defaultIconSize);
         currentDesktopManager.changeImagePath(defaultWallpaperPath);
+        currentDesktopManager.changeModeWallpaper(defaultModeWallpaper);
 
         float secondsAutoChangeWallpaper = fromDropdownIndexToSeconds(defaultIndexMinutesToChangeWallpaper);
         currentDesktopManager.setTimeToAutoChangeWallpaper(secondsAutoChangeWallpaper);

@@ -7,7 +7,6 @@ using UnityEngine;
 
 public class DesktopManager : MonoBehaviour
 {
-    public GameObject temporalBackground { get => DesktopRootReferenceManager.getInstance().temporalBackground; }
     ContextualMenuManager contextualMenu {get => DesktopRootReferenceManager.getInstance().contextualMenuManager; }
     AutoScaleBackgroundToCamera autoScaleBackground;
 
@@ -30,6 +29,8 @@ public class DesktopManager : MonoBehaviour
     public string WallpaperImagePath { get => autoScaleBackground.WallpaperImagePath; }
     public float SecondsToChangeWallpaper { get => autoScaleBackground.SecondsToAutoChangeWallpaper; }
 
+    public AutoScaleMode ModeWallpaper { get => autoScaleBackground.mode; }
+
     public List<DesktopItem> AllItemsInDesktop { get => allItemsInDesktop; }
     public List<FolderItem> AllFolders { get => allFolders; }
 
@@ -50,6 +51,8 @@ public class DesktopManager : MonoBehaviour
         }
     }
 
+    public void changeModeWallpaper(AutoScaleMode modeWallpaper) => autoScaleBackground.changeToMode(modeWallpaper);
+
     public void changeSizeIcons(float newPercentage)
     {
         // newPercentage is a value between 0 and 1.
@@ -68,8 +71,6 @@ public class DesktopManager : MonoBehaviour
 
     public void changeImagePath(string newImagePath)
     {
-        sendAllFilesToTemporalBackground(temporalBackground);
-
         if (!"default".Equals(newImagePath))
         {
             // Check if path is a file or a directory.
@@ -85,28 +86,7 @@ public class DesktopManager : MonoBehaviour
             autoScaleBackground.changeImageList(new string[] {newImagePath});
         }
 
-        sendAllFilesToBackground(gameObject);
-
         DesktopRootReferenceManager.getInstance().desktopBigPreviews.changeBackgroundPreviewCurrentDesktop(newImagePath);
-    }
-
-    void sendAllFilesToBackground(GameObject background)
-    {
-        // foreach (DesktopItem item in allItemsInDesktop)
-        // {
-        //     if (item == null) continue;
-        //     item.transform.parent = background.transform;
-        // }
-    }
-
-    void sendAllFilesToTemporalBackground(GameObject background)
-    {
-        // foreach (DesktopItem item in allItemsInDesktop)
-        // {
-        //     if (item == null) continue;
-        //     item.transform.parent = background.transform;
-        //     item.transform.localScale = new Vector3(1, 1, item.transform.localScale.z);
-        // }
     }
 
     public void setTimeToAutoChangeWallpaper(float timeInSeconds)

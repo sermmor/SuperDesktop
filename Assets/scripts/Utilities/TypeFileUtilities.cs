@@ -16,8 +16,8 @@ public static class TypeFileUtilities
     static string[] textExtensions = new[]{"txt", "doc", "docx", "xls", "xlsx", "pdf", "epub", "odt", "ppt", "pptx"};
     public static bool IsTypeText(string extensionFile) => isInTypeExtensionList(textExtensions, extensionFile);
 
-    static string[] rareImageExtensions = new[]{"gif", "ptg", "clip"};
-    static string[] imageExtensions = new[]{"jpg", "jpeg", "png", "gif", "svg", "ptg", "clip"};
+    static string[] rareImageExtensions = new[]{"gif", "ptg", "clip", "ico"};
+    static string[] imageExtensions = new[]{"jpg", "jpeg", "png", "gif", "svg", "ptg", "clip", "ico"};
     public static bool IsTypeImage(string extensionFile) => isInTypeExtensionList(imageExtensions, extensionFile);
     public static bool IsRareTypeImage(string extensionFile) => isInTypeExtensionList(rareImageExtensions, extensionFile);
 

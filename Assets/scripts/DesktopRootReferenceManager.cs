@@ -12,7 +12,6 @@ public class DesktopRootReferenceManager : MonoBehaviour
     public FolderController folderController;
     public GameObject colliderBackgroundForDialogs;
     public DesktopListManager desktopListManager;
-    public GameObject temporalBackground;
     public GameObject allIconsParent;
     public DesktopBigPreviewManager desktopBigPreviews;
     public FileSpriteByType[] typeFileIconList;
