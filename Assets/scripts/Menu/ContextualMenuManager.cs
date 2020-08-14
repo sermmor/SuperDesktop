@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ContextualMenuMode { DESKTOP, FILE, FOLDER, LINK, VIDEO_WIDGET, GROUP_ITEM_WIDGET };
+public enum ContextualMenuMode { DESKTOP, FILE, FOLDER, LINK, VIDEO_WIDGET, GROUP_ITEM_WIDGET, IMAGE_BACKGROUND_WIDGET };
 
 public class ContextualMenuManager : MonoBehaviour
 {
@@ -15,6 +15,7 @@ public class ContextualMenuManager : MonoBehaviour
     GameObject desktopOptions;
     GameObject folderOptions;
     GameObject groupItemsOptions;
+    GameObject backgroundImgOptions;
     Vector3 mousePosition;
     Vector3 positionToShowMenu;
     public bool isOpen {get => this.gameObject.activeSelf; }
@@ -37,6 +38,8 @@ public class ContextualMenuManager : MonoBehaviour
             videoOptions = transform.Find("AllMenus/VideoOptions").gameObject;
         if (groupItemsOptions == null)
             groupItemsOptions = transform.Find("AllMenus/GroupItemsOptions").gameObject;
+        if (backgroundImgOptions == null)
+            backgroundImgOptions = transform.Find("AllMenus/BackgroundImgOptions").gameObject;
     }
 
     public void enableInMousePosition(MenuCaller whoIsCallMe, ContextualMenuMode mode)
@@ -49,6 +52,7 @@ public class ContextualMenuManager : MonoBehaviour
         folderOptions.SetActive(mode == ContextualMenuMode.FOLDER);
         videoOptions.SetActive(mode == ContextualMenuMode.VIDEO_WIDGET);
         groupItemsOptions.SetActive(mode == ContextualMenuMode.GROUP_ITEM_WIDGET);
+        backgroundImgOptions.SetActive(mode == ContextualMenuMode.IMAGE_BACKGROUND_WIDGET);
 
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         positionToShowMenu.x = mousePosition.x;

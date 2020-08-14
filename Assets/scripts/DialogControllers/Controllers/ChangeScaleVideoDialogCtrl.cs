@@ -22,9 +22,18 @@ public class ChangeScaleVideoDialogCtrl: DialogController
                 whoIsCallMe.DesktopItemCaller.transform.localScale.z
             );
             contextualMenuManager = DesktopRootReferenceManager.getInstance().contextualMenuManager;
-            inputWidth = transform.Find("InputWidth").gameObject.GetComponent<InputField>();
-            inputHeight = transform.Find("InputHeight").gameObject.GetComponent<InputField>();
-            isProporcionalList = transform.Find("isProporcionalList").gameObject.GetComponent<Dropdown>();
+
+            Transform dialogItem = transform.Find("InputWidth");
+            if (dialogItem)
+                inputWidth = dialogItem.gameObject.GetComponent<InputField>();
+
+            dialogItem = transform.Find("InputHeight");
+            if (dialogItem)
+                inputHeight = dialogItem.gameObject.GetComponent<InputField>();
+
+            dialogItem = transform.Find("isProporcionalList");
+            if (dialogItem)
+                isProporcionalList = dialogItem.gameObject.GetComponent<Dropdown>();
         }
     }
 
@@ -35,12 +44,30 @@ public class ChangeScaleVideoDialogCtrl: DialogController
             whoIsCallMe.DesktopItemCaller.transform.localScale.y,
             whoIsCallMe.DesktopItemCaller.transform.localScale.z
         );
-        inputWidth.text = whoIsCallMe.DesktopItemCaller.transform.localScale.x.ToString();
-        inputHeight.text = whoIsCallMe.DesktopItemCaller.transform.localScale.y.ToString();
+
+        if (inputWidth != null)
+            inputWidth.text = whoIsCallMe.DesktopItemCaller.transform.localScale.x.ToString();
+        
+        if (inputHeight != null)
+            inputHeight.text = whoIsCallMe.DesktopItemCaller.transform.localScale.y.ToString();
+    }
+
+    void SetNewScalePositionInImage(ImageBackgroundItemWidget item)
+    {
+        item.setNewScale(float.Parse(inputWidth.text));
+
+        if (inputHeight != null)
+            inputHeight.text = whoIsCallMe.DesktopItemCaller.transform.localScale.y.ToString();
     }
 
     public void SetNewScalePosition()
     {
+        if (whoIsCallMe.DesktopItemCaller is ImageBackgroundItemWidget)
+        {
+            SetNewScalePositionInImage((ImageBackgroundItemWidget) whoIsCallMe.DesktopItemCaller);
+            return;
+        }
+        
         if (isProporcionalList.value == 0) 
         {
             newScaleVideo.x = float.Parse(inputWidth.text);

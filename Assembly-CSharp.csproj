@@ -67,6 +67,7 @@
      <Compile Include="Assets\scripts\DialogControllers\Controllers\CreateNewFolderDialogCtrl.cs" />
      <Compile Include="Assets\scripts\DialogControllers\Controllers\CreateNewLinkDialogCtrl.cs" />
      <Compile Include="Assets\scripts\DialogControllers\Controllers\CreateNewVideoDialogCtrl.cs" />
+     <Compile Include="Assets\scripts\DialogControllers\Controllers\CreateWidgetImageDialogCtrl.cs" />
      <Compile Include="Assets\scripts\DialogControllers\Controllers\DeleteItemDialogCtrl.cs" />
      <Compile Include="Assets\scripts\DialogControllers\Controllers\MoveToFolderDialogCtr.cs" />
      <Compile Include="Assets\scripts\DialogControllers\Controllers\PropiertiesDesktopDialogCtrl.cs" />
@@ -78,6 +79,7 @@
      <Compile Include="Assets\scripts\Items\FolderItem.cs" />
      <Compile Include="Assets\scripts\Items\LinkItem.cs" />
      <Compile Include="Assets\scripts\Items\Widgets\GroupItemWidget.cs" />
+     <Compile Include="Assets\scripts\Items\Widgets\ImageBackgroundItemWidget.cs" />
      <Compile Include="Assets\scripts\Items\Widgets\VideoItem.cs" />
      <Compile Include="Assets\scripts\Menu\AllMenuItemsType\CreateGroupItemWidgetCtxtMenu.cs" />
      <Compile Include="Assets\scripts\Menu\AllMenuItemsType\LaunchDialogCtxtMenu.cs" />
@@ -92,6 +94,7 @@
      <Compile Include="Assets\scripts\SaveAndLoad\JSONMappers\Items\JSONMapperGroupItemWidget.cs" />
      <Compile Include="Assets\scripts\SaveAndLoad\JSONMappers\Items\JSONMapperLinkItem.cs" />
      <Compile Include="Assets\scripts\SaveAndLoad\JSONMappers\Items\JSONMapperVideoItem.cs" />
+     <Compile Include="Assets\scripts\SaveAndLoad\JSONMappers\Items\JSONMapperWidgetImageItem.cs" />
      <Compile Include="Assets\scripts\SaveAndLoad\JSONMappers\JSONMapperAutoScaleBackgroundToCamera.cs" />
      <Compile Include="Assets\scripts\SaveAndLoad\JSONMappers\JSONMapperDesktopListManager.cs" />
      <Compile Include="Assets\scripts\SaveAndLoad\JSONMappers\JSONMapperDesktopManager.cs" />
