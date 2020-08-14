@@ -191,6 +191,11 @@ public class DesktopItem : MonoBehaviour
                 contextualMenu.enableInMousePosition(menuCaller, ContextualMenuMode.GROUP_ITEM_WIDGET);
             else if (this is ImageBackgroundItemWidget)
                 contextualMenu.enableInMousePosition(menuCaller, ContextualMenuMode.IMAGE_BACKGROUND_WIDGET);
+            else if (this is NoteItemWidget)
+            {
+                menuCaller.setCaller(DesktopRootReferenceManager.getInstance().CurrentDesktopShowed);
+                contextualMenu.enableInMousePosition(menuCaller, ContextualMenuMode.DESKTOP);
+            }
             else
                 contextualMenu.enableInMousePosition(menuCaller, ContextualMenuMode.FILE);
         }

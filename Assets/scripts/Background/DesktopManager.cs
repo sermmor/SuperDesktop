@@ -63,7 +63,7 @@ public class DesktopManager : MonoBehaviour
 
         foreach (DesktopItem item in allItemsInDesktop)
         {
-            if (item == null || item is VideoItem || item is GroupItemWidget) continue;
+            if (item == null || item is VideoItem || item is GroupItemWidget || item is ImageBackgroundItemWidget) continue;
             newScale = new Vector3(newScaleBase, newScaleBase, item.transform.localScale.z);
             item.transform.localScale = newScale;
         }

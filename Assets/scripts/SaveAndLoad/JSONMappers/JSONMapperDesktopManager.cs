@@ -10,6 +10,7 @@ public class JSONMapperDesktopManager
     public JSONMapperVideoItem[] allVideosInDesktop;
     public JSONMapperGroupItemWidget[] allGroupItemInDesktop;
     public JSONMapperWidgetImageItem[] allImageBackgroundInDesktop;
+    public JSONMapperNoteWidgetItem[] allNotesInDesktop;
     public JSONMapperFolderItem[] allFolders;
     public float iconRealScale;
 
@@ -31,6 +32,7 @@ public class JSONMapperDesktopManager
         allVideosInDesktop = (from video in allItemsInDesktop where (video is VideoItem && video != null) select new JSONMapperVideoItem(video)).ToArray();
         allGroupItemInDesktop = (from groupItem in allItemsInDesktop where (groupItem is GroupItemWidget && groupItem != null) select new JSONMapperGroupItemWidget(groupItem)).ToArray();
         allImageBackgroundInDesktop = (from image in allItemsInDesktop where (image is ImageBackgroundItemWidget && image != null) select new JSONMapperWidgetImageItem(image)).ToArray();
+        allNotesInDesktop = (from note in allItemsInDesktop where (note is NoteItemWidget && note != null) select new JSONMapperNoteWidgetItem(note)).ToArray();
     }
 
     JSONMapperFolderItem[] parseFolders(List<FolderItem> allFolderInDesktop)

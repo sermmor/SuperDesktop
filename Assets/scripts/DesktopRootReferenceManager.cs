@@ -14,7 +14,9 @@ public class DesktopRootReferenceManager : MonoBehaviour
     public DesktopListManager desktopListManager;
     public GameObject allIconsParent;
     public DesktopBigPreviewManager desktopBigPreviews;
+    public CreateOrModifyNoteWidgetDialogCtrl noteDialog;
     public FileSpriteByType[] typeFileIconList;
+
     public DesktopManager CurrentDesktopShowed { get => desktopListManager.CurrentDesktopShowed; }
     public AutoSaver autoSaver { get; set; }
     public bool isADialogOpened { get; set; } = false;
