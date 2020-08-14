@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -62,8 +63,31 @@ public class DialogController : MonoBehaviour
         Debug.Log("FIELDS CLEARED!");
     }
 
+    void updateFocus(GameObject focusElement)
+    {
+        int indexFocus = -1;
+        for (int i = 0; i < navigationList.Length; i++)
+        {
+            if (navigationList[i] == focusElement)
+            {
+                indexFocus = i;
+                break;
+            }
+        }
+
+        if (indexFocus != -1 && indexInTabNavigation != indexFocus)
+        {
+            indexInTabNavigation = indexFocus;
+            EventSystem.current.SetSelectedGameObject(navigationList[indexInTabNavigation]);
+        }
+    }
+
     void Update()
     {
+        // Check current focus.
+        updateFocus(EventSystem.current.currentSelectedGameObject);
+
+        // Check next focus.
         if (isNavigationEnabled && Input.GetKeyUp(KeyCode.Tab))
         {
             if (isReverseNavigation())
