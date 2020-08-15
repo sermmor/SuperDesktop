@@ -55,6 +55,7 @@ public class DialogController : MonoBehaviour
     {
         DesktopRootReferenceManager.getInstance().colliderBackgroundForDialogs.SetActive(false);
         DesktopRootReferenceManager.getInstance().isADialogOpened = false;
+        DesktopRootReferenceManager.getInstance().autoSaver.MarkToSave = true;
         this.gameObject.SetActive(false);
     }
 
