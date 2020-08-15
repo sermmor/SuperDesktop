@@ -118,7 +118,10 @@ public class DesktopListManager : MonoBehaviour
             }
         }
 
-        DesktopListIndicator.reflesh(desktopMapIndex);
+        if (DesktopListIndicator)
+            DesktopListIndicator.reflesh(desktopMapIndex);
+        else 
+            ShowDesktopIndicatorManager.MarkToRefleshWhenCreated(desktopMapIndex);
     }
 
     int[] getRowAndColumn(int desktopIndex) => (new int[] {
@@ -255,9 +258,9 @@ public class DesktopListManager : MonoBehaviour
         int[] currentRowAndColumn = getRowAndColumn(currentIndexDesktop);
 
         if (keyPushed == KeyCode.UpArrow)
-            currentRowAndColumn[0]++;
-        else if (keyPushed == KeyCode.DownArrow)
             currentRowAndColumn[0]--;
+        else if (keyPushed == KeyCode.DownArrow)
+            currentRowAndColumn[0]++;
         else if (keyPushed == KeyCode.RightArrow)
             currentRowAndColumn[1]++;
         else if (keyPushed == KeyCode.LeftArrow)
