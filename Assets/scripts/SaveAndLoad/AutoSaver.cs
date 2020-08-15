@@ -20,7 +20,6 @@ public class AutoSaver : MonoBehaviour
         MarkToSave = false;
         mapper = new JSONMapperDesktopListManager();
         StartCoroutine(autoSaverRoutine());
-        // MarkToSave = true; // TODO: DEBUG, DELETE THIS LINE!!!
     }
 
     IEnumerator autoSaverRoutine()
@@ -38,20 +37,7 @@ public class AutoSaver : MonoBehaviour
     void saveNow()
     {
         string json = mapper.mapDesktopListManagerToJSON();
-        // TODO: Save all list to JSON.
         System.IO.File.WriteAllText(filePath, json);
-        // FileStream file;
-
-        // if(File.Exists(filePath)) file = File.OpenWrite(filePath);
-        // else file = File.Create(filePath);
-        
-        // file.Close();
         Debug.Log($"Saved in {filePath}");
     }
-}
-
-[System.Serializable]
-public class Test {
-    public int t1 = 42;
-    public string nameTest = "saveTest";
 }
