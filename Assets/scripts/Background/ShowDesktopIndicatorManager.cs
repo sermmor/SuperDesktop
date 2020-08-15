@@ -80,10 +80,8 @@ public class ShowDesktopIndicatorManager : MonoBehaviour
         }
     }
 
-    const float marginIndicatorLeft = .375f;
-    const float marginIndicatorRight = .375f;
-    const float marginIndicatorUp = .375f;
-    const float marginIndicatorDown = .375f;
+    const float margin = .375f;
+    const float totalSquareSize = margin * 2;
     Vector3 positionForReflesh = new Vector3(0, 0, 0);
     public void reflesh(int[][] desktopMapIndex)
     {
@@ -91,10 +89,12 @@ public class ShowDesktopIndicatorManager : MonoBehaviour
         int[] row;
         GameObject generated;
 
+        float initPosX = -((desktopMapIndex.Length - 1) * margin);
+        float initPosY = (desktopMapIndex[0].Length - 1) * margin;
+
         float rowMarginAcc = 0;
         float colMarginAcc = 0;
-        
-        // TODO Create all the visual the structure using desktopMapIndex, desktopEnabledIndicator and desktopDisabledIndicator.
+
         for (int i = 0; i < desktopMapIndex.Length; i++)
         {
             colMarginAcc = 0;
@@ -108,15 +108,15 @@ public class ShowDesktopIndicatorManager : MonoBehaviour
                 generated.name = desktopMapIndex[i][j].ToString();
                 generated.transform.SetParent(transform);
 
-                positionForReflesh.x = generated.transform.position.x + colMarginAcc;
-                positionForReflesh.y = generated.transform.position.y - rowMarginAcc;
+                positionForReflesh.x = initPosX + generated.transform.position.x + colMarginAcc;
+                positionForReflesh.y =  initPosY + generated.transform.position.y - rowMarginAcc;
                 positionForReflesh.z = generated.transform.position.z;
                 generated.transform.position = positionForReflesh;
 
                 indicatorsList.Add(generated);
-                colMarginAcc += (marginIndicatorLeft + marginIndicatorRight);
+                colMarginAcc += totalSquareSize;
             }
-            rowMarginAcc += (marginIndicatorDown + marginIndicatorUp);
+            rowMarginAcc += totalSquareSize;
         }
     }
 
