@@ -19,6 +19,8 @@ public class DesktopListManager : MonoBehaviour
 
     int[][] desktopMapIndex = null;
 
+    public ShowDesktopIndicatorManager DesktopListIndicator {get; set;}
+
     public List<DesktopManager> AllDesktops { get => desktopList; }
     public DesktopManager CurrentDesktopShowed { get => desktopList[currentIndexDesktop]; }
     public int CurrentDesktopShowedIndex { get => currentIndexDesktop; }
@@ -116,15 +118,8 @@ public class DesktopListManager : MonoBehaviour
             }
         }
 
-        // drawMap(); // ! DEBUG, DELETE THIS LINE
+        DesktopListIndicator.reflesh(desktopMapIndex);
     }
-
-    // void drawMap() // ! DEBUG, DELETE THIS METHOD
-    // {
-    //     for (int i = 0; i < desktopMapIndex.Length; i++)
-    //         for (int j = 0; j < desktopMapIndex[i].Length; j++)
-    //             Debug.Log($"POSITION row = {i}, col = {j} => value = {desktopMapIndex[i][j]}");
-    // }
 
     int[] getRowAndColumn(int desktopIndex) => (new int[] {
         (int) Mathf.Floor(desktopIndex / totalOfColumns),
@@ -191,7 +186,10 @@ public class DesktopListManager : MonoBehaviour
 
         Vector3 desktopPosition = desktopList[desktopIndex].transform.position;
 
+        DesktopListIndicator.isEnableIndicator(true, desktopIndex);
+
         StartCoroutine(moveCameraToDirection(keyPushed, () => {
+            DesktopListIndicator.isEnableIndicator(false, desktopIndex);
             desktopBigPreviews.enablePreview(currentIndexDesktop, true);
             desktopList[currentIndexDesktop].gameObject.SetActive(false);
 
