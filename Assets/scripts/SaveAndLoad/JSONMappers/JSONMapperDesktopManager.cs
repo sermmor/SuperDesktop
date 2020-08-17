@@ -41,23 +41,13 @@ public class JSONMapperDesktopManager
         desktopManager.IconRealScale = iconRealScale;
         autoScaleBackground.parseJSONToAutoScaleBackground(desktopManager.autoScaleBackground);
 
-        // TODO: ALL WIDGETS AND ICONS!!!
-        foreach (JSONMapperFileItem file in allFilesInDesktop)
-            file.parseJSONToItem(desktopManager);
-
-        foreach(JSONMapperLinkItem link in allLinkInDesktop)
-            link.parseJSONToItem(desktopManager);
-
-        
-        // allVideosInDesktop
-        // allGroupItemInDesktop
-        // allImageBackgroundInDesktop
-        // allNotesInDesktop
-
-        // TODO: ALL FOLDERS!!!
-        // allFolders
-        foreach(JSONMapperFolderItem folder in allFolders)
-            folder.parseJsonToFolder(desktopManager);
+        foreach (JSONMapperFileItem file in allFilesInDesktop) file.parseJSONToItem(desktopManager);
+        foreach (JSONMapperLinkItem link in allLinkInDesktop) link.parseJSONToItem(desktopManager);
+        foreach (JSONMapperGroupItemWidget widget in allGroupItemInDesktop) widget.parseJSONToItem(desktopManager);        
+        foreach (JSONMapperVideoItem widget in allVideosInDesktop) widget.parseJSONToItem(desktopManager);
+        foreach (JSONMapperWidgetImageItem widget in allImageBackgroundInDesktop) widget.parseJSONToItem(desktopManager);
+        foreach (JSONMapperNoteWidgetItem widget in allNotesInDesktop) widget.parseJSONToItem(desktopManager);
+        foreach (JSONMapperFolderItem folder in allFolders) folder.parseJsonToFolder(desktopManager);
     }
 
     JSONMapperFolderItem[] parseFolders(List<FolderItem> allFolderInDesktop)

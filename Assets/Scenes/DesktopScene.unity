@@ -15486,9 +15486,9 @@ MonoBehaviour:
     type: 3}
   NoteWidgetPrefab: {fileID: 5566535847081653182, guid: bf9b7f4e90a84eb4faf39ccc9444310f,
     type: 3}
-  VideoItemPrefab: {fileID: 3225886262892734378, guid: 6d1c0af3e58aec34584c123b5e8dbbf8,
+  VideoItemPrefab: {fileID: 3048300571467632542, guid: ce1b75bafe7c73548b97cb844820ca3f,
     type: 3}
-  WidgetImagePrefab: {fileID: 3048300571467632542, guid: ce1b75bafe7c73548b97cb844820ca3f,
+  WidgetImagePrefab: {fileID: 3225886262892734378, guid: 6d1c0af3e58aec34584c123b5e8dbbf8,
     type: 3}
 --- !u!1 &1019350624
 GameObject:

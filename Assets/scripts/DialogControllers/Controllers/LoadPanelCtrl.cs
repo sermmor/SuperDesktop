@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class LoadPanelCtrl : MonoBehaviour
 {
     const string newDesktopNameCode = "NEW DESKTOP";
+
     Dropdown desktopListDropdown;
 
     string[] dropdownOptions;
@@ -57,6 +58,10 @@ public class LoadPanelCtrl : MonoBehaviour
             string jsonData = LoadDesktops.LoadData(allDesktopPaths[desktopListDropdown.value - 1]);
             JSONMapperDesktopListManager.parseJSONToDesktopListManager(jsonData);
             DesktopRootReferenceManager.getInstance().autoSaver.blockAllSaves(false);
+        }
+        else
+        {
+            // TODO: GET NEW NAME FROM FORM!!!!
         }
         Destroy(gameObject);
         DesktopRootReferenceManager.getInstance().colliderBackgroundForDialogs.SetActive(false);
