@@ -35,6 +35,12 @@ public class AutoSaver : MonoBehaviour
         }
     }
 
+    public void forceToSave()
+    {
+        MarkToSave = false;
+        saveNow();
+    }
+
     void saveNow()
     {
         string json = mapper.mapDesktopListManagerToJSON();

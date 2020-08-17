@@ -8,6 +8,8 @@ public class DesktopRootReferenceManager : MonoBehaviour
     public static DesktopRootReferenceManager getInstance() => DesktopRootReferenceManager._instance;
 
     // For general use or singleton collection.
+    public GameObject alertLoading;
+    public YesOrNotAlertController alertYesOrNotController;
     public ContextualMenuManager contextualMenuManager;
     public FolderController folderController;
     public GameObject colliderBackgroundForDialogs;

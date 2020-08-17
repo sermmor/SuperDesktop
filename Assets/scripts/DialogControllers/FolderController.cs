@@ -17,12 +17,14 @@ public class FolderController : MonoBehaviour
 
     public void showDialog(FolderItem folderItem)
     {
+        DesktopRootReferenceManager.getInstance().isADialogOpened = true;
         this.folderItem = folderItem;
         gameObject.SetActive(true);
     }
 
     public void closeDialog()
     {
+        DesktopRootReferenceManager.getInstance().isADialogOpened = false;
         DesktopRootReferenceManager.getInstance().colliderBackgroundForDialogs.SetActive(false);
         uiFolderPanel.SetActive(false);
         gameObject.SetActive(false);
