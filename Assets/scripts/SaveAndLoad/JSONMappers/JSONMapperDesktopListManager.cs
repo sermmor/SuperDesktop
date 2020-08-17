@@ -19,4 +19,11 @@ public class JSONMapperDesktopListManager
         }
         return JsonUtility.ToJson(this, true);
     }
+
+    public static void parseJSONToDesktopListManager(string jsonData)
+    {
+        JSONMapperDesktopListManager desktop = JsonUtility.FromJson<JSONMapperDesktopListManager>(jsonData);
+
+        // TODO: APPLY ALL JSONMapperDesktopManager TO DESKTOP.
+    }
 }

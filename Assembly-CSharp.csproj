@@ -71,6 +71,7 @@
      <Compile Include="Assets\scripts\DialogControllers\Controllers\CreateOrModifyNoteWidgetDialogCtrl.cs" />
      <Compile Include="Assets\scripts\DialogControllers\Controllers\CreateWidgetImageDialogCtrl.cs" />
      <Compile Include="Assets\scripts\DialogControllers\Controllers\DeleteItemDialogCtrl.cs" />
+     <Compile Include="Assets\scripts\DialogControllers\Controllers\LoadPanelCtrl.cs" />
      <Compile Include="Assets\scripts\DialogControllers\Controllers\MoveToFolderDialogCtr.cs" />
      <Compile Include="Assets\scripts\DialogControllers\Controllers\PropiertiesDesktopDialogCtrl.cs" />
      <Compile Include="Assets\scripts\DialogControllers\Controllers\RenameFileDialogCtrl.cs" />
@@ -102,7 +103,7 @@
      <Compile Include="Assets\scripts\SaveAndLoad\JSONMappers\JSONMapperAutoScaleBackgroundToCamera.cs" />
      <Compile Include="Assets\scripts\SaveAndLoad\JSONMappers\JSONMapperDesktopListManager.cs" />
      <Compile Include="Assets\scripts\SaveAndLoad\JSONMappers\JSONMapperDesktopManager.cs" />
-     <Compile Include="Assets\scripts\SuperDesktopSelection\SuperDesktopSelectorManager.cs" />
+     <Compile Include="Assets\scripts\SaveAndLoad\LoadDesktops.cs" />
      <Compile Include="Assets\scripts\Utilities\FileSpriteByType.cs" />
      <Compile Include="Assets\scripts\Utilities\SpriteLoaderUtility.cs" />
      <Compile Include="Assets\scripts\Utilities\TypeFileUtilities.cs" />
