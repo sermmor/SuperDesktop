@@ -8,7 +8,7 @@ using UnityEngine;
 public class DesktopManager : MonoBehaviour
 {
     ContextualMenuManager contextualMenu {get => DesktopRootReferenceManager.getInstance().contextualMenuManager; }
-    AutoScaleBackgroundToCamera autoScaleBackground;
+    public AutoScaleBackgroundToCamera autoScaleBackground;
 
     float[] _bounds = null;
 
@@ -24,7 +24,7 @@ public class DesktopManager : MonoBehaviour
     public List<string> allFoldersNames { get => (from folderItem in allFolders select folderItem.nameFile).ToList(); }
 
     float _iconScale = 1;
-    public float IconRealScale { get => _iconScale; }
+    public float IconRealScale { get => _iconScale; set => _iconScale = value; }
     public float IconScalePercentage { get => _iconScale * 0.5f; } // 1 scale (x, y) == 0.5 percentage => newScale (x, y) = _iconScale * 0.5f
     public string WallpaperImagePath { get => autoScaleBackground.WallpaperImagePath; }
     public float SecondsToChangeWallpaper { get => autoScaleBackground.SecondsToAutoChangeWallpaper; }
@@ -59,14 +59,18 @@ public class DesktopManager : MonoBehaviour
         // 0.5 percentage === 1 scale (x, y) => newScale (x, y) = newPercentage / 0.5f
         float newScaleBase = newPercentage / 0.5f;
         _iconScale = newScaleBase;
-        Vector3 newScale;
 
         foreach (DesktopItem item in allItemsInDesktop)
-        {
-            if (item == null || item is VideoItem || item is GroupItemWidget || item is ImageBackgroundItemWidget) continue;
-            newScale = new Vector3(newScaleBase, newScaleBase, item.transform.localScale.z);
-            item.transform.localScale = newScale;
-        }
+            changeSizeIcons(item, newScaleBase);
+    }
+
+    void changeSizeIcons(DesktopItem item, float scaleIcon)
+    {
+        if (item == null || item is VideoItem || item is GroupItemWidget || item is ImageBackgroundItemWidget)
+            return;
+        
+        Vector3 newScale = new Vector3(scaleIcon, scaleIcon, item.transform.localScale.z);
+        item.transform.localScale = newScale;
     }
 
     public void changeImagePath(string newImagePath)
@@ -100,6 +104,8 @@ public class DesktopManager : MonoBehaviour
         desktopItem.transform.SetParent(DesktopRootReferenceManager.getInstance().allIconsParent.transform);
 
         allItemsInDesktop.Add(desktopItem);
+
+        changeSizeIcons(desktopItem, _iconScale);
 
         if (desktopItem is FolderItem)
             allFolders.Add((FolderItem) desktopItem);

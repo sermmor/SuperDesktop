@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -33,6 +34,14 @@ public class JSONMapperDesktopManager
         allGroupItemInDesktop = (from groupItem in allItemsInDesktop where (groupItem is GroupItemWidget && groupItem != null) select new JSONMapperGroupItemWidget(groupItem)).ToArray();
         allImageBackgroundInDesktop = (from image in allItemsInDesktop where (image is ImageBackgroundItemWidget && image != null) select new JSONMapperWidgetImageItem(image)).ToArray();
         allNotesInDesktop = (from note in allItemsInDesktop where (note is NoteItemWidget && note != null) select new JSONMapperNoteWidgetItem(note)).ToArray();
+    }
+
+    public void parseJSONToDesktop(DesktopManager desktopManager)
+    {
+        desktopManager.IconRealScale = iconRealScale;
+        autoScaleBackground.parseJSONToAutoScaleBackground(desktopManager.autoScaleBackground);
+
+        // TODO: ALL FOLDERS, WIDGETS AND ICONS!!!
     }
 
     JSONMapperFolderItem[] parseFolders(List<FolderItem> allFolderInDesktop)

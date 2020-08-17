@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class LoadPanelCtrl : MonoBehaviour
 {
+    const string newDesktopNameCode = "NEW DESKTOP";
     Dropdown desktopListDropdown;
 
     string[] dropdownOptions;
@@ -50,18 +51,14 @@ public class LoadPanelCtrl : MonoBehaviour
 
     public void OpenSuperDesktopSelected()
     {
-        if ("NEW DESKTOP".Equals(dropdownOptions[desktopListDropdown.value]))
+        if (!newDesktopNameCode.Equals(dropdownOptions[desktopListDropdown.value]))
         {
-            // Create a new SuperDesktop.
-            // SceneManager.LoadScene(1);
-            Destroy(gameObject);
-        }
-        else
-        {
-            // TODO: Load and open a SuperDesktop already created.
+            DesktopRootReferenceManager.getInstance().autoSaver.blockAllSaves(true);
             string jsonData = LoadDesktops.LoadData(allDesktopPaths[desktopListDropdown.value - 1]);
             JSONMapperDesktopListManager.parseJSONToDesktopListManager(jsonData);
+            DesktopRootReferenceManager.getInstance().autoSaver.blockAllSaves(false);
         }
+        Destroy(gameObject);
         DesktopRootReferenceManager.getInstance().colliderBackgroundForDialogs.SetActive(false);
     }
 }

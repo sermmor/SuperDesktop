@@ -22,8 +22,12 @@ public class JSONMapperDesktopListManager
 
     public static void parseJSONToDesktopListManager(string jsonData)
     {
-        JSONMapperDesktopListManager desktop = JsonUtility.FromJson<JSONMapperDesktopListManager>(jsonData);
+        JSONMapperDesktopListManager superDesktop = JsonUtility.FromJson<JSONMapperDesktopListManager>(jsonData);
 
-        // TODO: APPLY ALL JSONMapperDesktopManager TO DESKTOP.
+        DesktopRootReferenceManager.getInstance().desktopListManager.NumberOfColumns = superDesktop.totalColumns;
+        DesktopRootReferenceManager.getInstance().desktopListManager.NumberOfDesktop = superDesktop.desktopList.Length;
+        
+        for (int i = 0; i < superDesktop.desktopList.Length; i++)
+            superDesktop.desktopList[i].parseJSONToDesktop(DesktopRootReferenceManager.getInstance().desktopListManager.AllDesktops[i]);
     }
 }

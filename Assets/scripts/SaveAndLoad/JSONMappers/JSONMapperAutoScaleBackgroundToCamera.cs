@@ -1,4 +1,6 @@
 
+using System;
+
 [System.Serializable]
 public class JSONMapperAutoScaleBackgroundToCamera
 {
@@ -12,5 +14,12 @@ public class JSONMapperAutoScaleBackgroundToCamera
         mode = autoscaler.mode;
         backgroundPathList = autoscaler.backgroundPathList;
         secondsToAutoChangeWallpaper = autoscaler.SecondsToAutoChangeWallpaper;
+    }
+
+    public void parseJSONToAutoScaleBackground(AutoScaleBackgroundToCamera autoscaler)
+    {
+        autoscaler.changeToMode(mode);
+        autoscaler.setTimeToAutoChangeWallpaper(secondsToAutoChangeWallpaper);
+        autoscaler.changeImageList(backgroundPathList);
     }
 }

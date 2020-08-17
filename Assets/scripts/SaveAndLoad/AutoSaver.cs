@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.IO;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ public class AutoSaver : MonoBehaviour
     public float secondsToSave = 15f;
 
     public bool MarkToSave { get; set; }
+    public bool IsAllSavesBlock { get; set; }
 
     string filePath { get => Path.Combine(Application.persistentDataPath, $"{nameDesktop}.json"); }
 
@@ -15,6 +17,7 @@ public class AutoSaver : MonoBehaviour
     
     void Start()
     {
+        IsAllSavesBlock = false;
         MarkToSave = false;
         mapper = new JSONMapperDesktopListManager();
         StartCoroutine(autoSaverRoutine());
@@ -25,7 +28,7 @@ public class AutoSaver : MonoBehaviour
         while(true)
         {
             yield return new WaitForSeconds(secondsToSave);
-            if (MarkToSave) {
+            if (MarkToSave && !IsAllSavesBlock) {
                 saveNow();
                 MarkToSave = false;
             }
@@ -38,4 +41,6 @@ public class AutoSaver : MonoBehaviour
         System.IO.File.WriteAllText(filePath, json);
         Debug.Log($"Saved in {filePath}");
     }
+
+    public void blockAllSaves(bool isBlockAllSaves) => IsAllSavesBlock = isBlockAllSaves;
 }
