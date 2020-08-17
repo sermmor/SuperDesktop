@@ -9,7 +9,7 @@ public class ExitFromApplication : MonoBehaviour
         if (!DesktopRootReferenceManager.getInstance().isADialogOpened && Input.GetKeyUp(KeyCode.Escape))
         {
             DesktopRootReferenceManager.getInstance().alertYesOrNotController.showYesOrNoAlert(
-                $"YOU WANT TO EXIT?",
+                $"YOU WANT EXIT?",
                 () => {
                     DesktopRootReferenceManager.getInstance().autoSaver.forceToSave();
                     Application.Quit();
