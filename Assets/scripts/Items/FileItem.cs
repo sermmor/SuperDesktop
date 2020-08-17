@@ -19,11 +19,15 @@ public class FileItem : DesktopItem
         get => iconPath;
         set {
             iconPath = value;
+            if (spriteFile == null || _directoryFilePath == null) return; // Icon will be changed when it's created!
+
             spriteFile.transform.localScale = Vector3.one;
             if (iconPath != null && !"".Equals(iconPath))
                 setIconChoosedByUser();
             else
                 setFileName(nameFile);
+
+            DesktopRootReferenceManager.getInstance().autoSaver.MarkToSave = true;
         }
     }
 

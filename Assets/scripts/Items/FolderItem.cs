@@ -12,7 +12,19 @@ public class FolderItem : DesktopItem
 
     public List<GameObject> ItemList { get => _itemList; }
 
-    protected override void thingsToDoAfterStart() {}
+    public List<string> ItemsToAddInStart { get; set; }
+
+    protected override void thingsToDoAfterStart()
+    {
+        if (ItemsToAddInStart == null || ItemsToAddInStart.Count == 0) return;
+
+        foreach (string nameSelected in ItemsToAddInStart)
+        {
+            DesktopItem itemDesktop = desktopManager.getItemByName(nameSelected);
+            AddToFolder(itemDesktop.gameObject);
+            FolderItem.HideItemFromDesktop(itemDesktop.gameObject);
+        }
+    }
 
     public bool AddToFolder(GameObject item)
     {

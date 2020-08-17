@@ -15385,6 +15385,7 @@ GameObject:
   - component: {fileID: 1016879074}
   - component: {fileID: 1016879073}
   - component: {fileID: 1016879072}
+  - component: {fileID: 1016879075}
   m_Layer: 5
   m_Name: LoadPanel
   m_TagString: Untagged
@@ -15426,7 +15427,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1587c97f694f375459892390028b8f01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  superDesktopSelector: {fileID: 1741844631}
 --- !u!114 &1016879073
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15464,6 +15464,32 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1016879070}
   m_CullTransparentMesh: 0
+--- !u!114 &1016879075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1016879070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a76a78dfd5192d2459cdaae613992c6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FileItemPrefab: {fileID: 1620364629169583200, guid: 42557c43110e5284b8366fda5382c11c,
+    type: 3}
+  FolderItemPrefab: {fileID: 1620364629169583200, guid: 56246d3c03e68ed4fba31029be8225ff,
+    type: 3}
+  GroupItemWidgetPrefab: {fileID: 8934936995191801895, guid: de8be23def83d304e8c66206b291b217,
+    type: 3}
+  LinkItemPrefab: {fileID: 1620364629169583200, guid: 135c6a80974a6d145b4a2c8c1c818702,
+    type: 3}
+  NoteWidgetPrefab: {fileID: 5566535847081653182, guid: bf9b7f4e90a84eb4faf39ccc9444310f,
+    type: 3}
+  VideoItemPrefab: {fileID: 3225886262892734378, guid: 6d1c0af3e58aec34584c123b5e8dbbf8,
+    type: 3}
+  WidgetImagePrefab: {fileID: 3048300571467632542, guid: ce1b75bafe7c73548b97cb844820ca3f,
+    type: 3}
 --- !u!1 &1019350624
 GameObject:
   m_ObjectHideFlags: 0
@@ -21378,7 +21404,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Home
+  m_Text: NEW DESKTOP
 --- !u!222 &1382346190
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -26873,12 +26899,6 @@ MonoBehaviour:
   m_Value: 0
   m_Options:
     m_Options:
-    - m_Text: Home
-      m_Image: {fileID: 0}
-    - m_Text: Just for fun
-      m_Image: {fileID: 0}
-    - m_Text: Job
-      m_Image: {fileID: 0}
     - m_Text: NEW DESKTOP
       m_Image: {fileID: 0}
   m_OnValueChanged:

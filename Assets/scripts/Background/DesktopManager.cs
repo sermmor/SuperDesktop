@@ -111,6 +111,17 @@ public class DesktopManager : MonoBehaviour
             allFolders.Add((FolderItem) desktopItem);
     }
 
+    public DesktopItem getItemByName(string nameItem)
+    {
+        foreach (DesktopItem item in allItemsInDesktop)
+        {
+            if (item == null || item is VideoItem || item is GroupItemWidget || item is ImageBackgroundItemWidget)
+                continue;
+            if (item.nameFile.Equals(nameItem))
+                return item;
+        }
+        return null;
+    }
     public FolderItem getFolderByName(string nameFolder)
     {
         foreach (FolderItem item in allFolders)

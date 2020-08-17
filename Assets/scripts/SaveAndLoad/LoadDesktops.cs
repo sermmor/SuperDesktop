@@ -3,8 +3,25 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 
-public static class LoadDesktops
+public class LoadDesktops: MonoBehaviour
 {
+    public GameObject FileItemPrefab;
+    public GameObject FolderItemPrefab;
+    public GameObject GroupItemWidgetPrefab;
+    public GameObject LinkItemPrefab;
+    public GameObject NoteWidgetPrefab;
+    public GameObject VideoItemPrefab;
+    public GameObject WidgetImagePrefab;
+
+    private static LoadDesktops _instance;
+
+    public static LoadDesktops Instance { get => _instance; }
+
+    void Awake()
+    {
+        _instance = this;    
+    }
+
     public static string[] GetAllFilesPathToLoad()
     {
         string loadPath = Application.persistentDataPath;
