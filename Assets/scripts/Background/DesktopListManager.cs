@@ -5,8 +5,12 @@ using UnityEngine;
 
 public class DesktopListManager : MonoBehaviour
 {
-    readonly Vector2 velocityToMoveCameraToDirection = new Vector2(40f, 25f);
-    
+    readonly Vector2 velocityToMoveCameraToDirection = new Vector2(80f, 50f);
+    readonly System.Func<float, float> splineEasing = EasingBuilder.BuildAkimaSpline(new[] {
+        new Vector2(0, 0), new Vector2(0.05f, 0.02f), new Vector2(0.5f, 0.3f), new Vector2(0.7f, 0.9f), new Vector2(1, 1)
+    });
+    readonly Vector2 totalTimeMovement = new Vector2(0.55f, 0.42f);
+
     public GameObject desktopPrefab;
 
     int totalOfColumns = 2;
@@ -205,6 +209,8 @@ public class DesktopListManager : MonoBehaviour
         }));
     }
 
+    float getValueDirection(Vector2 direction, Vector2 toPlane) => (Mathf.Abs(direction.x) > 0) ? toPlane.x : toPlane.y;
+
     IEnumerator moveCameraToDirection(KeyCode keyPushed, Action onCameraMoved)
     {
         Vector2 increment;
@@ -227,14 +233,36 @@ public class DesktopListManager : MonoBehaviour
         increment = Time.deltaTime * increment * velocityToMoveCameraToDirection;
         
         Vector3 currentMovement = new Vector3(0, 0, Camera.main.transform.position.z);
+
+        bool isFinishedMovement = false;
+        float currentTimeMovement = 0;
+        Vector2 bezierResult = new Vector2();
         
-        while(!isInNewPositionMoveCamera(finalPosition, keyPushed))
+        while (!isFinishedMovement && currentTimeMovement < getValueDirection(increment, totalTimeMovement))
         {
-            currentMovement.x = Camera.main.transform.position.x + increment.x;
-            currentMovement.y = Camera.main.transform.position.y + increment.y;
-            Camera.main.gameObject.transform.position = currentMovement;
+            isFinishedMovement = isInNewPositionMoveCamera(finalPosition, keyPushed);
+            if (!isFinishedMovement)
+            {
+                bezierResult.x = splineEasing(currentTimeMovement / totalTimeMovement.x);
+                bezierResult.y = splineEasing(currentTimeMovement / totalTimeMovement.y);
+                currentMovement.x = Camera.main.transform.position.x + increment.x * bezierResult.x;
+                currentMovement.y = Camera.main.transform.position.y + increment.y * bezierResult.y;
+                Camera.main.gameObject.transform.position = currentMovement;
+            }
+
             yield return null;
+            currentTimeMovement += Time.deltaTime;
         }
+        
+        // Camera.main.gameObject.transform.position = new Vector3(finalPosition.x, finalPosition.y, Camera.main.transform.position.z);
+
+        // while(!isInNewPositionMoveCamera(finalPosition, keyPushed)) // LINEAL MOVEMENT.
+        // {
+        //     currentMovement.x = Camera.main.transform.position.x + increment.x;
+        //     currentMovement.y = Camera.main.transform.position.y + increment.y;
+        //     Camera.main.gameObject.transform.position = currentMovement;
+        //     yield return null;
+        // }
 
         if (onCameraMoved != null)
             onCameraMoved();
