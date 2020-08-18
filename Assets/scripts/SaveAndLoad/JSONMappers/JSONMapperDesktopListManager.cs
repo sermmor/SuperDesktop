@@ -27,7 +27,16 @@ public class JSONMapperDesktopListManager
         DesktopRootReferenceManager.getInstance().desktopListManager.NumberOfColumns = superDesktop.totalColumns;
         DesktopRootReferenceManager.getInstance().desktopListManager.NumberOfDesktop = superDesktop.desktopList.Length;
         
+        DesktopManager desktop;
         for (int i = 0; i < superDesktop.desktopList.Length; i++)
-            superDesktop.desktopList[i].parseJSONToDesktop(DesktopRootReferenceManager.getInstance().desktopListManager.AllDesktops[i]);
+        {
+            desktop = DesktopRootReferenceManager.getInstance().desktopListManager.AllDesktops[i];
+            
+            superDesktop.desktopList[i].parseJSONToDesktop(desktop);
+            DesktopRootReferenceManager.getInstance().desktopBigPreviews.changeBackgroundPreviewToDesktop(
+                i,
+                desktop.autoScaleBackground.backgroundPathList
+            );
+        }
     }
 }

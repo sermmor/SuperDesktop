@@ -70,6 +70,17 @@ public class DesktopBigPreviewManager : MonoBehaviour
         mapIndexPreview[index].gameObject.SetActive(activeSelf);
     }
 
+    public void changeBackgroundPreviewToDesktop(int indexDesktop, string[] wallpaperPath)
+    {
+        bool activeSelf = mapIndexPreview[indexDesktop].gameObject.activeSelf;
+        mapIndexPreview[indexDesktop].gameObject.SetActive(true);
+
+        AutoScaleBackgroundToCamera toChangeWallpaper = mapIndexPreview[indexDesktop];
+        toChangeWallpaper.changeImageList(wallpaperPath);
+        
+        mapIndexPreview[indexDesktop].gameObject.SetActive(activeSelf);
+    }
+
     void changeBackgroundPreview(int index, string wallpaperPath)
     {
         AutoScaleBackgroundToCamera toChangeWallpaper = mapIndexPreview[index];
