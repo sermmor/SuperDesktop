@@ -33910,7 +33910,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Choose your desktop
+  m_Text: Choose your desktop space
 --- !u!222 &2134315455
 CanvasRenderer:
   m_ObjectHideFlags: 0
