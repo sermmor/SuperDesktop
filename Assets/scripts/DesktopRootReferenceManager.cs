@@ -27,4 +27,6 @@ public class DesktopRootReferenceManager : MonoBehaviour
         autoSaver = GetComponent<AutoSaver>();
         _instance = this;
     }
+
+    // With ALT + ENTER: changes automatically between windowed and full screen!!!
 }
