@@ -9,6 +9,8 @@ public class LoadPanelCtrl : MonoBehaviour
 {
     const string newDesktopNameCode = "NEW DESKTOP";
 
+    public GameObject creditsPanel;
+
     Dropdown desktopListDropdown;
     InputField inputNameNewDesktop;
     InputField inputNameNewDesktopDisabled;
@@ -114,6 +116,7 @@ public class LoadPanelCtrl : MonoBehaviour
         {
             DesktopRootReferenceManager.getInstance().autoSaver.nameDesktop = inputNameNewDesktop.text;
         }
+        Destroy(creditsPanel);
         Destroy(gameObject);
         DesktopRootReferenceManager.getInstance().colliderBackgroundForDialogs.SetActive(false);
     }
