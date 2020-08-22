@@ -39,11 +39,26 @@ public static class URLUtilities
 
     static string getTitleFromHTMLContent(string htmlData)
     {
+        // Try first with classic HTML title.
+        const string classicTitle = "<title";
+
+        int indexTitle = htmlData.IndexOf(classicTitle);
+        if (indexTitle >= 0)
+        {
+            string titleSearch = htmlData.Substring(indexTitle);
+
+            indexTitle = titleSearch.IndexOf(">");
+            titleSearch = titleSearch.Substring(indexTitle + 1);
+
+            int endIndexTitle = titleSearch.IndexOf("</title>");
+            return titleSearch.Substring(0, endIndexTitle);
+        }
+
         // Unfurling the web (test first with Facebook Open Graph and then with Twitter Card).
         const string openGraphTitle = "\"og:title\"";
         const string twitterCardTitle = "\"twitter:title\"";
 
-        int indexTitle = htmlData.IndexOf(openGraphTitle);
+        indexTitle = htmlData.IndexOf(openGraphTitle);
         if (indexTitle < 0) indexTitle = htmlData.IndexOf(twitterCardTitle);
         if (indexTitle >= 0)
         {
