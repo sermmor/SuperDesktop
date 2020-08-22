@@ -10,7 +10,7 @@ public class StickElementCtxtMenu: ContextualMenuItem
         if (textMenu == null)
             textMenu = transform.Find("Text").GetComponent<TextMesh>();
         
-        if (((VideoItem) this.whoIsCallMe.DesktopItemCaller).isSticked)
+        if ((VideoItem) this.whoIsCallMe.DesktopItemCaller != null && ((VideoItem) this.whoIsCallMe.DesktopItemCaller).isSticked)
         {
             isInStickMode = true;
             textMenu.text = "Unstick";
