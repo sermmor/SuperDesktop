@@ -26,11 +26,12 @@ public class JSONMapperWidgetImageItem : JSONMapperDesktopItem
         positionOrScaleToPlaceNewItem.x = scale.x;
         positionOrScaleToPlaceNewItem.y = scale.y;
         positionOrScaleToPlaceNewItem.z = scale.z;
-        generated.transform.localScale = positionOrScaleToPlaceNewItem;
+
         // Item Propierties
         ImageBackgroundItemWidget item = generated.GetComponent<ImageBackgroundItemWidget>();
         item.desktopManager = desktopManager;
         item.ImagePath = imagePath;
+        generated.transform.localScale = positionOrScaleToPlaceNewItem; // Change scale after imagePath, because imagePath always assign default scale.
         item.nameFile = nameFile;
     }
 }
