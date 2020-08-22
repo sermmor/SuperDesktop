@@ -13,6 +13,10 @@ public class VideoItem : DesktopItem
 
     public string pathVideo;
 
+
+    private bool _isSticked;
+    public bool isSticked {get => _isSticked; set => _isSticked = value;}
+
     protected override void thingsToDoAfterStart()
     {
         AutoScaleColliderToSize();
@@ -36,6 +40,18 @@ public class VideoItem : DesktopItem
 
         if (OnVideoLoaded != null)
             OnVideoLoaded();
+    }
+
+    public void stickNow(bool isStick)
+    {
+        _isSticked = isStick;
+        DesktopRootReferenceManager.getInstance().autoSaver.MarkToSave = true;
+    }
+
+    protected override void moveGameObjectToMousePosition()
+    {
+        if (!_isSticked)
+            base.moveGameObjectToMousePosition();
     }
     
     protected override void doInLeftClick() {}

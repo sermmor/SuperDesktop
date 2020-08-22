@@ -99,7 +99,8 @@ public class DesktopItem : MonoBehaviour
         isDragingInAction = false;
     }
 
-    void moveGameObjectToMousePosition() {
+    protected virtual void moveGameObjectToMousePosition()
+    {
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if (desktopBounds == null) {
             desktopBounds = desktopManager.Bounds;

@@ -28,5 +28,5 @@ public class DesktopRootReferenceManager : MonoBehaviour
         _instance = this;
     }
 
-    // With ALT + ENTER: changes automatically between windowed and full screen!!!
+    // ! With ALT + ENTER: changes automatically between windowed and full screen!!!
 }

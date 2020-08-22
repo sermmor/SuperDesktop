@@ -7,9 +7,12 @@ public class JSONMapperVideoItem : JSONMapperDesktopItem
     public string pathVideo;
     public Vector3 scale;
 
+    public bool isSticked;
+
     public JSONMapperVideoItem(DesktopItem item) : base(item)
     {
         pathVideo = ((VideoItem) item).pathVideo;
+        isSticked = ((VideoItem) item).isSticked;
         scale = item.transform.localScale;
     }
 
@@ -33,5 +36,6 @@ public class JSONMapperVideoItem : JSONMapperDesktopItem
         item.desktopManager = desktopManager;
         item.nameFile = nameFile;
         item.pathVideo = pathVideo;
+        item.isSticked = isSticked;
     }
 }

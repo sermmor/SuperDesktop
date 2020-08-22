@@ -89,6 +89,7 @@
      <Compile Include="Assets\scripts\Menu\AllMenuItemsType\CreateGroupItemWidgetCtxtMenu.cs" />
      <Compile Include="Assets\scripts\Menu\AllMenuItemsType\LaunchDialogCtxtMenu.cs" />
      <Compile Include="Assets\scripts\Menu\AllMenuItemsType\OpenContainerFolderCtxtMenu.cs" />
+     <Compile Include="Assets\scripts\Menu\AllMenuItemsType\StickElementCtxtMenu.cs" />
      <Compile Include="Assets\scripts\Menu\ContextualMenuItem.cs" />
      <Compile Include="Assets\scripts\Menu\ContextualMenuManager.cs" />
      <Compile Include="Assets\scripts\Menu\MenuCallerMonoBehaviour.cs" />

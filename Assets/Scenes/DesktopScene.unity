@@ -2072,7 +2072,7 @@ GameObject:
   - component: {fileID: 138529058}
   - component: {fileID: 138529057}
   m_Layer: 0
-  m_Name: RenameItem
+  m_Name: StickVideoItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2102,10 +2102,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 138529055}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45506bbcc02996b4fbb90f15f6d59852, type: 3}
+  m_Script: {fileID: 11500000, guid: cf783d55840dfeb479adce3f57088c7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goDialogToEnable: {fileID: 2522395}
 --- !u!61 &138529058
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10142,7 +10141,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 573999435}
-  m_Text: Rename item
+  m_Text: Stick
   m_OffsetZ: 0
   m_CharacterSize: 0.5
   m_LineSpacing: 1
