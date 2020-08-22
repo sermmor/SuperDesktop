@@ -11,3 +11,23 @@ You can organized every set of desktops by desktops spaces (like users in operat
 * Shift + Arrow (up, right, down or left arrow). Change to adjacent desktop.
 * Alt + Enter. Change between full screen or maximized window.
 
+## Compatibility
+For now only compatibility with Windows 10. In the future compatibility with Linux.
+
+## Examples
+Some examples about what you can do with SuperDesktop.
+
+### 01 Create an Space and load a space already created
+Note: autosave each 15 seconds if there is a change or force save when close application.
+
+### 02 Create folders to organize files, system folders or links
+
+### 03 Customization
+
+### 04 Image Widgets
+
+### 05 Notes Widgets
+
+### 06 Videos Widgets (in loop, no sound available)
+
+### 07 Change between desktops
