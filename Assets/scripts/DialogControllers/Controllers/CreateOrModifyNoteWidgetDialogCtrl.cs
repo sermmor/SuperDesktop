@@ -55,6 +55,10 @@ public class CreateOrModifyNoteWidgetDialogCtrl: DialogController
             item.NoteText = inputText.text;
             item.IsPinEnabled = toggleIsShowPin.isOn;
         }
+        else if ("".Equals(inputText.text)) 
+        {
+            Destroy(NoteCalledby.gameObject);
+        }
         else
             NoteCalledby = null;
         
