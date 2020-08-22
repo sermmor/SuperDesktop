@@ -5,11 +5,9 @@ using UnityEngine;
 
 public class DesktopListManager : MonoBehaviour
 {
-    readonly Vector2 velocityToMoveCameraToDirection = new Vector2(80f, 50f);
-    readonly System.Func<float, float> splineEasing = EasingBuilder.BuildAkimaSpline(new[] {
-        new Vector2(0, 0), new Vector2(0.05f, 0.02f), new Vector2(0.5f, 0.3f), new Vector2(0.7f, 0.9f), new Vector2(1, 1)
-    });
-    readonly Vector2 totalTimeMovement = new Vector2(0.55f, 0.42f);
+    const float durationDesktopMovement = .4f;
+    System.Func<float, float> splineEasingHorizontal;
+    System.Func<float, float> splineEasingVertical;
 
     public GameObject desktopPrefab;
 
@@ -86,6 +84,27 @@ public class DesktopListManager : MonoBehaviour
 
         calculateDesktopWidthAndHeight();
         refleshAllPositionDesktopAndPreviews();
+        calculateConstantsAndSplines();
+    }
+    
+    void calculateConstantsAndSplines()
+    {
+        // Points (time, relativePosition) using (durationDesktopMovement * percentageTime, desktopWidth * percentageWidth)
+        splineEasingHorizontal = EasingBuilder.BuildAkimaSpline(new[] {
+            new Vector2(0, 0),
+            new Vector2(durationDesktopMovement * 0.05f, desktopWidth * 0.02f),
+            new Vector2(durationDesktopMovement * 0.5f, desktopWidth * 0.3f),
+            new Vector2(durationDesktopMovement * 0.7f, desktopWidth * 0.9f),
+            new Vector2(durationDesktopMovement, desktopWidth)
+        });
+
+        splineEasingVertical = EasingBuilder.BuildAkimaSpline(new[] {
+            new Vector2(0, 0),
+            new Vector2(durationDesktopMovement * 0.05f, desktopHeight * 0.02f),
+            new Vector2(durationDesktopMovement * 0.5f, desktopHeight * 0.3f),
+            new Vector2(durationDesktopMovement * 0.7f, desktopHeight * 0.9f),
+            new Vector2(durationDesktopMovement, desktopHeight)
+        });
     }
 
     void refleshAllPositionDesktopAndPreviews()
@@ -195,7 +214,7 @@ public class DesktopListManager : MonoBehaviour
 
         DesktopListIndicator.isEnableIndicator(true, desktopIndex);
 
-        StartCoroutine(moveCameraToDirection(keyPushed, () => {
+        StartCoroutine(moveCameraToDirection(keyPushed, desktopList[currentIndexDesktop].transform.position, desktopPosition, () => {
             DesktopListIndicator.isEnableIndicator(false, desktopIndex);
             desktopBigPreviews.enablePreview(currentIndexDesktop, true);
             desktopList[currentIndexDesktop].gameObject.SetActive(false);
@@ -209,9 +228,18 @@ public class DesktopListManager : MonoBehaviour
         }));
     }
 
-    float getValueDirection(Vector2 direction, Vector2 toPlane) => (Mathf.Abs(direction.x) > 0) ? toPlane.x : toPlane.y;
+    // float getValueDirection(Vector2 direction, Vector2 toPlane) => (Mathf.Abs(direction.x) > 0) ? toPlane.x : toPlane.y;
+    Vector3 newPositionCameraWithoutNaN = new Vector3();
+    void assingToCameraProtectAgainstNaN(Vector3 newCameraPositon)
+    {
+        newPositionCameraWithoutNaN.x = float.IsNaN(newCameraPositon.x) ? Camera.main.gameObject.transform.position.x : newCameraPositon.x;
+        newPositionCameraWithoutNaN.y = float.IsNaN(newCameraPositon.y) ? Camera.main.gameObject.transform.position.y : newCameraPositon.y;
+        newPositionCameraWithoutNaN.z = newCameraPositon.z;
+        
+        Camera.main.gameObject.transform.position = newPositionCameraWithoutNaN;
+    }
 
-    IEnumerator moveCameraToDirection(KeyCode keyPushed, Action onCameraMoved)
+    IEnumerator moveCameraToDirection(KeyCode keyPushed, Vector3 positionCurrentDesktop, Vector3 positionNextDesktop, Action onCameraMoved)
     {
         Vector2 increment;
 
@@ -226,43 +254,32 @@ public class DesktopListManager : MonoBehaviour
         else
             increment = Vector2.zero;
 
-        Vector2 finalPosition = new Vector2(
-            Camera.main.transform.position.x + increment.x * desktopWidth,
-            Camera.main.transform.position.y + increment.y * desktopHeight
+        Vector2 initialPosition = new Vector2(
+            Camera.main.transform.position.x,
+            Camera.main.transform.position.y
         );
-        increment = Time.deltaTime * increment * velocityToMoveCameraToDirection;
-        
-        Vector3 currentMovement = new Vector3(0, 0, Camera.main.transform.position.z);
 
+        Vector2 finalPosition = new Vector2(
+            initialPosition.x + increment.x * desktopWidth,
+            initialPosition.y + increment.y * desktopHeight
+        );
+
+        Vector3 currentMovement = new Vector3(0, 0, Camera.main.transform.position.z);
         bool isFinishedMovement = false;
         float currentTimeMovement = 0;
-        Vector2 bezierResult = new Vector2();
-        
-        while (!isFinishedMovement && currentTimeMovement < getValueDirection(increment, totalTimeMovement))
+        Vector2 splineResult = new Vector2();
+
+        while (!isFinishedMovement && currentTimeMovement < durationDesktopMovement)
         {
-            isFinishedMovement = isInNewPositionMoveCamera(finalPosition, keyPushed);
-            if (!isFinishedMovement)
-            {
-                bezierResult.x = splineEasing(currentTimeMovement / totalTimeMovement.x);
-                bezierResult.y = splineEasing(currentTimeMovement / totalTimeMovement.y);
-                currentMovement.x = Camera.main.transform.position.x + increment.x * bezierResult.x;
-                currentMovement.y = Camera.main.transform.position.y + increment.y * bezierResult.y;
-                Camera.main.gameObject.transform.position = currentMovement;
-            }
+            splineResult.x = splineEasingHorizontal(currentTimeMovement);
+            splineResult.y = splineEasingVertical(currentTimeMovement);
+            currentMovement.x = initialPosition.x + increment.x * splineResult.x;
+            currentMovement.y = initialPosition.y + increment.y * splineResult.y;
+            assingToCameraProtectAgainstNaN(currentMovement);
 
             yield return null;
             currentTimeMovement += Time.deltaTime;
         }
-        
-        // Camera.main.gameObject.transform.position = new Vector3(finalPosition.x, finalPosition.y, Camera.main.transform.position.z);
-
-        // while(!isInNewPositionMoveCamera(finalPosition, keyPushed)) // LINEAL MOVEMENT.
-        // {
-        //     currentMovement.x = Camera.main.transform.position.x + increment.x;
-        //     currentMovement.y = Camera.main.transform.position.y + increment.y;
-        //     Camera.main.gameObject.transform.position = currentMovement;
-        //     yield return null;
-        // }
 
         if (onCameraMoved != null)
             onCameraMoved();
