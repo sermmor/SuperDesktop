@@ -19,15 +19,23 @@ Some examples about what you can do with SuperDesktop.
 
 ### 01 Create an Space and load a space already created
 Note: autosave each 15 seconds if there is a change or force save when close application.
+![Capture0](https://raw.githubusercontent.com/sermmor/SuperDesktop/master/Screenshots/00%20Create.gif)
+![Capture1](https://raw.githubusercontent.com/sermmor/SuperDesktop/master/Screenshots/01%20Folders.gif)
 
 ### 02 Create folders to organize files, system folders or links
+![Capture2](https://raw.githubusercontent.com/sermmor/SuperDesktop/master/Screenshots/02%20Customize.gif)
 
 ### 03 Customization
+![Capture3](https://raw.githubusercontent.com/sermmor/SuperDesktop/master/Screenshots/03%20Image%20Widgets.gif)
 
 ### 04 Image Widgets
+![Capture4](https://raw.githubusercontent.com/sermmor/SuperDesktop/master/Screenshots/04%20Notes.gif)
 
 ### 05 Notes Widgets
+![Capture5](https://raw.githubusercontent.com/sermmor/SuperDesktop/master/Screenshots/05%20Videos.gif)
 
 ### 06 Videos Widgets (in loop, no sound available)
+![Capture6](https://raw.githubusercontent.com/sermmor/SuperDesktop/master/Screenshots/06%20Change%20between%20desktops.gif)
 
 ### 07 Change between desktops
+![Capture7](https://raw.githubusercontent.com/sermmor/SuperDesktop/master/Screenshots/07%20Load.gif)
