@@ -59,6 +59,20 @@ public class DesktopManager : MonoBehaviour
             item.gameObject.SetActive(false);   
     }
 
+    public void removeItem(GameObject item)
+    {
+        DesktopItem itemDesktop = item.GetComponent<DesktopItem>();
+        if (allItemsInDesktop.IndexOf(itemDesktop) > -1)
+            allItemsInDesktop.Remove(itemDesktop);
+
+
+        if (itemDesktop is FolderItem)
+        {
+            if (allFolders.IndexOf((FolderItem) itemDesktop) > -1)
+                allFolders.Remove((FolderItem) itemDesktop);
+        }
+    }
+
     public void changeModeWallpaper(AutoScaleMode modeWallpaper) => autoScaleBackground.changeToMode(modeWallpaper);
 
     public void changeSizeIcons(float newPercentage)
