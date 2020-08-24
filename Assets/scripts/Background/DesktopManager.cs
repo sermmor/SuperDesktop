@@ -49,6 +49,14 @@ public class DesktopManager : MonoBehaviour
                 StartCoroutine(doActionsWhenAutoScaleBackgroundIsEnding());
             }
         }
+
+        foreach (DesktopItem item in allItemsInDesktop)
+            item.gameObject.SetActive(true);
+    }
+
+    void OnDisable() {
+        foreach (DesktopItem item in allItemsInDesktop)
+            item.gameObject.SetActive(false);   
     }
 
     public void changeModeWallpaper(AutoScaleMode modeWallpaper) => autoScaleBackground.changeToMode(modeWallpaper);

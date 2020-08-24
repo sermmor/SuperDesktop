@@ -12,6 +12,7 @@ public class CreateGroupItemWidgetCtxtMenu : ContextualMenuItem
         positionToPlaceNewItem.y = this.transform.position.y;
         positionToPlaceNewItem.z = generated.transform.position.z;
         generated.transform.position = positionToPlaceNewItem;
+        generated.GetComponent<GroupItemWidget>().desktopManager = whoIsCallMe.DesktopManagerCaller;
 
         DesktopRootReferenceManager.getInstance().autoSaver.MarkToSave = true;
         

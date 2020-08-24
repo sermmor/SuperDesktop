@@ -27,5 +27,6 @@ public class JSONMapperGroupItemWidget : JSONMapperDesktopItem
         generated.transform.localScale = positionOrScaleToPlaceNewItem;
 
         generated.GetComponent<GroupItemWidget>().nameFile = nameFile;
+        generated.GetComponent<GroupItemWidget>().desktopManager = desktopManager;
     }
 }
