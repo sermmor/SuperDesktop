@@ -10,6 +10,8 @@ public class YesOrNotAlertController : MonoBehaviour
     Action onYes;
     Action onNo;
 
+    bool wasColliderActiveBeforeShowAlert;
+
     void settingAllReferences()
     {
         if (InfoTextLabel == null)
@@ -22,18 +24,28 @@ public class YesOrNotAlertController : MonoBehaviour
         InfoTextLabel.text = textAlert;
         this.onYes = onYes;
         this.onNo = onNo;
+        wasColliderActiveBeforeShowAlert = DesktopRootReferenceManager.getInstance().colliderBackgroundForDialogs.activeSelf;
+        DesktopRootReferenceManager.getInstance().colliderBackgroundForDialogs.SetActive(true);
         gameObject.SetActive(true);
     }
 
     public void YesActionButton()
     {
         onYes();
+        if (!wasColliderActiveBeforeShowAlert)
+        {
+            DesktopRootReferenceManager.getInstance().colliderBackgroundForDialogs.SetActive(false);
+        }
         gameObject.SetActive(false);
     }
 
     public void NoActionButton()
     {
         onNo();
+        if (!wasColliderActiveBeforeShowAlert)
+        {
+            DesktopRootReferenceManager.getInstance().colliderBackgroundForDialogs.SetActive(false);
+        }
         gameObject.SetActive(false);
     }
 
