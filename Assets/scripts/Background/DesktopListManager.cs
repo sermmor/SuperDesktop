@@ -42,6 +42,7 @@ public class DesktopListManager : MonoBehaviour
                     generated.SetActive(false);
                     desktopList.Add(generated.GetComponent<DesktopManager>());
                     desktopBigPreviews.createNewPreview(generated.transform.position, i);
+                    desktopBigPreviews.enablePreview(i, false);
                 }
                 refleshIndexMap();
             } else if (value < desktopList.Count) {
@@ -116,7 +117,8 @@ public class DesktopListManager : MonoBehaviour
             desktopList[i].transform.position = getPositionDesktop(i);
             desktopBigPreviews.createNewPreview(desktopList[i].transform.position, i);
             desktopList[i].gameObject.SetActive(currentIndexDesktop == i);
-            desktopBigPreviews.enablePreview(i, currentIndexDesktop != i);
+            // desktopBigPreviews.enablePreview(i, currentIndexDesktop != i);
+            desktopBigPreviews.enablePreview(i, false);
         }
         refleshIndexMap();
     }
@@ -178,7 +180,7 @@ public class DesktopListManager : MonoBehaviour
         desktopList[currentIndexDesktop].gameObject.SetActive(false);
         
         desktopBigPreviews.enablePreview(desktopIndex, false);
-        desktopBigPreviews.enablePreview(currentIndexDesktop, true);
+        desktopBigPreviews.enablePreview(currentIndexDesktop, false);
 
         currentIndexDesktop = desktopIndex;
     }
@@ -209,6 +211,9 @@ public class DesktopListManager : MonoBehaviour
     {
         DesktopRootReferenceManager.getInstance().isADialogOpened = true;
         DesktopBigPreviewManager desktopBigPreviews = DesktopRootReferenceManager.getInstance().desktopBigPreviews;
+        
+        desktopBigPreviews.enablePreview(desktopIndex, true);
+        desktopBigPreviews.enablePreview(currentIndexDesktop, true);
 
         Vector3 desktopPosition = desktopList[desktopIndex].transform.position;
 
@@ -216,7 +221,7 @@ public class DesktopListManager : MonoBehaviour
 
         StartCoroutine(moveCameraToDirection(keyPushed, desktopList[currentIndexDesktop].transform.position, desktopPosition, () => {
             DesktopListIndicator.isEnableIndicator(false, desktopIndex);
-            desktopBigPreviews.enablePreview(currentIndexDesktop, true);
+            desktopBigPreviews.enablePreview(currentIndexDesktop, false);
             desktopList[currentIndexDesktop].gameObject.SetActive(false);
 
             desktopBigPreviews.enablePreview(desktopIndex, false);
